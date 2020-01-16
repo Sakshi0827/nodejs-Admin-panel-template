@@ -11,21 +11,35 @@ router.get('/', function (req, res) {
 router.get('/calendar', function (req, res) {
     res.locals = {  title: 'Calendar' };
     res.render('Calendar/calendar');
-})
+});
 
-// Email
-router.get('/email-inbox', function (req, res) {
-    res.locals = {  title: 'Email Inbox' };
+// User
+router.get('/user-list', function (req, res) {
+    res.locals = {  title: 'User List' };
     res.render('Email/email_inbox');
-})
-router.get('/email-compose', function (req, res) {
-    res.locals = {  title: 'Email Compose' };
-    res.render('Email/email_compose');
-})
+});
+router.get('/user-role', function (req, res) {
+    res.locals = {  title: 'User Roles' };
+    res.render('Email/user-roles');
+});
+// Location
+router.get('/country', function (req, res) {
+    res.locals = {  title: 'country' };
+    res.render('Location/country');
+});
+router.get('/state', function (req, res) {
+    res.locals = {  title: 'state' };
+    res.render('Location/state');
+});
+router.get('/city', function (req, res) {
+    res.locals = {  title: 'city' };
+    res.render('Location/city');
+});
+//
 router.get('/email-read', function (req, res) {
     res.locals = {  title: 'Email Read' };
     res.render('Email/email_read');
-})
+});
 
 // UI Elements
 router.get('/ui-alerts', function (req, res) {

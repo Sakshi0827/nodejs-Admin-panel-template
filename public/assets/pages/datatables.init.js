@@ -10,7 +10,7 @@ $(document).ready(function() {
     //Buttons examples
     var table = $('#datatable-buttons').DataTable({
         lengthChange: false,
-        buttons: ['copy', 'excel', 'pdf', 'colvis']
+        buttons: ['colvis']
     });
 
     table.buttons().container()

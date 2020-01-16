@@ -1,0 +1,48 @@
+
+
+<%- contentFor('HeaderCss') %>
+<!-- perticular page css -->
+
+
+<%- contentFor('body') %>
+
+<div class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <h4 class="page-title">User Roles</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+
+        <table class="table table-striped mb-0">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>State name</th>
+                <th>countrty </th>
+                <th>created_date</th>
+                <th>updated_date</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <th>MP</th>
+                <td>India</td>
+                <td>27/08/98</td>
+                <td>12/212/12</td>
+                <th><button>edit</button>  <button>delete</button></th>
+            </tr>
+            </tbody>
+        </table>
+
+    </div> <!-- container-fluid -->
+
+</div> <!-- content -->
+
+<%- contentFor('FooterJs') %>
