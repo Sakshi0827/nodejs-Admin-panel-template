@@ -1,0 +1,29 @@
+{
+  "name": "lexa_node",
+  "version": "1.0.0",
+  "description": "My Lexa Nodejs Template",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "CODERTHEMES",
+  "license": "ISC",
+  "dependencies": {
+    "assert": "^1.4.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "ejs-lint": "^0.3.0",
+    "ejs-locals": "^1.0.2",
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.0",
+    "express-flash-messages": "^0.1.1",
+    "express-validator": "^5.3.1",
+    "http": "0.0.0",
+    "js-datepicker": "^4.0.10",
+    "nodemon": "^1.19.4",
+    "path": "^0.12.7",
+    "req-flash": "0.0.3"
+  },
+  "repository": {}
+}

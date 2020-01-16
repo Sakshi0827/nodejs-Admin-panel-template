@@ -1,0 +1,32 @@
+ 
+ 
+            <%- contentFor('HeaderCss') %>
+            <!-- perticular page css -->
+              
+            
+            <%- contentFor('body') %>
+			
+ <!-- Start content -->
+ <div class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <h4 class="page-title">Blank page</h4>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Lexa</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Pages</a></li>
+                        <li class="breadcrumb-item active">Blank page</li>
+                    </ol>
+
+                 <% include ../Partials/TinyCharts %>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+
+    </div> <!-- container-fluid -->
+
+</div> <!-- content -->
+<%- contentFor('FooterJs') %>
