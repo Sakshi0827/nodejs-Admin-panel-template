@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const controller_challenges = require('../controller/controller_company');
+const controller_challenges = require('../controller/controller_challenges');
 
-router.get('/challenges', controller_challenges.company_list);
+router.get('/challenges', controller_challenges.challenges_list);
+router.get('/add-challenges', controller_challenges.add_challenges);
 
 module.exports = router;
