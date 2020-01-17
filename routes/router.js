@@ -1,6 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
+var userRouter = require('./user.js');
+
+
+
 // Dashboard
 router.get('/', function (req, res) {
     res.locals = {  title: 'Dashboard' };
@@ -9,14 +13,16 @@ router.get('/', function (req, res) {
 
 
 // User
-router.get('/user-list', function (req, res) {
-    res.locals = {  title: 'User List' };
-    res.render('User/user_list',{list:[{id:101,name:"abc"}]});
-});
-router.get('/user-role', function (req, res) {
-    res.locals = {  title: 'User Roles' };
-    res.render('User/user_roles');
-});
+router.use('/user', userRouter);
+
+// router.get('/user-list', function (req, res) {
+//     res.locals = {  title: 'User List' };
+//     res.render('User/user_list',{list:[{id:101,name:"abc"}]});
+// });
+// router.get('/user-role', function (req, res) {
+//     res.locals = {  title: 'User Roles' };
+//     res.render('User/user_roles');
+// });
 
 
 // Location
