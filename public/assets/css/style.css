@@ -15,7 +15,7 @@ TABLES OF CSS
 05. Menu
 06. Buttons
 07. Cards
-08. Email
+08. User
 09. Summernote
 10. Alerts
 11. Demo Only
@@ -1337,10 +1337,10 @@ button:focus {
 }
 
 /* ======
-08. Email
+08. User
    ====== */
 /* ==============
-  Email
+  User
 ===================*/
 .email-leftbar {
   width: 230px;

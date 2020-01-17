@@ -3445,7 +3445,7 @@ Password
 
 
 /*
-Email
+User
 */
 (function ($) {
     "use strict";

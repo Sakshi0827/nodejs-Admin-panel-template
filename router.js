@@ -5,71 +5,79 @@ var router = express.Router();
 router.get('/', function (req, res) {
     res.locals = {  title: 'Dashboard' };
     res.render('Dashboard/dashboard');
-})
-
-// Calendar
-router.get('/calendar', function (req, res) {
-    res.locals = {  title: 'Calendar' };
-    res.render('Calendar/calendar');
 });
+
 
 // User
 router.get('/user-list', function (req, res) {
     res.locals = {  title: 'User List' };
-    res.render('Email/email_inbox');
+    res.render('User/user_list',{list:[{id:101,name:"abc"}]});
 });
 router.get('/user-role', function (req, res) {
     res.locals = {  title: 'User Roles' };
-    res.render('Email/user-roles');
+    res.render('User/user_roles');
 });
+
+
 // Location
 router.get('/country', function (req, res) {
-    res.locals = {  title: 'country' };
+    res.locals = {  title: 'Country' };
     res.render('Location/country');
 });
 router.get('/state', function (req, res) {
-    res.locals = {  title: 'state' };
+    res.locals = {  title: 'State' };
     res.render('Location/state');
 });
 router.get('/city', function (req, res) {
-    res.locals = {  title: 'city' };
+    res.locals = {  title: 'City' };
     res.render('Location/city');
 });
-//
-router.get('/email-read', function (req, res) {
-    res.locals = {  title: 'Email Read' };
-    res.render('Email/email_read');
+
+
+// Events
+router.get('/event-list', function (req, res) {
+    res.locals = {  title: 'Event List' };
+    res.render('Event/event_list');
+});
+router.get('/event-category', function (req, res) {
+    res.locals = {  title: 'Event List' };
+    res.render('Event/event_category');
 });
 
-// UI Elements
-router.get('/ui-alerts', function (req, res) {
-    res.locals = {  title: 'UI Alerts' };
-    res.render('UiElements/ui_alerts');
-})
-router.get('/ui-buttons', function (req, res) {
-    res.locals = {  title: 'UI Buttons' };
-    res.render('UiElements/ui_buttons');
-})
-router.get('/ui-badge', function (req, res) {
-    res.locals = {  title: 'UI Badge' };
-    res.render('UiElements/ui_badge');
-})
-router.get('/ui-cards', function (req, res) {
-    res.locals = {  title: 'UI Cards' };
-    res.render('UiElements/ui_cards');
-})
-router.get('/ui-carousel', function (req, res) {
-    res.locals = {  title: 'UI Carousel' };
-    res.render('UiElements/ui_carousel');
-})
-router.get('/ui-dropdowns', function (req, res) {
-    res.locals = {  title: 'UI Dropdowns' };
-    res.render('UiElements/ui_dropdowns');
-})
-router.get('/ui-grid', function (req, res) {
-    res.locals = {  title: 'UI Grid' };
-    res.render('UiElements/ui_grid');
-})
+
+//Fitness Group
+router.get('/fitness-group', function (req, res) {
+    res.locals = {  title: 'Fitness Group' };
+    res.render('Fitness-group/fitness_group');
+});
+
+
+//Company
+router.get('/company', function (req, res) {
+    res.locals = {  title: 'Company' };
+    res.render('Company/company');
+});
+
+
+//Challenges
+router.get('/challenges', function (req, res) {
+    res.locals = {  title: 'Challenges' };
+    res.render('Challenges/challenges');
+});
+
+
+//Blogs
+router.get('/blog-list', function (req, res) {
+    res.locals = {  title: 'Blog List' };
+    res.render('Blogs/blog_list');
+});
+router.get('/blog-category', function (req, res) {
+    res.locals = {  title: 'Blog Category' };
+    res.render('Blogs/blog_category');
+});
+
+
+//
 router.get('/ui-images', function (req, res) {
     res.locals = {  title: 'UI Images' };
     res.render('UiElements/ui_images');
