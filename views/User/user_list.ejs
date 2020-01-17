@@ -18,8 +18,8 @@
             <div class="col-sm-12">
                 <div class="page-title-box">
                     <h4 class="page-title">User List</h4>
+
                 </div>
-                <a href="/add-user"><button>Add New User</button></a>
             </div>
         </div>
         <!-- end row -->
@@ -29,8 +29,12 @@
             <div class="col-12">
                 <div class="card m-b-20">
                     <div class="card-body">
-
-                        <h4 class="mt-0 header-title">Buttons example</h4>
+                        <div class="row">
+                            <div class="col-10"><h4 class="mt-0 header-title">Buttons example</h4></div>
+                            <div class="col-2">
+                                <a href="/add-user"><button type="button" class="btn btn-primary waves-effect waves-light">Add New User</button></a>
+                            </div>
+                        </div>
                         <p class="text-muted m-b-30">The Buttons extension for DataTables
                             provides a common set of options, API methods and styling to display
                             buttons on a page that will interact with a DataTable. The core library
@@ -58,104 +62,16 @@
                                 <th>user_role</th>
                                 <th>created_date</th>
                                 <th>updated_date</th>
-                                <th><button>edit</button>
-                                <button>delete</button></th>
+                                <th>Actions</th>
                             </tr>
                             </thead>
 
 
                             <tbody>
-                            <tr>
-                                <th><%=list[0].id%>></th>
-                                <th>first name</th>
-                                <th>last name</th>
-                                <th>username</th>
-                                <th>email</th>
-                                <th>password</th>
-                                <th>DOB</th>
-                                <th>fitness_group</th>
-                                <th>gender</th>
-                                <th>mobile</th>
-                                <th>city</th>
-                                <th>state</th>
-                                <th>country</th>
-                                <th>pincode</th>
-                                <th>company</th>
-                                <th>user_role</th>
-                                <th>created_date</th>
-                                <th>updated_date</th>
-                                <th><button>edit</button>
-                                    <button>delete</button></th>
-                            </tr>
-                            <tr>
-                                <th>id</th>
-                                <th>first name</th>
-                                <th>last name</th>
-                                <th>username</th>
-                                <th>email</th>
-                                <th>password</th>
-                                <th>DOB</th>
-                                <th>fitness_group</th>
-                                <th>gender</th>
-                                <th>mobile</th>
-                                <th>city</th>
-                                <th>state</th>
-                                <th>country</th>
-                                <th>pincode</th>
-                                <th>company</th>
-                                <th>user_role</th>
-                                <th>created_date</th>
-                                <th>updated_date</th>
-                                <th><button>edit</button>
-                                    <button>delete</button></th>
-                            </tr>
-                            <tr>
-                                <th>id</th>
-                                <th>first name</th>
-                                <th>last name</th>
-                                <th>username</th>
-                                <th>email</th>
-                                <th>password</th>
-                                <th>DOB</th>
-                                <th>fitness_group</th>
-                                <th>gender</th>
-                                <th>mobile</th>
-                                <th>city</th>
-                                <th>state</th>
-                                <th>country</th>
-                                <th>pincode</th>
-                                <th>company</th>
-                                <th>user_role</th>
-                                <th>created_date</th>
-                                <th>updated_date</th>
-                                <th><button>edit</button>
-                                    <button>delete</button></th>
-                            </tr>
-                            <tr>
-                                <th>id</th>
-                                <th>first name</th>
-                                <th>last name</th>
-                                <th>username</th>
-                                <th>email</th>
-                                <th>password</th>
-                                <th>DOB</th>
-                                <th>fitness_group</th>
-                                <th>gender</th>
-                                <th>mobile</th>
-                                <th>city</th>
-                                <th>state</th>
-                                <th>country</th>
-                                <th>pincode</th>
-                                <th>company</th>
-                                <th>user_role</th>
-                                <th>created_date</th>
-                                <th>updated_date</th>
-                                <th><button>edit</button>
-                                    <button>delete</button></th>
-                            </tr>
+
                             <%
- for(var i=1;i<=10;i++){
- %>
+                             for(var i=1;i<=10;i++){
+                             %>
                             <tr>
                                 <th><%= "Hello"%></th>
                                 <th>first name</th>
@@ -175,12 +91,14 @@
                                 <th>user_role</th>
                                 <th>created_date</th>
                                 <th>updated_date</th>
-                                <th><button>edit</button>
-                                    <button>delete</button></th>
+                                <th>
+                                    <button class="btn btn-info waves-effect waves-light">edit</button>
+                                    <button class="btn btn-danger waves-effect waves-light">delete</button>
+                                </th>
                             </tr>
-<%
-}
- %>
+                            <%
+                            }
+                             %>
                             </tbody>
                         </table>
                     </div>

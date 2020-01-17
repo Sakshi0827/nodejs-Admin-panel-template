@@ -29,7 +29,12 @@
                 <div class="card m-b-20">
                     <div class="card-body">
 
-                        <h4 class="mt-0 header-title">Buttons example</h4>
+                        <div class="row">
+                            <div class="col-10"><h4 class="mt-0 header-title">Buttons example</h4></div>
+                            <div class="col-2">
+                                <a href="/add-user"><button type="button" class="btn btn-primary waves-effect waves-light">Add New User</button></a>
+                            </div>
+                        </div>
                         <p class="text-muted m-b-30">The Buttons extension for DataTables
                             provides a common set of options, API methods and styling to display
                             buttons on a page that will interact with a DataTable. The core library
@@ -61,7 +66,10 @@
                                     <th>Only Running</th>
                                     <th>29/39/39</th>
                                     <th>29/39/39</th>
-                                    <th><button>edit</button>  <button>delete</button></th>
+                                    <th>
+                                        <button class="btn btn-info waves-effect waves-light">edit</button>
+                                        <button class="btn btn-danger waves-effect waves-light">delete</button>
+                                    </th>
                                 </tr>
                             <%
                             }
