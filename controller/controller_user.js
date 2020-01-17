@@ -1,4 +1,3 @@
-const express = require('express');
 
 exports.user_list = function(req, res) {
     res.locals = {  title: 'User List' };

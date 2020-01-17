@@ -1,68 +1,27 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-var userRouter = require('./user.js');
-
-
+const userRouter = require('./user.js');
+const locationRouter = require('./location');
+const eventRouter = require('./event');
+const fitnessGroupRouter = require('./fitness_group');
+const companyRouter = require('./company');
 
 // Dashboard
 router.get('/', function (req, res) {
     res.locals = {  title: 'Dashboard' };
     res.render('Dashboard/dashboard');
 });
-
-
 // User
-router.use('/user', userRouter);
-
-// router.get('/user-list', function (req, res) {
-//     res.locals = {  title: 'User List' };
-//     res.render('User/user_list',{list:[{id:101,name:"abc"}]});
-// });
-// router.get('/user-role', function (req, res) {
-//     res.locals = {  title: 'User Roles' };
-//     res.render('User/user_roles');
-// });
-
-
+router.use('/', userRouter);
 // Location
-router.get('/country', function (req, res) {
-    res.locals = {  title: 'Country' };
-    res.render('Location/country');
-});
-router.get('/state', function (req, res) {
-    res.locals = {  title: 'State' };
-    res.render('Location/state');
-});
-router.get('/city', function (req, res) {
-    res.locals = {  title: 'City' };
-    res.render('Location/city');
-});
-
-
+router.use('/', locationRouter);
 // Events
-router.get('/event-list', function (req, res) {
-    res.locals = {  title: 'Event List' };
-    res.render('Event/event_list');
-});
-router.get('/event-category', function (req, res) {
-    res.locals = {  title: 'Event List' };
-    res.render('Event/event_category');
-});
-
-
+router.use('/', eventRouter);
 //Fitness Group
-router.get('/fitness-group', function (req, res) {
-    res.locals = {  title: 'Fitness Group' };
-    res.render('Fitness-group/fitness_group');
-});
-
-
+router.use('/', fitnessGroupRouter);
 //Company
-router.get('/company', function (req, res) {
-    res.locals = {  title: 'Company' };
-    res.render('Company/company');
-});
+router.use('/', companyRouter);
 
 
 //Challenges
@@ -70,6 +29,7 @@ router.get('/challenges', function (req, res) {
     res.locals = {  title: 'Challenges' };
     res.render('Challenges/challenges');
 });
+// router.use('/', challengesRouter);
 
 
 //Blogs
