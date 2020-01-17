@@ -6,6 +6,8 @@ const locationRouter = require('./location');
 const eventRouter = require('./event');
 const fitnessGroupRouter = require('./fitness_group');
 const companyRouter = require('./company');
+const challengesRouter = require('./challenges');
+
 
 // Dashboard
 router.get('/', function (req, res) {
@@ -22,14 +24,8 @@ router.use('/', eventRouter);
 router.use('/', fitnessGroupRouter);
 //Company
 router.use('/', companyRouter);
-
-
 //Challenges
-router.get('/challenges', function (req, res) {
-    res.locals = {  title: 'Challenges' };
-    res.render('Challenges/challenges');
-});
-// router.use('/', challengesRouter);
+router.use('/', challengesRouter);
 
 
 //Blogs
