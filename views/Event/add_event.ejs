@@ -5,3 +5,9 @@
     <a href="/event-list"><button type="button" class="btn btn-primary waves-effect waves-light">Add Event</button> </a>
 </div>
 <%- contentFor('FooterJs') %>
+<script src="public/plugins/parsleyjs/parsley.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('form').parsley();
+    });
+</script>

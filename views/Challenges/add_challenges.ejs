@@ -16,35 +16,35 @@
                         <h4 class="mt-0 header-title">Add New Challenge</h4>
                         <hr>
                         <!--                    <p class="text-muted m-b-30">Parsley is a javascript form validation library. It helps you provide your users with feedback on their form submission before sending it to your server.</p>-->
-                        <form class="" action="#">
+                        <form class="" action="/add-challenges" method="post">
                             <!--Challenge title-->
                             <div class="form-group">
                                 <label>Challenge Title</label>
-                                <input type="text" class="form-control" required placeholder="Challenge Title">
+                                <input type="text" name="challengeTilte" class="form-control" required placeholder="Challenge Title">
                             </div>
                             <!--Challenge Price-->
                             <div class="form-group">
                                 <label>Challenge Price</label>
                                 <div>
-                                    <input data-parsley-type="number" type="text" class="form-control" required placeholder="Challenge Price">
+                                    <input data-parsley-type="digits" name="challengePrice" type="text" class="form-control" required placeholder="Challenge Price">
                                 </div>
                             </div>
                             <!--Challenge description-->
                             <div class="form-group">
                                 <label>Challenge Description</label>
                                 <div>
-                                    <textarea required class="form-control" rows="5"></textarea>
+                                    <textarea required name="challengeDescription" class="form-control" rows="5"></textarea>
                                 </div>
                             </div>
                             <!--Challenge note-->
                             <div class="form-group">
                                 <label>Challenge Note</label>
-                                <input type="text" class="form-control" required placeholder="Challenge Note">
+                                <input type="text" name="challengeNote" class="form-control" required placeholder="Challenge Note">
                             </div>
                             <div class="form-group">
                                 <div>
-                                    <input type="submit" class="btn btn-primary waves-effect waves-light">Submit</input>
-                                    <button type="reset" class="btn btn-secondary waves-effect m-l-5">Cancel</button>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
+                                    <a href="/challenges"><input type="button" value="Cancel" class="btn btn-secondary waves-effect m-l-5"></a>
                                 </div>
                             </div>
                         </form>
@@ -56,3 +56,9 @@
     </div>
 </div>
 <%- contentFor('FooterJs') %>
+<script src="public/plugins/parsleyjs/parsley.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('form').parsley();
+    });
+</script>

@@ -4,3 +4,9 @@
 <h1>Add User Role</h1>
 <a href="/user-roles"><button type="button" class="btn btn-primary waves-effect waves-light">Add user role</button> </a>
 <%- contentFor('FooterJs') %>
+<script src="public/plugins/parsleyjs/parsley.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('form').parsley();
+    });
+</script>
