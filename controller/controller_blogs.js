@@ -14,3 +14,9 @@ exports.add_blogs_category =  function (req, res) {
     res.locals = {  title: 'Add Blogs Category' };
     res.render('Blogs/add_blogs_category');
 };
+exports.add_blogs_category_post =  function (req, res) {
+    const blogsCategory = req.body.blogsCategory;
+    console.log(req.body);
+    //DB
+    res.redirect('./blogs-category');
+};
