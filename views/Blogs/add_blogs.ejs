@@ -1,11 +1,163 @@
 <%- contentFor('HeaderCss') %>
+<link href="public/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+<link href="public/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+<link href="public/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+<link href="public/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+<link href="public/plugins/dropzone/dist/dropzone.css" rel="stylesheet" type="text/css">
+
+
 <%- contentFor('body') %>
 <h1>Add User</h1>
-<div class="row">
-    <a href="/blogs-list"><button type="button" class="btn btn-primary waves-effect waves-light">Add Blogs</button> </a>
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <div class="card m-b-20">
+                    <div class="card-body">
+                        <h4 class="mt-0 header-title">Add New Blog </h4>
+                        <hr>
+                        <!--                    <p class="text-muted m-b-30">Parsley is a javascript form validation library. It helps you provide your users with feedback on their form submission before sending it to your server.</p>-->
+                        <form class="" action="/add-blogs" method="post">
+                            <!--Company Name-->
+                            <div class="form-group">
+                                <label>User Name</label>
+                                <input type="text" name="username" class="form-control" required placeholder="User Name" />
+                            </div>
+<!--                            Blog Title-->
+                            <div class="form-group">
+                                <label>Blog Title</label>
+                                <input type="text" name="blogTitle" class="form-control" required placeholder="Blog Title" />
+                            </div>
+<!--                            Blog Description-->
+                            <div class="form-group">
+                                <label>Blog Description</label>
+                                <div>
+                                    <textarea required class="form-control" rows="5"></textarea>
+                                </div>
+                            </div>
+<!--                            Post Date-->
+                            <div class="form-group">
+                                <label>Post Date Default Functionality</label>
+                                <div>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="datepicker">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                                        </div>
+                                    </div><!-- input-group -->
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Post Date Auto Close</label>
+                                <div>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="datepicker-autoclose">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                                        </div>
+                                    </div><!-- input-group -->
+                                </div>
+                            </div>
+
+<!--                            Single Select-->
+                            <div class="form-group">
+                                <label class="control-label">Single Select</label>
+                                <select class="form-control select2">
+                                    <option>Select</option>
+                                    <optgroup label="Alaskan/Hawaiian Time Zone">
+                                        <option value="AK">Alaska</option>
+                                        <option value="HI">Hawaii</option>
+                                    </optgroup>
+                                    <optgroup label="Pacific Time Zone">
+                                        <option value="CA">California</option>
+                                        <option value="NV">Nevada</option>
+                                    </optgroup>
+                                    <optgroup label="Mountain Time Zone">
+                                        <option value="AZ">Arizona</option>
+                                        <option value="CO">Colorado</option>
+                                    </optgroup>
+                                    <optgroup label="Central Time Zone">
+                                        <option value="AL">Alabama</option>
+                                        <option value="AR">Arkansas</option>
+                                    </optgroup>
+                                    <optgroup label="Eastern Time Zone">
+                                        <option value="CT">Connecticut</option>
+                                        <option value="DE">Delaware</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+<!--                            Multiple select-->
+                            <div class="form-group">
+                                <label class="control-label">Multiple Select</label>
+                                <select class="select2 form-control select2-multiple" multiple="multiple" multiple data-placeholder="Choose ...">
+                                    <optgroup label="Alaskan/Hawaiian Time Zone">
+                                        <option value="AK">Alaska</option>
+                                        <option value="HI">Hawaii</option>
+                                    </optgroup>
+                                    <optgroup label="Pacific Time Zone">
+                                        <option value="CA">California</option>
+                                        <option value="NV">Nevada</option>
+                                    </optgroup>
+                                    <optgroup label="Mountain Time Zone">
+                                        <option value="AZ">Arizona</option>
+                                        <option value="CO">Colorado</option>
+                                    </optgroup>
+                                    <optgroup label="Central Time Zone">
+                                        <option value="AL">Alabama</option>
+                                        <option value="AR">Arkansas</option>
+                                    </optgroup>
+                                    <optgroup label="Eastern Time Zone">
+                                        <option value="CT">Connecticut</option>
+                                        <option value="DE">Delaware</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+<!--                            dropzone-->
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card m-b-20">
+                                        <div class="card-body"><div class="m-b-30">
+                                                <div action="#" class="dropzone">
+                                                    <div class="fallback">
+                                                        <input name="file" type="file" multiple="multiple">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+<!--                            submit button-->
+                            <div class="form-group">
+                                <div>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
+                                    <a href="/blogs-list"><input type="button" value="Cancel" class="btn btn-secondary waves-effect m-l-5"></a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- end col -->
+        </div>
+    </div>
 </div>
 <%- contentFor('FooterJs') %>
 <script src="public/plugins/parsleyjs/parsley.min.js"></script>
+<!--advanced form-->
+<script src="public/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+<script src="public/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="public/plugins/select2/js/select2.min.js"></script>
+<script src="public/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+<script src="public/plugins/bootstrap-filestyle/js/bootstrap-filestyle.min.js"></script>
+<script src="public/plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js"></script>
+<!--dropzone-->
+<script src="public/plugins/dropzone/dist/dropzone.js"></script>
+<!-- Plugins Init js -->
+<script src="public/assets/pages/form-advanced.js"></script>
 <script>
     $(document).ready(function() {
         $('form').parsley();
