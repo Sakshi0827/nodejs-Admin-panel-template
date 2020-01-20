@@ -14,4 +14,10 @@ exports.add_event_category =  function (req, res) {
     res.locals = {  title: 'Add Event Category' };
     res.render('Event/add_event_category.ejs');
 };
+exports.add_event_category_post =  function (req, res) {
+    const eventCategory = req.body.eventCategory;
+    console.log(req.body);
+    //DB
+    res.redirect('/event-category');
+};
 

@@ -7,6 +7,7 @@ router.get('/event-list', controller_event.event_list);
 router.get('/event-category', controller_event.event_category);
 router.get('/add-event', controller_event.add_event);
 router.get('/add-event-category', controller_event.add_event_category);
+router.post('/add-event-category', controller_event.add_event_category_post);
 
 
 module.exports = router;

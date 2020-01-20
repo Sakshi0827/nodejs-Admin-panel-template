@@ -1,12 +1,38 @@
 <%- contentFor('HeaderCss') %>
 <%- contentFor('body') %>
 <h1>Add User</h1>
-<div class="row">
-    <a href="/event-category"><button type="button" class="btn btn-primary waves-effect waves-light">Add Event Category</button> </a>
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <div class="card m-b-20">
+                    <div class="card-body">
+                        <h4 class="mt-0 header-title">Add New Event Category</h4>
+                        <hr><form class="" action="/add-event-category" method="post">
+                            <!--Company Name-->
+                            <div class="form-group">
+                                <label>Event Category Name</label>
+                                <input type="text" name="eventCategory" class="form-control" required placeholder="Event Category Name" />
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
+                                    <a href="/event-category"><input type="button" value="Cancel" class="btn btn-secondary waves-effect m-l-5"></a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- end col -->
+        </div>
+    </div>
 </div>
 <%- contentFor('FooterJs') %>
 <script src="public/plugins/parsleyjs/parsley.min.js"></script>
-  <script>
+<script>
     $(document).ready(function() {
         $('form').parsley();
     });
