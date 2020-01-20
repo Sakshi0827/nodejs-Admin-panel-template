@@ -1,8 +1,35 @@
 <%- contentFor('HeaderCss') %>
 <%- contentFor('body') %>
+<h1>Add User</h1>
 
-<h1>Add User Role</h1>
-<a href="/user-roles"><button type="button" class="btn btn-primary waves-effect waves-light">Add user role</button> </a>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <div class="card m-b-20">
+                    <div class="card-body">
+                        <h4 class="mt-0 header-title">Add New User Role</h4>
+                        <hr><form class="" action="/add-user-roles" method="post">
+                            <!--Company Name-->
+                            <div class="form-group">
+                                <label>User Role</label>
+                                <input type="text" name="userRole" class="form-control" required placeholder="User Role" />
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
+                                    <a href="/user-roles"><input type="button" value="Cancel" class="btn btn-secondary waves-effect m-l-5"></a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- end col -->
+        </div>
+    </div>
+</div>
 <%- contentFor('FooterJs') %>
 <script src="public/plugins/parsleyjs/parsley.min.js"></script>
 <script>

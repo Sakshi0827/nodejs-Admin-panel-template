@@ -15,5 +15,7 @@ router.get('/add-user', user.add_user);
 //add-user-roles
 router.get('/add-user-roles', user.add_user_roles);
 
+router.post('/add-user-roles', user.add_user_roles_post);
+
 
 module.exports = router;

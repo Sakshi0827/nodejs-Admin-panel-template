@@ -18,3 +18,10 @@ exports.add_user_roles = function (req, res) {
     res.locals = {title: 'User Roles'};
     res.render('User/add_user_roles');
 };
+
+exports.add_user_roles_post = function (req, res) {
+    const userRole = req.body.userRole;
+    console.log(req.body);
+    //DB
+    res.redirect('/user-roles');
+};
