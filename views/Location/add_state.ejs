@@ -1,11 +1,69 @@
 <%- contentFor('HeaderCss') %>
+
+<link href="public/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+
 <%- contentFor('body') %>
 <h1>Add User</h1>
-<div class="row">
-    <a href="/state"><button type="button" class="btn btn-primary waves-effect waves-light">Add State</button> </a>
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <div class="card m-b-20">
+                    <div class="card-body">
+                        <h4 class="mt-0 header-title">Add New State</h4>
+                        <hr>
+                        <form class="" action="/add-state" method="post">
+                            <div class="form-group">
+                                <label class="control-label">Single Select</label>
+                                <select class="form-control select2">
+                                    <option>Select</option>
+                                    <optgroup label="Alaskan/Hawaiian Time Zone">
+                                        <option value="AK">Alaska</option>
+                                        <option value="HI">Hawaii</option>
+                                    </optgroup>
+                                    <optgroup label="Pacific Time Zone">
+                                        <option value="CA">California</option>
+                                        <option value="NV">Nevada</option>
+                                    </optgroup>
+                                    <optgroup label="Mountain Time Zone">
+                                        <option value="AZ">Arizona</option>
+                                        <option value="CO">Colorado</option>
+                                    </optgroup>
+                                    <optgroup label="Central Time Zone">
+                                        <option value="AL">Alabama</option>
+                                        <option value="AR">Arkansas</option>
+                                    </optgroup>
+                                    <optgroup label="Eastern Time Zone">
+                                        <option value="CT">Connecticut</option>
+                                        <option value="DE">Delaware</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <!--Company Name-->
+                            <div class="form-group">
+                                <label>State Name</label>
+                                <input type="text" name="countryName" class="form-control" required placeholder="State Name" />
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
+                                    <a href="/state"><input type="button" value="Cancel" class="btn btn-secondary waves-effect m-l-5"></a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- end col -->
+        </div>
+    </div>
 </div>
 <%- contentFor('FooterJs') %>
 <script src="public/plugins/parsleyjs/parsley.min.js"></script>
+<script src="public/plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js"></script>
+
 <script>
     $(document).ready(function() {
         $('form').parsley();
