@@ -14,6 +14,13 @@ exports.add_user = function (req, res) {
     res.render('User/add_user');
 };
 
+exports.add_user_post = function (req, res) {
+    // const userRole = req.body.userRole;
+    console.log(req.body);
+    //DB
+    res.redirect('/user-list');
+};
+
 exports.add_user_roles = function (req, res) {
     res.locals = {title: 'User Roles'};
     res.render('User/add_user_roles');

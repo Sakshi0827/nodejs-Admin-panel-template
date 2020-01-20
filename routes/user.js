@@ -12,6 +12,8 @@ router.get('/user-roles', user.user_roles);
 // add-user
 router.get('/add-user', user.add_user);
 
+router.post('/add-user', user.add_user_post);
+
 //add-user-roles
 router.get('/add-user-roles', user.add_user_roles);
 

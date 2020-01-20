@@ -1,11 +1,194 @@
 <%- contentFor('HeaderCss') %>
+<link href="public/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+<link href="public/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+<link href="public/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+<link href="public/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+<link href="public/plugins/dropzone/dist/dropzone.css" rel="stylesheet" type="text/css">
+
+
 <%- contentFor('body') %>
 <h1>Add User</h1>
-<div class="row">
-    <a href="/user-list"><button type="button" class="btn btn-primary waves-effect waves-light">Add user</button> </a>
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <div class="card m-b-20">
+                    <div class="card-body">
+                        <h4 class="mt-0 header-title">Add New User </h4>
+                        <hr>
+                        <!--                    <p class="text-muted m-b-30">Parsley is a javascript form validation library. It helps you provide your users with feedback on their form submission before sending it to your server.</p>-->
+                        <form class="" action="/add-user" method="post">
+
+                            <!--First Name-->
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" name="firstname" class="form-control" required placeholder="First Name" />
+                            </div>
+                            <!--Last Name-->
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" name="lastname" class="form-control" required placeholder="Last Name" />
+                            </div>
+                            <!--User Name-->
+                            <div class="form-group">
+                                <label>User Name</label>
+                                <input type="text" name="username" class="form-control" required placeholder="User Name" />
+                            </div>
+<!--                            email-->
+                            <div class="form-group">
+                                <label>E-Mail</label>
+                                <div>
+                                    <input type="email" name="email" class="form-control" required parsley-type="email" placeholder="Enter a valid e-mail">
+                                </div>
+                            </div>
+
+                            <!--Password-->
+                            <div class="form-group">
+                                <label>Enter Password</label>
+                                <div>
+                                    <input type="password" name="password" id="pass2" class="form-control" required placeholder="Password">
+                                </div>
+                                <div class="m-t-10">
+                                    <input type="password" class="form-control" required data-parsley-equalto="#pass2" placeholder="Re-Type Password">
+                                </div>
+                            </div>
+<!--                            DOB-->
+                            <div class="form-group">
+                                <label>Date Of Birth</label>
+                                <div>
+                                    <div class="input-group">
+                                        <input type="text" name="dob" class="form-control" placeholder="mm/dd/yyyy" id="datepicker-autoclose">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                                        </div>
+                                    </div><!-- input-group -->
+                                </div>
+                            </div>
+
+                            <!-- fitness group Single Select-->
+                            <div class="form-group">
+                                <label class="control-label">Fitness Group</label>
+                                <select name="fitnessGroup" class="form-control select2">
+                                    <option>Select</option>
+                                    <optgroup label="Alaskan/Hawaiian Time Zone">
+                                        <option value="AK">Alaska</option>
+                                        <option value="HI">Hawaii</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+
+                            <!-- Gender Single Select-->
+                            <div class="form-group">
+                                <label class="control-label">Gender</label>
+                                <select name="gender" class="form-control select2">
+                                    <option>Select</option>
+                                    <optgroup label="Gender">
+                                        <option value="M">Male</option>
+                                        <option value="F">Female</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+<!--                            number-->
+                            <div class="form-group">
+                                <label>Contact Number</label>
+                                <div>
+                                    <input name="mobile" data-parsley-type="number" class="form-control" required data-parsley-length="[10, 10]" placeholder="Phone Number of 10 chars length">
+                                </div>
+                            </div>
+                            <!-- Country Single Select-->
+                            <div class="form-group">
+                                <label class="control-label">Country Select</label>
+                                <select name="country" class="form-control select2">
+                                    <option>Select</option>
+                                    <optgroup label="Alaskan/Hawaiian Time Zone">
+                                        <option value="AK">Alaska</option>
+                                        <option value="HI">Hawaii</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <!-- State Single Select-->
+                            <div class="form-group">
+                                <label class="control-label">State Select</label>
+                                <select name="state" class="form-control select2">
+                                    <option>Select</option>
+                                    <optgroup label="Alaskan/Hawaiian Time Zone">
+                                        <option value="AK">Alaska</option>
+                                        <option value="HI">Hawaii</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <!--  City Single Select-->
+                            <div class="form-group">
+                                <label class="control-label">City Select</label>
+                                <select name="city" class="form-control select2">
+                                    <option>Select</option>
+                                    <optgroup label="Alaskan/Hawaiian Time Zone">
+                                        <option value="AK">Alaska</option>
+                                        <option value="HI">Hawaii</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+
+                            <!--                            number-->
+                            <div class="form-group">
+                                <label>Pin Code</label>
+                                <div>
+                                    <input name="pincode" data-parsley-type="number" class="form-control" required data-parsley-length="[6, 6]" placeholder="Pin Code">
+                                </div>
+                            </div>
+                            <!--  Company Select-->
+                            <div class="form-group">
+                                <label class="control-label">Company Select</label>
+                                <select name="company" class="form-control select2">
+                                    <option>Select</option>
+                                    <optgroup label="Alaskan/Hawaiian Time Zone">
+                                        <option value="AK">Alaska</option>
+                                        <option value="HI">Hawaii</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <!--  User role Select-->
+                            <div class="form-group">
+                                <label class="control-label">User Role Select</label>
+                                <select name="userRole" class="form-control select2">
+                                    <option>Select</option>
+                                    <optgroup label="Alaskan/Hawaiian Time Zone">
+                                        <option value="AK">Alaska</option>
+                                        <option value="HI">Hawaii</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+
+                            <!--                            submit button-->
+                            <div class="form-group">
+                                <div>
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
+                                    <a href="/user-list"><input type="button" value="Cancel" class="btn btn-secondary waves-effect m-l-5"></a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- end col -->
+        </div>
+    </div>
 </div>
-    <%- contentFor('FooterJs') %>
+<%- contentFor('FooterJs') %>
 <script src="public/plugins/parsleyjs/parsley.min.js"></script>
+<!--advanced form-->
+<script src="public/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+<script src="public/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="public/plugins/select2/js/select2.min.js"></script>
+<script src="public/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+<script src="public/plugins/bootstrap-filestyle/js/bootstrap-filestyle.min.js"></script>
+<script src="public/plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js"></script>
+<!--dropzone-->
+<script src="public/plugins/dropzone/dist/dropzone.js"></script>
+<!-- Plugins Init js -->
+<script src="public/assets/pages/form-advanced.js"></script>
 <script>
     $(document).ready(function() {
         $('form').parsley();
