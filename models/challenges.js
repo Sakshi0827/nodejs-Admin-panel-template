@@ -8,16 +8,30 @@ const sequelize = connection.connection;
 const Model = Sequelize.Model;
 
 
-class Company extends Model {};
-Company.init({
+class Challenges extends Model {};
+
+
+Challenges.init({
         // attributes
-        company_id: {
+        challenge_id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true,
             allowNull: false
         },
-        company_name: {
+        challenge_title: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+        challenge_price: {
+            type: Sequelize.INTEGER,
+            allowNull: false
+        },
+        challenge_description: {
+        type: Sequelize.STRING,
+            allowNull: false
+        },
+        challenge_note: {
             type: Sequelize.STRING,
             allowNull: false
         },
@@ -31,8 +45,8 @@ Company.init({
         }},
     {
         sequelize,
-        modelName: 'company_master'
+        modelName: 'challenge_master'
         // options
     });
 
-module.exports = { Company };
+module.exports = { Challenges };
