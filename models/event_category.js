@@ -11,13 +11,13 @@ const Model = Sequelize.Model;
 class Event_category extends Model {};
 Event_category.init({
         // attributes
-        fitness_group_id: {
+        event_category_id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true,
             allowNull: false
         },
-        fitness_group_name: {
+        event_category_name: {
             type: Sequelize.STRING,
             allowNull: false
         },
