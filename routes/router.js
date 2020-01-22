@@ -3,12 +3,12 @@ const router = express.Router();
 
 const userRouter = require('./user.js');
 const locationRouter = require('./location');
-const eventRouter = require('./events');
 const fitnessGroupRouter = require('./fitness_group');
 const companyRouter = require('./company');
 const challengesRouter = require('./challenges');
 const eventsRouter = require('./events');
 const blogsRouter = require('./blogs');
+const paymentRouter = require('./payment');
 
 // Dashboard
 router.get('/', function (req, res) {
@@ -20,7 +20,7 @@ router.use('/', userRouter);
 // Location
 router.use('/', locationRouter);
 // Events
-router.use('/', eventRouter);
+router.use('/', eventsRouter);
 //Fitness Group
 router.use('/', fitnessGroupRouter);
 //Company
@@ -29,5 +29,7 @@ router.use('/', companyRouter);
 router.use('/', challengesRouter);
 //Blogs
 router.use('/', blogsRouter);
+//payment
+router.use('/', paymentRouter);
 
 module.exports = router;
