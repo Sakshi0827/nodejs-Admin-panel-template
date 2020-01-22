@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="page-title-box">
-                    <h4 class="page-title">Challenges List</h4>
+                    <h4 class="page-title">Payment List</h4>
                 </div>
             </div>
         </div>
@@ -30,9 +30,9 @@
                     <div class="card-body">
 
                         <div class="row">
-                            <div class="col-10"><h4 class="mt-0 header-title">All Challenges</h4></div>
+                            <div class="col-10"><h4 class="mt-0 header-title">All Payment</h4></div>
                             <div class="col-2">
-                                <a href="/add-challenges"><button type="button" class="btn btn-primary waves-effect waves-light">Add New Challenge</button></a>
+                                <a href="/add-payment"><button type="button" class="btn btn-primary waves-effect waves-light">Add New Payment</button></a>
                             </div>
                         </div>
                         <br>
@@ -45,12 +45,27 @@
                             <thead>
                             <tr>
                                 <th>id</th>
-                                <th>Challenge Title</th>
-                                <th>Challenge Price</th>
-                                <th>Challenge Description</th>
-                                <th>Challenge Note</th>
+                                <th>order_id</th>
+                                <th>trans_id</th>
+                                <th>user_id</th>
+                                <th>fullname</th>
+                                <th>email</th>
+                                <th>contact_number</th>
+                                <th>gender</th>
+                                <th>tshirt_size</th>
+                                <th>address</th>
+                                <th>challenge_name</th>
+                                <th>company</th>
+                                <th>country</th>
+                                <th>currency</th>
+                                <th>amount</th>
+                                <th>transaction_charge</th>
+                                <th>total_amount</th>
+                                <th>payment_status</th>
+                                <th>capture_status</th>
+                                <th>razopay_response</th>
+                                <th>user_ip_address</th>
                                 <th>created_date</th>
-                                <th>updated_date</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
@@ -58,21 +73,38 @@
                             <tbody>
                             <%
                             for(var i=1;i<=10;i++){
-                            %>
+                                %>
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <th>INDI Marathon</th>
-                                    <th>300</th>
-                                    <th>Lorem ipsum</th>
-                                    <th>Only Running</th>
-                                    <th>29/39/39</th>
-                                    <th>29/39/39</th>
+                                    <th>id</th>
+                                    <th>order_id</th>
+                                    <th>trans_id</th>
+                                    <th>user_id</th>
+                                    <th>fullname</th>
+                                    <th>email</th>
+                                    <th>contact_number</th>
+                                    <th>gender</th>
+                                    <th>tshirt_size</th>
+                                    <th>address</th>
+                                    <th>challenge_name</th>
+                                    <th>company</th>
+                                    <th>country</th>
+                                    <th>currency</th>
+                                    <th>amount</th>
+                                    <th>transaction_charge</th>
+                                    <th>total_amount</th>
+                                    <th>payment_status</th>
+                                    <th>capture_status</th>
+                                    <th>razopay_response</th>
+                                    <th>user_ip_address</th>
+                                    <th>created_date</th>
+
+
                                     <th>
-                                        <button class="btn btn-info waves-effect waves-light">edit</button>
-                                        <button class="btn btn-danger waves-effect waves-light">delete</button>
-                                    </th>
+                                            <button class="btn btn-info waves-effect waves-light">edit</button>
+                                            <button class="btn btn-danger waves-effect waves-light">delete</button>
+                                        </th>
                                 </tr>
-                            <%
+                                <%
                             }
                             %>
                             </tbody>
