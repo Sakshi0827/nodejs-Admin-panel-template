@@ -28,6 +28,7 @@ exports.add_challenges_post = function (req, res) {
         console.log("Result of sync", result);
         Challenges.create(
             req.body
+            
         ).then(challenge_title => {
             console.log("New challenge's auto-generated ID:", challenge_title.challenge_id);
             return res.json({
