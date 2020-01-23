@@ -8,8 +8,6 @@ exports.event_list = function (req, res) {
 
 exports.event_category =  function (req, res) {
     res.locals = {  title: 'Event Category List' };
-    // res.render('Event/event_category');
-
     try{
 
         Event_category.sync({ force: false }).then((result) => {

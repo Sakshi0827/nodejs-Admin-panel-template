@@ -5,36 +5,32 @@ exports.fitnessGroup_list = function (req, res) {
     try{
         Fitness_group.sync({ force: false }).then((result) => {
         console.log("Result of sync", result);
-            Fitness_group.findAll({ }).then(fitness_group => {
-                console.log("All Fitness Group:", JSON.stringify(fitness_group, null, 4));
-
-                        if(!fitness_group.length){
-                            return res.json({
-                                status: 404,
-                                message: "Fitness Group not found."
-                            })
-                        }
-                    return res.render('Fitness-group/fitness_group', {
-                        status: 200,
-                        data: fitness_group,
-                        message: "Fitness Group fetched successfully."
-                    })
+        Fitness_group.findAll({ }).then(fitness_group => {
+            console.log("All Fitness Group:", JSON.stringify(fitness_group, null, 4));
+            if(!fitness_group.length){
+                return res.json({
+                    status: 404,
+                    message: "Fitness Group not found."
+                })
+            }
+            return res.render('Fitness-group/fitness_group', {
+                status: 200,
+                data: fitness_group,
+                message: "Fitness Group fetched successfully."
             })
         })
-            .catch(err => {
-                                console.error('Unable to connect to the database:', err);
-                            return res.json({
-                                status: 500,
-                                data: err,
-                                message: "Fitness Group fetching failed."
-                            })
+        }).catch(err => {
+            console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "Fitness Group fetching failed."
             })
+        })
     }
     catch (exception){
         console.log("An exception occured, please contact the administrator.", exception);
     }
-
-
 };
 
 

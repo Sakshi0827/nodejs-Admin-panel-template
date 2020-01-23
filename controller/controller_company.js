@@ -37,10 +37,12 @@ exports.company_list = function (req, res) {
             console.log("An exception occured, please contact the administrator.", exception);
         }
 };
+
 exports.add_company = function (req, res, next) {
     res.locals = {  title: 'Add Company' };
     res.render('Company/add_company');
 };
+
 exports.add_company_post = function (req, res) {
     const company_name = req.body.company_name;
     console.log(company_name);
