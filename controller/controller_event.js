@@ -11,6 +11,9 @@ exports.event_category =  function (req, res) {
     // res.render('Event/event_category');
 
     try{
+
+        Event_category.sync({ force: false }).then((result) => {
+        console.log("Result of sync", result);
             Event_category.findAll({ }).then(event_category => {
                 console.log("All event_category:", JSON.stringify(event_category, null, 4));
                 
@@ -28,7 +31,10 @@ exports.event_category =  function (req, res) {
                     data: event_category,
                     message: "event_category fetched successfully."
                 })
-            }).catch(err => {
+            })
+
+        })
+            .catch(err => {
                 console.error('Unable to connect to the database:', err);
                 return res.json({
                     status: 500,

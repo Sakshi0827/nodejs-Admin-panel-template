@@ -12,6 +12,8 @@ exports.challenges_list = function (req, res) {
 
 
     try{
+        Challenges.sync({ force: false }).then((result) => {
+        console.log("Result of sync", result);
             Challenges.findAll({ }).then(challenges => {
                 console.log("All Challenges:", JSON.stringify(challenges, null, 4));
                 
@@ -26,7 +28,10 @@ exports.challenges_list = function (req, res) {
                     data: challenges,
                     message: "Challenges fetched successfully."
                 })
-            }).catch(err => {
+            })
+        })
+
+            .catch(err => {
                 console.error('Unable to connect to the database:', err);
                 return res.json({
                     status: 500,

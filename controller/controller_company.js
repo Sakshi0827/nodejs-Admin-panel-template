@@ -5,6 +5,9 @@ exports.company_list = function (req, res) {
     res.locals = {  title: 'Company' };
 
     try{
+
+            Company.sync({ force: false }).then((result) => {
+            console.log("Result of sync", result);
             Company.findAll({ }).then(company => {
                 console.log("All company:", JSON.stringify(company, null, 4));
                 
@@ -19,7 +22,10 @@ exports.company_list = function (req, res) {
                     data: company,
                     message: "company fetched successfully."
                 })
-            }).catch(err => {
+            })
+
+        })
+            .catch(err => {
                 console.error('Unable to connect to the database:', err);
                 return res.json({
                     status: 500,
