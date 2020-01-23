@@ -25,12 +25,21 @@ Company.init({
         created_date: {
             type: Sequelize.DATE,
             allowNull: false,
+<<<<<<< HEAD
             defaultValue: new Date()
+=======
+            defaultValue:new Date()
+>>>>>>> 4919bf6f83711aef1c22a6ef0e4aebdb0533f374
         },
         updated_date: {
             type: Sequelize.DATE,
             allowNull: false,
+<<<<<<< HEAD
             defaultValue: new Date()
+=======
+            defaultValue:new Date()
+
+>>>>>>> 4919bf6f83711aef1c22a6ef0e4aebdb0533f374
         }},
     {
         sequelize,
@@ -38,4 +47,8 @@ Company.init({
         // options
     });
 
+<<<<<<< HEAD
 module.exports = Company ;
+=======
+module.exports = Company;
+>>>>>>> 4919bf6f83711aef1c22a6ef0e4aebdb0533f374

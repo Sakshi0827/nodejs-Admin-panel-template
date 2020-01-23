@@ -37,11 +37,13 @@ Challenges.init({
         },
         created_date: {
             type: Sequelize.DATE,
-            allowNull: false
+            allowNull: false,
+            defaultValue:new Date()
         },
         updated_date: {
             type: Sequelize.DATE,
-            allowNull: false
+            allowNull: false,
+            defaultValue:new Date()
         }},
     {
         sequelize,
@@ -49,4 +51,8 @@ Challenges.init({
         // options
     });
 
+<<<<<<< HEAD
 module.exports = Challenges ;
+=======
+module.exports = Challenges;
+>>>>>>> 4919bf6f83711aef1c22a6ef0e4aebdb0533f374
