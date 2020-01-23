@@ -37,4 +37,4 @@ Fitness_group.init({
         // options
     });
 
-module.exports = { Fitness_group };
+module.exports = Fitness_group ;
