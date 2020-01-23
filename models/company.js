@@ -9,6 +9,7 @@ const Model = Sequelize.Model;
 
 
 class Company extends Model {};
+
 Company.init({
         // attributes
         company_id: {
@@ -23,11 +24,13 @@ Company.init({
         },
         created_date: {
             type: Sequelize.DATE,
-            allowNull: false
+            allowNull: false,
+            defaultValue: new Date()
         },
         updated_date: {
             type: Sequelize.DATE,
-            allowNull: false
+            allowNull: false,
+            defaultValue: new Date()
         }},
     {
         sequelize,
@@ -35,4 +38,4 @@ Company.init({
         // options
     });
 
-module.exports = { Company };
+module.exports = Company ;

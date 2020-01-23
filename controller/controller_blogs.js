@@ -15,7 +15,7 @@ exports.add_blogs_category =  function (req, res) {
     res.render('Blogs/add_blogs_category');
 };
 exports.add_blogs_category_post =  function (req, res) {
-    const blogsCategory = req.body.blogsCategory;
+    const blogs_category_name = req.body.blogs_category_name;
     console.log(req.body);
     //DB
     res.redirect('./blogs-category');

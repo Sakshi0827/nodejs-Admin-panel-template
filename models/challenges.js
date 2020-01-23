@@ -49,4 +49,4 @@ Challenges.init({
         // options
     });
 
-module.exports = { Challenges };
+module.exports = Challenges ;

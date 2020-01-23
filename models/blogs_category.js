@@ -9,6 +9,7 @@ const Model = Sequelize.Model;
 
 
 class Blogs_category extends Model {};
+
 Blogs_category.init({
         // attributes
         blogs_category_id: {
@@ -23,11 +24,13 @@ Blogs_category.init({
         },
         created_date: {
             type: Sequelize.DATE,
-            allowNull: false
+            allowNull: false,
+            defaultValue: new Date()
         },
         updated_date: {
             type: Sequelize.DATE,
-            allowNull: false
+            allowNull: false,
+            defaultValue: new Date()
         }},
     {
         sequelize,
@@ -35,4 +38,4 @@ Blogs_category.init({
         // options
     });
 
-module.exports = { Blogs_category };
+module.exports = Blogs_category ;

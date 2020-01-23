@@ -7,7 +7,7 @@ exports.add_fitnessGroup = function (req, res) {
     res.render('Fitness-group/add_fitness_group');
 };
 exports.add_fitnessGroup_post = function (req, res) {
-    const fitnessGroupName = req.body.fitnessGroupName;
+    const fitness_group_name = req.body.fitness_group_name;
     console.log(req.body);
     //DB
     res.redirect('/fitness-group');
