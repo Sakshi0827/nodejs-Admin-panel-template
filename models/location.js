@@ -22,7 +22,8 @@ Country.init({
         },
         created_date: {
             type: Sequelize.DATE,
-            allowNull: false
+            allowNull: false,
+            defaultValue:new Date()
         },
         updated_date: {
             type: Sequelize.DATE,
