@@ -51,8 +51,4 @@ Challenges.init({
         // options
     });
 
-<<<<<<< HEAD
 module.exports = Challenges ;
-=======
-module.exports = Challenges;
->>>>>>> 4919bf6f83711aef1c22a6ef0e4aebdb0533f374
