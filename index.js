@@ -9,6 +9,7 @@ var Authrouter = require('./Authrouter.js');
 
 // Access public folder from root
 app.use('/public', express.static('public'));
+app.use('/public', express.static('views'));
 app.get('/layouts/', function(req, res) {
   res.render('view');
 });

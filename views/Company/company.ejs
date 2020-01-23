@@ -49,24 +49,22 @@
                                 <th>Actions</th>
                             </tr>
                             </thead>
+<%= message %>
+<%= data[0].company_id %>
 
                             <tbody>
-                            <%
-                            for(var i=1;i<=10;i++){
-                            %>
+                            <% data.forEach((company)=>{ %>
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td>Syscraft</td>
-                                    <td>27/08/08</td>
-                                    <td>27/08/08</td>
+                                    <th scope="row"> <%=company.company_id%></th>
+                                    <td><%=company.company_name%></td>
+                                    <td><%=company.created_date%></td>
+                                    <td><%=company.updated_date%></td>
                                     <th>
                                         <button class="btn btn-info waves-effect waves-light">edit</button>
                                         <button class="btn btn-danger waves-effect waves-light">delete</button>
                                     </th>
                                 </tr>
-                            <%
-                            }
-                            %>
+                            <% }) %>
                             </tbody>
                         </table>
                     </div>
