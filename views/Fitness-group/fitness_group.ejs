@@ -51,22 +51,18 @@
                             </thead>
 
                             <tbody>
-                            <%
-                            for(var i=1;i<=10;i++){
-                            %>
+                            <% data.forEach((fitness_group)=>{ %>
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td>Indore Runners</td>
-                                    <td>27/08/08</td>
-                                    <td>27/08/08</td>
+                                    <th scope="row"> <%=fitness_group.fitness_group_id%></th>
+                                    <td><%=fitness_group.fitness_group_name%></td>
+                                    <td><%=fitness_group.created_date%></td>
+                                    <td><%=fitness_group.updated_date%></td>
                                     <th>
                                         <button class="btn btn-info waves-effect waves-light">edit</button>
                                         <button class="btn btn-danger waves-effect waves-light">delete</button>
                                     </th>
                                 </tr>
-                            <%
-                            }
-                            %>
+                            <% }) %>
                             </tbody>
                         </table>
                     </div>
