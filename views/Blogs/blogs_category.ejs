@@ -31,7 +31,7 @@
                         <div class="row">
                             <div class="col-10"><h4 class="mt-0 header-title">Buttons example</h4></div>
                             <div class="col-2">
-                                <a href="/add-blogs-category"><button type="button" class="btn btn-primary waves-effect waves-light">Add New User</button></a>
+                                <a href="/add-blogs-category"><button type="button" class="btn btn-primary waves-effect waves-light">Add New category</button></a>
                             </div>
                         </div>
                         <p class="text-muted m-b-30">The Buttons extension for DataTables
@@ -51,22 +51,18 @@
                             </thead>
 
                             <tbody>
-                            <%
-                            for(var i=1;i<=10;i++){
-                            %>
+                            <% data.forEach((blogs_category)=>{ %>
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td>Jogging</td>
-                                    <td>27/08/08</td>
-                                    <td>27/08/08</td>
+                                    <th scope="row"> <%=blogs_category.blogs_category_id%></th>
+                                    <td><%=blogs_category.blogs_category_name%></td>
+                                    <td><%=blogs_category.created_date%></td>
+                                    <td><%=blogs_category.updated_date%></td>
                                     <th>
                                         <button class="btn btn-info waves-effect waves-light">edit</button>
                                         <button class="btn btn-danger waves-effect waves-light">delete</button>
                                     </th>
                                 </tr>
-                            <%
-                            }
-                            %>
+                            <% }) %>
                             </tbody>
                         </table>
                     </div>
