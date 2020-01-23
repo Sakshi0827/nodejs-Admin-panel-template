@@ -1,7 +1,3 @@
-// const Sequelize = require('sequelize');
-const connection = require('../config/configdb');
-const sequelize = connection.connection;
-
 const Company  = require('../models/company');
 
 
