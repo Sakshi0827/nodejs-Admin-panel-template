@@ -56,25 +56,21 @@
                             </thead>
 
                             <tbody>
-                            <%
-                            for(var i=1;i<=10;i++){
-                            %>
+                            <% data.forEach((challenges)=>{ %>
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <th>INDI Marathon</th>
-                                    <th>300</th>
-                                    <th>Lorem ipsum</th>
-                                    <th>Only Running</th>
-                                    <th>29/39/39</th>
-                                    <th>29/39/39</th>
+                                    <th scope="row"> <%=challenges.challenge_id%></th>
+                                    <td><%=challenges.challenge_title%></td>
+                                    <td><%=challenges.challenge_price%></td>
+                                    <td><%=challenges.challenge_description%></td>
+                                    <td><%=challenges.challenge_note%></td>
+                                    <td><%=challenges.created_date%></td>
+                                    <td><%=challenges.updated_date%></td>
                                     <th>
                                         <button class="btn btn-info waves-effect waves-light">edit</button>
                                         <button class="btn btn-danger waves-effect waves-light">delete</button>
                                     </th>
                                 </tr>
-                            <%
-                            }
-                            %>
+                            <% }) %>
                             </tbody>
                         </table>
                     </div>

@@ -7,7 +7,40 @@ const Challenges  = require('../models/challenges');
 
 exports.challenges_list = function (req, res) {
     res.locals = {  title: 'Challenges' };
-    res.render('Challenges/challenges');
+    // res.render('Challenges/challenges');
+
+
+
+    try{
+            Challenges.findAll({ }).then(challenges => {
+                console.log("All Challenges:", JSON.stringify(challenges, null, 4));
+                
+                if(!challenges.length){
+                    return res.json({
+                        status: 404,                        
+                        message: "Challenge not found."
+                    })    
+                }
+                return res.render('Challenges/challenges', {
+                    status: 200,
+                    data: challenges,
+                    message: "Challenges fetched successfully."
+                })
+            }).catch(err => {
+                console.error('Unable to connect to the database:', err);
+                return res.json({
+                    status: 500,
+                    data: err,
+                    message: "Challenges fetching failed."
+                })
+            });
+        } catch (exception){
+            console.log("An exception occured, please contact the administrator.", exception);
+        }
+
+
+
+
 };
 exports.add_challenges = function (req, res) {
     res.locals = {  title: 'Add Challenges' };
@@ -31,11 +64,12 @@ exports.add_challenges_post = function (req, res) {
             
         ).then(challenge_title => {
             console.log("New challenge's auto-generated ID:", challenge_title.challenge_id);
-            return res.json({
-                status: 200,
-                data: challenge_title,challenge_price,
-                message: "challenge created successfully."
-            })
+            // return res.json({
+            //     status: 200,
+            //     data: challenge_title,challenge_price,
+            //     message: "challenge created successfully."
+            // })
+            res.redirect('/challenges');
         }).catch(err => {
             console.error('Unable to connect to the database:', err);
             return res.json({

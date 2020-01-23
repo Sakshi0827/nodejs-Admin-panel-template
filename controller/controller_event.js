@@ -8,7 +8,38 @@ exports.event_list = function (req, res) {
 
 exports.event_category =  function (req, res) {
     res.locals = {  title: 'Event Category List' };
-    res.render('Event/event_category');
+    // res.render('Event/event_category');
+
+    try{
+            Event_category.findAll({ }).then(event_category => {
+                console.log("All event_category:", JSON.stringify(event_category, null, 4));
+                
+                if(!event_category.length){
+                    console.log("1");
+                    return res.json({
+                        status: 404,                        
+                        message: "event_category not found."
+                    })    
+                }
+                    console.log("3");
+
+                return res.render('Event/event_category', {
+                    status: 200,
+                    data: event_category,
+                    message: "event_category fetched successfully."
+                })
+            }).catch(err => {
+                console.error('Unable to connect to the database:', err);
+                return res.json({
+                    status: 500,
+                    data: err,
+                    message: "event_category fetching failed."
+                })
+            });
+        } catch (exception){
+            console.log("An exception occured, please contact the administrator.", exception);
+        }
+
 };
 
 exports.add_event =  function (req, res) {
@@ -31,11 +62,12 @@ exports.add_event_category_post =  function (req, res) {
             req.body
         ).then(event_category_name => {
             console.log("New event_category's auto-generated ID:", event_category_name.event_category_id);
-            return res.json({
-                status: 200,
-                data: event_category_name,
-                message: "event_category created successfully."
-            })
+            // return res.json({
+            //     status: 200,
+            //     data: event_category_name,
+            //     message: "event_category created successfully."
+            // })
+            res.redirect('/event-category');
         }).catch(err => {
             console.error('Unable to connect to the database:', err);
             return res.json({
