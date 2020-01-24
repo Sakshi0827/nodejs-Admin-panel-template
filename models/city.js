@@ -40,8 +40,7 @@ City.init({
 
 
 State.hasOne(City, {
-    foreignKey: 'state_id',
-    allowNull: false
+    foreignKey: 'state_id'
 });
 
 module.exports = City;
