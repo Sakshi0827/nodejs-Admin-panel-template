@@ -10,12 +10,6 @@ exports.country_list = function (req, res) {
             console.log("Result of sync", result);
             Country.findAll({ }).then(country => {
                 console.log("All Country:", JSON.stringify(country, null, 4));
-                if(!country.length){
-                    return res.json({
-                        status: 404,
-                        message: "Country not found."
-                    })
-                }
                 return res.render('Location/country', {
                     status: 200,
                     data: country,
