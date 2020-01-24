@@ -1,4 +1,6 @@
-const Country = require('../models/location');
+const Country = require('../models/country');
+const State = require('../models/state');
+const City = require('../models/city');
 
 
 exports.country_list = function (req, res) {
@@ -30,18 +32,61 @@ exports.country_list = function (req, res) {
         })
     }
     catch (exception){
-        console.log("An exception occured, please contact the administrator.", exception);
+        console.log("An exception occurred, please contact the administrator.", exception);
     }
 };
 
 exports.state_list = function (req, res) {
     res.locals = {  title: 'State' };
-    res.render('Location/state');
+    try{
+        State.sync({ force: false }).then((result) => {
+            console.log("Result of sync", result);
+            State.findAll({ }).then(state => {
+                console.log("All States:", JSON.stringify(state, null, 4));
+                return res.render('Location/state', {
+                    status: 200,
+                    data: state,
+                    message: "State fetched successfully."
+                })
+            })
+        }).catch(err => {
+            console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "State fetching failed."
+            })
+        })
+    }
+    catch (exception){
+        console.log("An exception occurred, please contact the administrator.", exception);
+    }
 };
 
 exports.city_list = function (req, res) {
-    res.locals = {  title: 'City' };
-    res.render('Location/city');
+    res.locals = {  title: 'City' };try{
+        City.sync({ force: false }).then((result) => {
+            console.log("Result of sync", result);
+            City.findAll({ }).then(city => {
+                console.log("All City:", JSON.stringify(city, null, 4));
+                return res.render('Location/city', {
+                    status: 200,
+                    data: city,
+                    message: "City fetched successfully."
+                })
+            })
+        }).catch(err => {
+            console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "City fetching failed."
+            })
+        })
+    }
+    catch (exception){
+        console.log("An exception occurred, please contact the administrator.", exception);
+    }
 };
 
 exports.add_country = function (req, res) {
