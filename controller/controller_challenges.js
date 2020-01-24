@@ -12,22 +12,13 @@ exports.challenges_list = function (req, res) {
         console.log("Result of sync", result);
             Challenges.findAll({ }).then(challenges => {
                 console.log("All Challenges:", JSON.stringify(challenges, null, 4));
-                
-                if(!challenges.length){
-                    return res.json({
-                        status: 404,                        
-                        message: "Challenge not found."
-                    })    
-                }
                 return res.render('Challenges/challenges', {
                     status: 200,
                     data: challenges,
                     message: "Challenges fetched successfully."
                 })
             })
-        })
-
-            .catch(err => {
+        }).catch(err => {
                 console.error('Unable to connect to the database:', err);
                 return res.json({
                     status: 500,
@@ -37,7 +28,7 @@ exports.challenges_list = function (req, res) {
             });
         } catch (exception){
             console.log("An exception occured, please contact the administrator.", exception);
-        }
+    }
 };
 
 exports.add_challenges = function (req, res) {
@@ -59,11 +50,6 @@ exports.add_challenges_post = function (req, res) {
             
         ).then(challenge_title => {
             console.log("New challenge's auto-generated ID:", challenge_title.challenge_id);
-            // return res.json({
-            //     status: 200,
-            //     data: challenge_title,challenge_price,
-            //     message: "challenge created successfully."
-            // })
             res.redirect('/challenges');
         }).catch(err => {
             console.error('Unable to connect to the database:', err);

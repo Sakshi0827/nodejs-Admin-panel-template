@@ -1,22 +1,24 @@
 const Sequelize = require('sequelize');
-
+const State = require('./state');
 const connection = require('../config/configdb');
 const sequelize = connection.connection;
-// console.log("Sequelize object", sequelize);
-
 const Model = Sequelize.Model;
 
 
-class Country extends Model {}
-Country.init({
+class City extends Model {}
+City.init({
         // attributes
-        country_id: {
+        city_id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true,
             allowNull: false
         },
-        country_name: {
+        state_id: {
+            type: Sequelize.INTEGER,
+            allowNull: false
+        },
+        city_name: {
             type: Sequelize.STRING,
             allowNull: false
         },
@@ -32,9 +34,14 @@ Country.init({
         }},
     {
         sequelize,
-        modelName: 'country_master'
+        modelName: 'city'
         // options
     });
 
-module.exports = Country;
 
+State.hasOne(City, {
+    foreignKey: 'state_id',
+    allowNull: false
+});
+
+module.exports = City;
