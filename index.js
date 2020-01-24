@@ -4,6 +4,7 @@ var path = require('path');
 var http = require('http').Server(app);
 var bCrypt = require('bcryptjs');
 var bodyParser = require('body-parser');
+const multer = require('multer');
 var router = require('./routes/router.js');
 var Authrouter = require('./Authrouter.js');
 
@@ -13,6 +14,19 @@ app.use('/public', express.static('views'));
 app.get('/layouts/', function(req, res) {
   res.render('view');
 });
+
+let storage = multer.diskStorage({
+	destination: function (req, file, callback) {
+		callback(null, 'uploads/');
+	},
+	filename: function (req, file, cb) {
+		cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+	}
+});
+
+exports.upload = multer({storage: storage });
+
+app.use(express.static('uploads'));
 
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
