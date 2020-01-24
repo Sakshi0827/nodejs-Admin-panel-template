@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-
+const Event_category = require('./event_category');
 const connection = require('../config/configdb');
 const sequelize = connection.connection;
 
@@ -31,13 +31,6 @@ Event.init({
         },
         event_category_id: {
             type: Sequelize.INTEGER,
-            primaryKey: true,
-            // references: 'event_category_master', // <<< Note, its table's name, not object name
-            // referencesKey: 'event_category_id', // <<< Note, its a column name
-            references: {
-                model: 'event_category_master', // 'event_category_master' refers to table name
-                key: 'event_category_id' // 'event_category_id' refers to column name in persons table
-             },
             allowNull: false
         },
         created_date: {
@@ -54,6 +47,9 @@ Event.init({
         sequelize,
         modelName: 'event'
     });
-    // console.log(event_category_id);
-Event.hasMany(Event_category);
+
+
+Event_category.hasMany(Event, {foreignKey: 'event_category_id'});
+
+
 module.exports = Event;

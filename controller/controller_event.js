@@ -1,9 +1,31 @@
+const Event  = require('../models/event');
 const Event_category  = require('../models/event_category');
 
 
 exports.event_list = function (req, res) {
     res.locals = {  title: 'Event List' };
-    res.render('Event/event_list');
+    try{
+        Event.sync({ force: false }).then((result) => {
+        console.log("Result of sync", result);
+            Event.findAll({ }).then(event => {
+                console.log("All event:", JSON.stringify(event, null, 4));
+                return res.render('Event/event_list', {
+                    status: 200,
+                    data: event,
+                    message: "event fetched successfully."
+                })
+            })
+        }).catch(err => {
+                console.error('Unable to connect to the database:', err);
+                return res.json({
+                    status: 500,
+                    data: err,
+                    message: "event fetching failed."
+                })
+            });
+        } catch (exception){
+            console.log("An exception occured, please contact the administrator.", exception);
+    }
 };
 
 exports.event_category =  function (req, res) {
