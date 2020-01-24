@@ -1,12 +1,21 @@
 const Blogs = require('../models/blogs');
 const Blogs_category = require('../models/blogs_category');
+const multer = require('multer');
 
-const upload = require('../index');
+let storage = multer.diskStorage({
+	destination: function (req, file, callback) {
+		callback(null, './uploads');
+	},
+	filename: function (req, file, cb) {
+		cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+	}
+});
+
+const upload = multer({storage: storage});
 
 exports.blogs_list = function (req, res) {
     res.locals = {  title: 'Blog List' };
     res.render('Blogs/blogs_list');
-    console.log(upload);
 };
 
 exports.blogs_category =  function (req, res) {
@@ -56,11 +65,16 @@ exports.add_blogs_category =  function (req, res) {
 
 exports.add_blogs_post =  function (req, res) {
     res.locals = {  title: 'Add Blogs' };
+    console.log("file ---------------", req.file);
+    console.log("BODY ---------------", req.body);
+    
     Blogs.sync({ force: false }).then((result) => {
         console.log("Result of sync", result);
         Blogs.create(
-            req.body
+            req.body,
+            req.file.filename
         ).then(blogs => {
+            console.log(blogs);
             console.log("New Blog's auto-generated ID:", blogs_name.blogs_id);
             return res.redirect('/blogs-list');
         }).catch(err => {

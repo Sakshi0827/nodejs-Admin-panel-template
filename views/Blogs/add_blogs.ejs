@@ -34,15 +34,15 @@
                             <div class="form-group">
                                 <label>Blog Description</label>
                                 <div>
-                                    <textarea required class="form-control" rows="5"></textarea>
+                                    <textarea name ="blog_description" required class="form-control" rows="5"></textarea>
                                 </div>
                             </div>
 <!--                            Post Date-->
                             <div class="form-group">
-                                <label>Post Date Default Functionality</label>
+                                <label>Post Date</label>
                                 <div>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="datepicker">
+                                        <input type="text" name ="blog_post_date" class="form-control" placeholder="mm/dd/yyyy" id="datepicker-autoclose">
                                         <div class="input-group-append">
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                         </div>
@@ -50,49 +50,10 @@
                                 </div>
                             </div>
 
+<!--                            Blog Category-->
                             <div class="form-group">
-                                <label>Post Date Auto Close</label>
-                                <div>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="datepicker-autoclose">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                        </div>
-                                    </div><!-- input-group -->
-                                </div>
-                            </div>
-
-<!--                            Single Select-->
-                            <div class="form-group">
-                                <label class="control-label">Single Select</label>
-                                <select class="form-control select2">
-                                    <option>Select</option>
-                                    <optgroup label="Alaskan/Hawaiian Time Zone">
-                                        <option value="AK">Alaska</option>
-                                        <option value="HI">Hawaii</option>
-                                    </optgroup>
-                                    <optgroup label="Pacific Time Zone">
-                                        <option value="CA">California</option>
-                                        <option value="NV">Nevada</option>
-                                    </optgroup>
-                                    <optgroup label="Mountain Time Zone">
-                                        <option value="AZ">Arizona</option>
-                                        <option value="CO">Colorado</option>
-                                    </optgroup>
-                                    <optgroup label="Central Time Zone">
-                                        <option value="AL">Alabama</option>
-                                        <option value="AR">Arkansas</option>
-                                    </optgroup>
-                                    <optgroup label="Eastern Time Zone">
-                                        <option value="CT">Connecticut</option>
-                                        <option value="DE">Delaware</option>
-                                    </optgroup>
-                                </select>
-                            </div>
-<!--                            Multiple select-->
-                            <div class="form-group">
-                                <label class="control-label">Multiple Select</label>
-                                <select class="select2 form-control select2-multiple" multiple="multiple" multiple data-placeholder="Choose ...">
+                                <label class="control-label">Blog Category</label>
+                                <select name ="blog_category" class="select2 form-control select2-multiple" multiple="multiple" multiple data-placeholder="Choose ...">
                                     <optgroup label="Alaskan/Hawaiian Time Zone">
                                         <option value="AK">Alaska</option>
                                         <option value="HI">Hawaii</option>
@@ -116,20 +77,24 @@
                                 </select>
                             </div>
 <!--                            dropzone-->
-                            <div class="row">
+<input name="blogs_image" type="file" accept ="image/*" multiple="multiple">
+
+                            <!-- <div class="row">
                                 <div class="col-12">
+                                    <label>Blog Image</label>
                                     <div class="card m-b-20">
                                         <div class="card-body"><div class="m-b-30">
-                                                <div action="#" class="dropzone">
+                                            <div action="#" class="dropzone">
                                                     <div class="fallback">
-                                                        <input name="file" type="file" multiple="multiple">
+                                                        <input name="blogs_image" type="file" accept ="image/*" multiple="multiple">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
+                            <hr>
 <!--                            submit button-->
                             <div class="form-group">
                                 <div>

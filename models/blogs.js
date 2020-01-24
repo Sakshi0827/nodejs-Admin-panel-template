@@ -39,7 +39,8 @@ Blogs.init({
             allowNull: false
         },
         blogs_image: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            allowNull: false
         },
         created_date: {
             type: Sequelize.DATE,

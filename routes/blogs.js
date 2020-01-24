@@ -1,5 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+
+
+let storage = multer.diskStorage({
+	destination: './uploads',
+	filename: function (req, file, cb) {
+		cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+	}
+});
+const upload = multer({storage: storage});
 
 const controller_blogs = require('../controller/controller_blogs');
 
@@ -8,6 +18,7 @@ router.get('/blogs-category', controller_blogs.blogs_category);
 router.get('/add-blogs', controller_blogs.add_blogs);
 router.get('/add-blogs-category', controller_blogs.add_blogs_category);
 router.post('/add-blogs-category', controller_blogs.add_blogs_category_post);
+router.post('/add-blogs', upload.single('blogs_image'), controller_blogs.add_blogs_post);
 
 
 module.exports = router;
