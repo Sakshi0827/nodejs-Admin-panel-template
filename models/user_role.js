@@ -3,39 +3,37 @@ const Sequelize = require('sequelize');
 const connection = require('../config/configdb');
 const sequelize = connection.connection;
 
-// console.log("Sequelize object", sequelize);
 
 const Model = Sequelize.Model;
 
 
-class Company extends Model {};
-
-Company.init({
+class User_role extends Model {};
+User_role.init({
         // attributes
-        company_id: {
+        user_role_id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true,
             allowNull: false
         },
-        company_name: {
+        user_role_name: {
             type: Sequelize.STRING,
             allowNull: false
         },
         created_date: {
             type: Sequelize.DATE,
             allowNull: false,
-            defaultValue: sequelize.literal('NOW()')
+            defaultValue:new Date()
         },
         updated_date: {
             type: Sequelize.DATE,
             allowNull: false,
-            defaultValue: new Date()
+            defaultValue:new Date()
         }},
     {
         sequelize,
-        modelName: 'company_master'
+        modelName: 'user_role'
         // options
     });
 
-module.exports = Company ;
+module.exports = User_role;
