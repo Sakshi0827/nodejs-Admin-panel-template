@@ -2,18 +2,7 @@ const Blogs = require('../models/blogs');
 const Blogs_category = require('../models/blogs_category');
 const multer = require('multer');
 const Sequelize = require('sequelize');
-const path = require('path');
 
-// let storage = multer.diskStorage({
-// 	destination: function (req, file, callback) {
-// 		callback(null, './uploads');
-// 	},
-// 	filename: function (req, file, cb) {
-// 		cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-// 	}
-// });
-
-// const upload = multer({storage: storage});
 
 exports.blogs_list = function (req, res) {
     res.locals = {  title: 'Blog List' };
@@ -74,15 +63,29 @@ exports.add_blogs_post =  (req, res) =>{
     res.locals = {  title: 'Add Blogs' };
     console.log("file ---------------", req.file);
     console.log("BODY ---------------", req.body);
-    
+    // console.log({
+    //     username: req.body.username,
+    //     blogs_title: req.body.blogs_title,
+    //     blogs_description: req.body.blogs_description,
+    //     blogs_post_date : req.body.blogs_post_date,
+    //     blogs_category_name:  json(req.body.blogs_category_name),
+    //     blogs_image: req.file.filename
+    //     });
     Blogs.sync({ force: false }).then((result) => {
         console.log("Result of sync", result);
         Blogs.create(
-            req.body,
-            req.file.filename
+            {
+            user_id: 1,
+            blogs_title: req.body.blogs_title,
+            blogs_description: req.body.blogs_description,
+            blogs_post_date : req.body.blogs_post_date,
+            blogs_category_id: 6,
+            blogs_category_name: JSON.stringify(req.body.blogs_category_name),
+            blogs_image: req.file.filename
+            }
         ).then(blogs => {
-            console.log(blogs);
-            console.log("New Blog's auto-generated ID:", blogs_name.blogs_id);
+            console.log("JSON-------------", blogs);
+            console.log("New Blog's auto-generated ID:", blogs.blogs_id);
             return res.redirect('/blogs-list');
         }).catch(err => {
             console.error('Unable to connect to the database:', err);

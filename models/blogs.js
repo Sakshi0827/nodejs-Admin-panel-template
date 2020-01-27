@@ -54,11 +54,11 @@ Blogs.init({
         }},
     {
         sequelize,
-        modelName: 'blogs_category_master'
+        modelName: 'blogs'
         // options
     });
 
 Blogs_category.hasMany(Blogs, {foreignKey: 'blogs_category_id'});
 // User.hasMany(Blogs, {foreignKey: 'user_id'});
 
-module.exports = Blogs_category ;
+module.exports = Blogs ;
