@@ -1,17 +1,19 @@
 const Blogs = require('../models/blogs');
 const Blogs_category = require('../models/blogs_category');
 const multer = require('multer');
+const Sequelize = require('sequelize');
+const path = require('path');
 
-let storage = multer.diskStorage({
-	destination: function (req, file, callback) {
-		callback(null, './uploads');
-	},
-	filename: function (req, file, cb) {
-		cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-	}
-});
+// let storage = multer.diskStorage({
+// 	destination: function (req, file, callback) {
+// 		callback(null, './uploads');
+// 	},
+// 	filename: function (req, file, cb) {
+// 		cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+// 	}
+// });
 
-const upload = multer({storage: storage});
+// const upload = multer({storage: storage});
 
 exports.blogs_list = function (req, res) {
     res.locals = {  title: 'Blog List' };
@@ -63,7 +65,12 @@ exports.add_blogs_category =  function (req, res) {
 
 //POST 
 
-exports.add_blogs_post =  function (req, res) {
+exports.add_blogs_post =  (req, res) =>{
+    // await Sequelize.sync()
+    // const filePath = `${req.file.destination}/${req.file.filename}`
+    // const Blogs = await Blogs.create({ blogs_image })
+
+
     res.locals = {  title: 'Add Blogs' };
     console.log("file ---------------", req.file);
     console.log("BODY ---------------", req.body);

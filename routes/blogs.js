@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
+const bodyParser = require('body-parser');
+const path = require('path');
 
 
 let storage = multer.diskStorage({
