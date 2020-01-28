@@ -3,12 +3,13 @@ const Blogs_category = require('../models/blogs_category');
 const multer = require('multer');
 const Sequelize = require('sequelize');
 
-
+// blogs
 exports.blogs_list = function (req, res) {
     res.locals = {  title: 'Blog List' };
     res.render('Blogs/blogs_list');
 };
 
+// blogs category
 exports.blogs_category =  function (req, res) {
     res.locals = {  title: 'Blog Category' };
     try{
@@ -28,8 +29,7 @@ exports.blogs_category =  function (req, res) {
             message: "blogs_category fetched successfully."
         })
     })
-    })
-    .catch(err => {
+    }).catch(err => {
     console.error('Unable to connect to the database:', err);
     return res.json({
         status: 500,
@@ -42,36 +42,47 @@ exports.blogs_category =  function (req, res) {
     }
 };
 
+// add BLOGS
 exports.add_blogs =  function (req, res) {
     res.locals = {  title: 'Add Blogs' };
-    res.render('Blogs/add_blogs');
+    try{
+        Blogs_category.sync({ force: false }).then((result) => {
+            console.log("Result of sync", result);
+            Blogs_category.findAll({ }).then(blogs_category => {
+                console.log("All blogs_category:", JSON.stringify(blogs_category, null, 4));
+                return res.render('Blogs/add_blogs', {
+                    status: 200,
+                    data: blogs_category,
+                    message: "blogs_category fetched successfully."
+                })
+            })
+        }).catch(err => {
+                console.error('Unable to connect to the database:', err);
+                return res.json({
+                    status: 500,
+                    data: err,
+                    message: "company fetching failed."
+                })
+            });
+    } catch (exception){
+        console.log("An exception occured, please contact the administrator.", exception);
+    }
 };
 
+// add blogs category
 exports.add_blogs_category =  function (req, res) {
     res.locals = {  title: 'Add Blogs Category' };
     res.render('Blogs/add_blogs_category');
 };
 
+
 //POST 
 
+// add blogs post
 exports.add_blogs_post =  (req, res) =>{
-    // await Sequelize.sync()
-    // const filePath = `${req.file.destination}/${req.file.filename}`
-    // const Blogs = await Blogs.create({ blogs_image })
-
-
     res.locals = {  title: 'Add Blogs' };
     console.log("file ---------------", req.file);
     console.log("BODY ---------------", req.body);
-    // console.log({
-    //     username: req.body.username,
-    //     blogs_title: req.body.blogs_title,
-    //     blogs_description: req.body.blogs_description,
-    //     blogs_post_date : req.body.blogs_post_date,
-    //     blogs_category_name:  json(req.body.blogs_category_name),
-    //     blogs_image: req.file.filename
-    //     });
-    
     Blogs.sync({ force: false }).then((result) => {
         console.log("Result of sync", result);
         Blogs.create(
@@ -103,9 +114,6 @@ exports.add_blogs_post =  (req, res) =>{
 
 
 exports.add_blogs_category_post =  function (req, res) {
-    // const blogs_category_name = req.body.blogs_category_name;
-    // console.log(req.body);
-    //DB
     Blogs_category.sync({ force: false }).then((result) => {
         console.log("Result of sync", result);
         Blogs_category.create(
