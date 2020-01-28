@@ -145,28 +145,28 @@ catch (exception){
 
 exports.add_state_post = function (req, res) {
     res.locals = {  title: 'Add State' };
-    res.send(req.body);
-    // try{
-    //     Country.sync({ force: false }).then((result) => {
-    //         console.log("Result of sync", result);
-    //         Country.create(req.body)
-    //             .then(country => {
-    //                 console.log("New Country's auto-generated ID:", country.country_id);                if(!country.length){
-    //                     res.redirect('/country')
-    //                 }
-    //             })
-    //     }).catch(err => {
-    //         console.error('Unable to connect to the database:', err);
-    //         return res.json({
-    //             status: 500,
-    //             data: err,
-    //             message: "Country fetching failed."
-    //         })
-    //     })
-    // }
-    // catch (exception){
-    //     console.log("An exception occured, please contact the administrator.", exception);
-    // }
+    try{
+        State.sync({ force: false }).then((result) => {
+            console.log("   Result of sync", result);
+            State.create(req.body)
+                .then(state => {
+                    console.log("New state's auto-generated ID:", state.state_id);                
+                    if(!state.length){
+                        res.redirect('/state')
+                    }
+                })
+        }).catch(err => {
+            console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "state fetching failed."
+            })
+        })
+    }
+    catch (exception){
+        console.log("An exception occured, please contact the administrator.", exception);
+    }
 };
 
 
