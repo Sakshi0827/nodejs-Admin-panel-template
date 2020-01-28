@@ -71,6 +71,7 @@ exports.add_blogs_post =  (req, res) =>{
     //     blogs_category_name:  json(req.body.blogs_category_name),
     //     blogs_image: req.file.filename
     //     });
+    
     Blogs.sync({ force: false }).then((result) => {
         console.log("Result of sync", result);
         Blogs.create(

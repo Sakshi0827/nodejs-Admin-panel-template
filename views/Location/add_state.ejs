@@ -19,8 +19,8 @@
                                 <label class="control-label">Country</label>
                                 <select name="country_id" class="form-control select2" required>
                                     <option disabled selected hidden>Select</option>
-                                    <% data.forEach((field)=> { %>
-                                    <option value=<%= field.country_id %> </option> <%= field.country_name %> </option>
+                                    <% data.forEach((country)=> { %>
+                                    <option value=<%= country.country_id %> </option> <%= country.country_name %> </option>
                                     <% }) %>
                                 </select>
                             </div>
