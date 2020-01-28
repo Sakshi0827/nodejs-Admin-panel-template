@@ -5,7 +5,9 @@ const sequelize = connection.connection;
 
 
 
-const Model = Sequelize.Model;class State extends Model {}
+const Model = Sequelize.Model;
+
+class State extends Model {}
 State.init({
         // attributes
         state_id: {
@@ -38,7 +40,10 @@ State.init({
         // options
     });
 
-Country.hasOne(State, {
+Country.hasMany(State, {
+    foreignKey: 'country_id'
+});
+State.belongsTo(Country, {
     foreignKey: 'country_id'
 });
 

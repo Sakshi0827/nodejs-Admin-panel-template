@@ -32,16 +32,22 @@ exports.country_list = function (req, res) {
 
 exports.state_list = function (req, res) {
     res.locals = {  title: 'State' };
+    console.log("[]]]]]]]]]]]]]]]]]",typeof Country);
     try{
         State.sync({ force: false }).then((result) => {
             console.log("Result of sync", result);
-            State.findAll({ }).then(state => {
+            State.findAll({ 
+                include: [
+                    {
+                        models: Country
+                    }
+                ] }).then(state => {
                 console.log("All States:", JSON.stringify(state, null, 4));
-                return res.render('Location/state', {
-                    status: 200,
-                    data: state,
-                    message: "State fetched successfully."
-                })
+                // return res.render('Location/state', {
+                //     status: 200,
+                //     data: state,
+                //     message: "State fetched successfully."
+                // })
             })
         }).catch(err => {
             console.error('Unable to connect to the database:', err);
