@@ -16,13 +16,12 @@
                         <hr>
                         <form class="" action="/add-state" method="post">
                             <div class="form-group">
-                                <label class="control-label">Single Select</label>
+                                <label class="control-label">Country</label>
                                 <select class="form-control select2">
                                     <option>Select</option>
-                                    <optgroup label="Alaskan/Hawaiian Time Zone">
-                                        <option value="AK">Alaska</option>
-                                        <option value="HI">Hawaii</option>
-                                    </optgroup>
+                                    <% data.forEach((field)=> { %>
+                                    <option value=<%= field.country_id%></option> <%= field.country_name %> </option>
+                                    <% }) %>
                                 </select>
                             </div>
                             <!--Company Name-->
