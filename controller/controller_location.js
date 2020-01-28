@@ -115,7 +115,29 @@ exports.add_country_post = function (req, res) {
 
 exports.add_state = function (req, res) {
     res.locals = {  title: 'Add State' };
-    res.render('Location/add_state');
+    try{
+    Country.sync({ force: false }).then((result) => {
+        console.log("Result of sync", result);
+        Country.findAll({ }).then(country => {
+            console.log("All Country:", JSON.stringify(country, null, 4));
+            return res.render('Location/add_state', {
+                status: 200,
+                data: country,
+                message: "Country fetched successfully."
+            })
+        })
+    }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "Country fetching failed."
+        })
+    })
+}
+catch (exception){
+    console.log("An exception occurred, please contact the administrator.", exception);
+}
 };
 
 exports.add_city = function (req, res) {
