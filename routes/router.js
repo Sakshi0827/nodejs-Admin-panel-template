@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 // const userRouter = require('./user.js');
-// const locationRouter = require('./location');
+const locationRouter = require('./location');
 // const fitnessGroupRouter = require('./fitness_group');
 const companyRouter = require('./company');
 // const challengesRouter = require('./challenges');
@@ -18,7 +18,7 @@ router.get('/', function (req, res) {
 // User
 // router.use('/', userRouter);
 // // Location
-// router.use('/', locationRouter);
+router.use('/', locationRouter);
 // // Events
 // router.use('/', eventsRouter);
 // //Fitness Group

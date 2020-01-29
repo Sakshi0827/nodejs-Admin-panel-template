@@ -1,73 +1,175 @@
-// const Country = require('../models/country');
-// const State = require('../models/state');
+const Country = require('../models/country');
+const State = require('../models/state');
 // const City = require('../models/city');
+// require('../models/Associations')();
 
-// // const connection = require('../config/configdb');
-// // const seqInst =  connection.connection;
+// Country LIST
 
-// console.log("THe models are", seqInst.models)
-// // LIST
-// exports.country_list = function (req, res) {
-//     res.locals = {  title: 'Country' };
-//     try{
-//         Country.sync({ force: false }).then((result) => {
-//             console.log("Result of sync", result);
-//             Country.findAll({ }).then(country => {
-//                 console.log("All Country:", JSON.stringify(country, null, 4));
-//                 return res.render('Location/country', {
-//                     status: 200,
-//                     data: country,
-//                     message: "Country fetched successfully."
-//                 })
-//             })
-//         }).catch(err => {
-//             console.error('Unable to connect to the database:', err);
-//             return res.json({
-//                 status: 500,
-//                 data: err,
-//                 message: "Country fetching failed."
-//             })
-//         })
-//     }
-//     catch (exception){
-//         console.log("An exception occurred, please contact the administrator.", exception);
-//     }
+exports.country_list = function (req, res) {
+    res.locals = {  title: 'Country' };
+    try{
+         Country.findAll({ }).then(country => {
+            console.log("All Country:", JSON.stringify(country, null, 4));
+            return res.render('Location/country', {
+                status: 200,
+                data: country,
+                message: "Country fetched successfully."
+            })
+        }).catch(err => {
+            console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "Country fetching failed."
+            })
+        })
+    }
+    catch (exception){
+        console.log("An exception occurred, please contact the administrator.", exception);
+    }
+};
+
+// Add country get
+
+exports.add_country = function (req, res) {
+    res.locals = {  title: 'Add Country' };
+    res.render('Location/add_country');
+};
+
+// Add country post
+
+exports.add_country_post = function (req, res) {
+    res.locals = {  title: 'Add Country' };
+    try{
+        Country.create(req.body)
+            .then(country => {
+                console.log("New Country's auto-generated ID:", country.country_id);                if(!country.length){
+                    res.redirect('/country')
+                }
+        }).catch(err => {
+            console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "Country fetching failed."
+            })
+        })
+    }
+    catch (exception){
+        console.log("An exception occured, please contact the administrator.", exception);
+    }
+};
+
+// State LIST
+
+exports.state_list = async function (req, res) {
+    res.locals = {  title: 'State' };
+    module.exports = async() => {
+        const Country = require('./Country');
+        const State = require('./State'); 
+    
+        Country.hasMany(State, { foreignKey: "country_id"});
+        State.belongsTo(Country, { foreignKey: "country_id"});
+    
+    console.log("association running");
+    
+    const toy = await State.findAll({  
+        include: [
+        {model
+            : Country
+        }
+        ]}).catch(err => {
+            console.error('Unable to connect to the database:', err);
+        });
+    
+    
+    console.log("states: ", toy);
+    }}
+    // };
+    // try{
+    //      await State.findAll({  
+    //         include: [
+    //         {
+    //             model: Country
+    //         }
+    //     ]}).then(state => {
+    //         console.log("All States:", JSON.stringify(state, null, 4));
+    //         return res.render('Location/state', {
+    //             status: 200,
+    //             data: state,
+    //             message: "State fetched successfully."
+    //         })
+    //     }).catch(err => {
+    //         console.error('Unable to connect to the database:', err);
+    //         return res.json({
+    //             status: 500,
+    //             data: err,
+    //             message: "State fetching failed."
+    //         })
+    //     })
+    // }
+    // catch (exception){
+    //     console.log("An exception occurred, please contact the administrator.", exception);
+    // }
 // };
 
-// exports.state_list = function (req, res) {
-//     res.locals = {  title: 'State' };
-//     console.log("[]]]]]]]]]]]]]]]]]", State);
-//     try{
-//         State.sync({ force: false }).then((result) => {
-//             console.log("Result of sync", result);
-//             State.findAll({ 
-                
-//              },{include: [
-//                 {
-//                     models: Country,
-//                     required: false
-//                 }
-//             ]}).then(state => {
-//                 console.log("All States:", JSON.stringify(state, null, 4));
-//                 // return res.render('Location/state', {
-//                 //     status: 200,
-//                 //     data: state,
-//                 //     message: "State fetched successfully."
-//                 // })
-//             })
-//         }).catch(err => {
-//             console.error('Unable to connect to the database:', err);
-//             return res.json({
-//                 status: 500,
-//                 data: err,
-//                 message: "State fetching failed."
-//             })
-//         })
-//     }
-//     catch (exception){
-//         console.log("An exception occurred, please contact the administrator.", exception);
-//     }
-// };
+// // Add state get
+
+exports.add_state = function (req, res) {
+    res.locals = {  title: 'Add State' };
+    try{
+    Country.sync({ force: false }).then((result) => {
+        console.log("Result of sync", result);
+        Country.findAll({ }).then(country => {
+            console.log("All Country:", JSON.stringify(country, null, 4));
+            return res.render('Location/add_state', {
+                status: 200,
+                data: country,
+                message: "Country fetched successfully."
+            })
+        })
+    }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "Country fetching failed."
+        })
+    })
+}
+catch (exception){
+    console.log("An exception occurred, please contact the administrator.", exception);
+}
+};
+
+// add state post
+
+exports.add_state_post = function (req, res) {
+    res.locals = {  title: 'Add State' };
+    try{
+        State.sync({ force: false }).then((result) => {
+            console.log("   Result of sync", result);
+            State.create(req.body)
+                .then(state => {
+                    console.log("New state's auto-generated ID:", state.state_id);                
+                    if(!state.length){
+                        res.redirect('/state')
+                    }
+                })
+        }).catch(err => {
+            console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "state fetching failed."
+            })
+        })
+    }
+    catch (exception){
+        console.log("An exception occured, please contact the administrator.", exception);
+    }
+};
+
 
 // exports.city_list = function (req, res) {
 //     res.locals = {  title: 'City' };try{
@@ -95,91 +197,10 @@
 //     }
 // };
 
-// // Add country
-// exports.add_country = function (req, res) {
-//     res.locals = {  title: 'Add Country' };
-//     res.render('Location/add_country');
-// };
-
-// exports.add_country_post = function (req, res) {
-//     res.locals = {  title: 'Add Country' };
-//     try{
-//         Country.sync({ force: false }).then((result) => {
-//             console.log("Result of sync", result);
-//             Country.create(req.body)
-//                 .then(country => {
-//                     console.log("New Country's auto-generated ID:", country.country_id);                if(!country.length){
-//                         res.redirect('/country')
-//                     }
-//                 })
-//         }).catch(err => {
-//             console.error('Unable to connect to the database:', err);
-//             return res.json({
-//                 status: 500,
-//                 data: err,
-//                 message: "Country fetching failed."
-//             })
-//         })
-//     }
-//     catch (exception){
-//         console.log("An exception occured, please contact the administrator.", exception);
-//     }
-// };
 
 
-// // Add state
-// exports.add_state = function (req, res) {
-//     res.locals = {  title: 'Add State' };
-//     try{
-//     Country.sync({ force: false }).then((result) => {
-//         console.log("Result of sync", result);
-//         Country.findAll({ }).then(country => {
-//             console.log("All Country:", JSON.stringify(country, null, 4));
-//             return res.render('Location/add_state', {
-//                 status: 200,
-//                 data: country,
-//                 message: "Country fetched successfully."
-//             })
-//         })
-//     }).catch(err => {
-//         console.error('Unable to connect to the database:', err);
-//         return res.json({
-//             status: 500,
-//             data: err,
-//             message: "Country fetching failed."
-//         })
-//     })
-// }
-// catch (exception){
-//     console.log("An exception occurred, please contact the administrator.", exception);
-// }
-// };
 
-// exports.add_state_post = function (req, res) {
-//     res.locals = {  title: 'Add State' };
-//     try{
-//         State.sync({ force: false }).then((result) => {
-//             console.log("   Result of sync", result);
-//             State.create(req.body)
-//                 .then(state => {
-//                     console.log("New state's auto-generated ID:", state.state_id);                
-//                     if(!state.length){
-//                         res.redirect('/state')
-//                     }
-//                 })
-//         }).catch(err => {
-//             console.error('Unable to connect to the database:', err);
-//             return res.json({
-//                 status: 500,
-//                 data: err,
-//                 message: "state fetching failed."
-//             })
-//         })
-//     }
-//     catch (exception){
-//         console.log("An exception occured, please contact the administrator.", exception);
-//     }
-// };
+
 
 
 // // Add city

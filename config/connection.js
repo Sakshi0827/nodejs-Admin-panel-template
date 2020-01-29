@@ -13,3 +13,6 @@ module.exports = sequelize;
 //sequelize db:migrate
 //sequelize db:migrate:undo         last migration undo
 //sequelize db:migrate:undo:all
+
+
+// plural kr dena model ko in migration :)
