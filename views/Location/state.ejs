@@ -53,23 +53,20 @@
                             </thead>
 
                             <tbody>
-                            <%
-                            for(var i=1;i<=10;i++){
-                            %>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>MP</td>
-                                    <td>India</td>
-                                    <td>27/08/08</td>
-                                    <th>
-                                        <button class="btn btn-info waves-effect waves-light">edit</button>
-                                        <button class="btn btn-danger waves-effect waves-light">delete</button>
-                                    </th>
-                                </tr>
-                            <%
-                            }
-                            %>
-                            </tbody>
+                                <% data.forEach((state) => {%>
+                                    <tr>
+                                        <th scope="row"> <%= state.state_id %></th>
+                                        <td><%= state.state_name %></td>
+                                        <td><%= state.Country.country_name %></td>
+                                        <td><%= state.createdAt %></td>
+                                        <td><%= state.updatedAt %></td>
+                                        <th>
+                                            <button class="btn btn-info waves-effect waves-light">edit</button>
+                                            <button class="btn btn-danger waves-effect waves-light">delete</button>
+                                        </th>
+                                    </tr>
+                                <% }) %>
+                                </tbody>
                         </table>
                     </div>
                 </div>

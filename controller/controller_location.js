@@ -1,7 +1,10 @@
 const Country = require('../models/country');
 const State = require('../models/state');
-// const City = require('../models/city');
+const City = require('../models/city');
 // require('../models/Associations')();
+
+Country.hasMany(State, { foreignKey: "country_id"});
+State.belongsTo(Country, { foreignKey: "country_id"});
 
 // Country LIST
 
@@ -62,64 +65,40 @@ exports.add_country_post = function (req, res) {
 
 // State LIST
 
-exports.state_list = async function (req, res) {
+exports.state_list =  function (req, res) {
     res.locals = {  title: 'State' };
-    module.exports = async() => {
-        const Country = require('./Country');
-        const State = require('./State'); 
-    
-        Country.hasMany(State, { foreignKey: "country_id"});
-        State.belongsTo(Country, { foreignKey: "country_id"});
-    
-    console.log("association running");
-    
-    const toy = await State.findAll({  
-        include: [
-        {model
-            : Country
-        }
-        ]}).catch(err => {
+    try{
+          State.findAll({  
+            include: [
+            {
+                model: Country
+            }
+        ]}).then(state => {
+            console.log("All States:", JSON.stringify(state, null, 4));
+            return res.render('Location/state', {
+                status: 200,
+                data: state,
+                message: "State fetched successfully."
+            })
+        }).catch(err => {
             console.error('Unable to connect to the database:', err);
-        });
-    
-    
-    console.log("states: ", toy);
-    }}
-    // };
-    // try{
-    //      await State.findAll({  
-    //         include: [
-    //         {
-    //             model: Country
-    //         }
-    //     ]}).then(state => {
-    //         console.log("All States:", JSON.stringify(state, null, 4));
-    //         return res.render('Location/state', {
-    //             status: 200,
-    //             data: state,
-    //             message: "State fetched successfully."
-    //         })
-    //     }).catch(err => {
-    //         console.error('Unable to connect to the database:', err);
-    //         return res.json({
-    //             status: 500,
-    //             data: err,
-    //             message: "State fetching failed."
-    //         })
-    //     })
-    // }
-    // catch (exception){
-    //     console.log("An exception occurred, please contact the administrator.", exception);
-    // }
-// };
+            return res.json({
+                status: 500,
+                data: err,
+                message: "State fetching failed."
+            })
+        })
+    }
+    catch (exception){
+        console.log("An exception occurred, please contact the administrator.", exception);
+    }
+};
 
 // // Add state get
 
 exports.add_state = function (req, res) {
     res.locals = {  title: 'Add State' };
     try{
-    Country.sync({ force: false }).then((result) => {
-        console.log("Result of sync", result);
         Country.findAll({ }).then(country => {
             console.log("All Country:", JSON.stringify(country, null, 4));
             return res.render('Location/add_state', {
@@ -127,7 +106,6 @@ exports.add_state = function (req, res) {
                 data: country,
                 message: "Country fetched successfully."
             })
-        })
     }).catch(err => {
         console.error('Unable to connect to the database:', err);
         return res.json({
@@ -147,15 +125,12 @@ catch (exception){
 exports.add_state_post = function (req, res) {
     res.locals = {  title: 'Add State' };
     try{
-        State.sync({ force: false }).then((result) => {
-            console.log("   Result of sync", result);
-            State.create(req.body)
-                .then(state => {
-                    console.log("New state's auto-generated ID:", state.state_id);                
-                    if(!state.length){
-                        res.redirect('/state')
-                    }
-                })
+        State.create(req.body)
+            .then(state => {
+                console.log("New state's auto-generated ID:", state.state_id);                
+                if(!state.length){
+                    res.redirect('/state')
+                }
         }).catch(err => {
             console.error('Unable to connect to the database:', err);
             return res.json({
@@ -172,9 +147,8 @@ exports.add_state_post = function (req, res) {
 
 
 // exports.city_list = function (req, res) {
-//     res.locals = {  title: 'City' };try{
-//         City.sync({ force: false }).then((result) => {
-//             console.log("Result of sync", result);
+//     res.locals = {  title: 'City' };
+// try{
 //             City.findAll({ }).then(city => {
 //                 console.log("All City:", JSON.stringify(city, null, 4));
 //                 return res.render('Location/city', {
@@ -182,7 +156,6 @@ exports.add_state_post = function (req, res) {
 //                     data: city,
 //                     message: "City fetched successfully."
 //                 })
-//             })
 //         }).catch(err => {
 //             console.error('Unable to connect to the database:', err);
 //             return res.json({
