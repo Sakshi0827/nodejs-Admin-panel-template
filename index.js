@@ -8,6 +8,8 @@ const multer = require('multer');
 var router = require('./routes/router.js');
 var Authrouter = require('./Authrouter.js');
 
+
+
 // Access public folder from root
 app.use('/public', express.static('public'));
 app.use('/public', express.static('views'));
@@ -29,8 +31,15 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
 
+
+
+
 // Add Route file with app
 app.use('/', router); 
+
+
+//DB connection
+require('./config/connection');
 
 http.listen(3000, function(){
   console.log('listening on *:3000');
