@@ -11,6 +11,15 @@ var Authrouter = require('./Authrouter.js');
 const Country = require('./models/country');
 const State = require('./models/state');
 const City = require('./models/city');
+const Event = require('./models/event');
+const Event_category = require('./models/event_category');
+const Blogs = require('./models/blogs');
+const Blogs_category = require('./models/blogs_category');
+// const User = require('./models/user');
+// const User_role = require('./models/user_role');
+const Fitness_group = require('./models/fitness_group');
+const Company = require('./models/company');
+
 
 
 // Access public folder from root
@@ -29,11 +38,33 @@ require('./config/connection');
 
 //Associations
 require('./models/Associations')();
+//state
 Country.hasMany(State, { foreignKey: "country_id"});
 State.belongsTo(Country, { foreignKey: "country_id"});
-
+//city
 State.hasMany(City, {foreignKey: "state_id"});
 City.belongsTo(State, {foreignKey: "state_id"});
+//event
+Event.hasMany(Event_category, { foreignKey: "event_category_id"});
+Event_category.hasMany(Event, { foreignKey: "event_category_id"});
+//blogs
+Blogs.hasMany(Blogs_category, { foreignKey: "blogs_category_id"});
+Blogs_category.hasMany(Blogs, { foreignKey: "blogs_category_id"});
+// User.hasMany(Blogs, {foreignKey: "user_id"});
+// Blogs.belongsTo(User, {foreignKey: "user_id"});
+//User
+// User.hasOne(Fitness_group, { foreignKey: "fitness_group_id"});
+// User.hasOne(Company, { foreignKey: "company_id"});
+// User.hasOne(Country, { foreignKey: "country_id"});
+// User.hasOne(State, { foreignKey: "state_id"});
+// User.hasOne(City, { foreignKey: "city_id"});
+// Fitness_group.belongsTo(User, {foreignKey: "fitness_group_id"});
+// Company.belongsTo(User, {foreignKey: "company_id"});
+// Country.belongsTo(User, {foreignKey: "country_id"});
+// State.belongsTo(User, {foreignKey: "state_id"});
+// City.belongsTo(User, {foreignKey: "city_id"});
+
+
 
 // Add Authentication Route file with app
 app.use('/', Authrouter); 
