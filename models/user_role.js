@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const sequelize = require('../config/connection');
 
 
-module.exports = sequelize.define("Company", {
+module.exports = sequelize.define("User_role", {
     user_role_id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
