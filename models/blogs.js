@@ -32,5 +32,5 @@ module.exports = sequelize.define("Blogs", {
         blogs_image: {
             type: Sequelize.STRING,
             allowNull: false
-        },
+        }
 });

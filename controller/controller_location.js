@@ -149,20 +149,30 @@ exports.add_state_post = function (req, res) {
 
 exports.city_list = function (req, res) {
     res.locals = {  title: 'City' };
-try{
-            City.findAll({ }).then(city => {
-                console.log("All City:", JSON.stringify(city, null, 4));
-                return res.render('Location/city', {
-                    status: 200,
-                    data: city,
-                    message: "City fetched successfully."
-                })
+    try{
+          City.findAll({  
+            include: [
+            {
+                model: State
+            }],
+            include: [
+                {
+                    model:Country
+                }
+            ]
+    }).then(city => {
+            console.log("All Cities:", JSON.stringify(city, null, 4));
+            return res.render('Location/city', {
+                status: 200,
+                data: state,
+                message: "City fetched successfully."
+            })
         }).catch(err => {
             console.error('Unable to connect to the database:', err);
             return res.json({
                 status: 500,
                 data: err,
-                message: "City fetching failed."
+                message: "State fetching failed."
             })
         })
     }
@@ -179,10 +189,10 @@ exports.add_city = function (req, res) {
 
     try{
         State.findAll({  }).then(state => {
-            console.log("All State:", JSON.stringify(state, null, 4));
+            // console.log("All State:", JSON.stringify(state, null, 4));
 
         Country.findAll({  }).then(country => {
-            console.log("All Country:", JSON.stringify(country, null, 4));
+            // console.log("All Country:", JSON.stringify(country, null, 4));
             return res.render('Location/add_city', {
                 status: 200,
                 data: country,
@@ -209,10 +219,12 @@ catch (exception){
 
 exports.add_city_post = function (req, res) {
     res.locals = {  title: 'Add City' };
+        console.log(req.body);
     try{
+        console.log(req.body);
         City.create(req.body)
             .then(city => {
-                console.log("New state's auto-generated ID:", city.city_id);                
+                console.log("New city's auto-generated ID:", city.city_id);                
                 if(!city.length){
                     res.redirect('/city')
                 }
