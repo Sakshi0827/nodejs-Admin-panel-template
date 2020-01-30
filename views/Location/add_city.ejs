@@ -18,12 +18,11 @@
 <!--                            Country-->
                             <div class="form-group">
                                 <label class="control-label">Country</label>
-                                <select class="form-control select2">
-                                    <option>Select</option>
-                                    <optgroup label="Alaskan/Hawaiian Time Zone">
-                                        <option value="AK">Alaska</option>
-                                        <option value="HI">Hawaii</option>
-                                    </optgroup>
+                                <select name="country_id" class="form-control select2" required>
+                                    <option disabled selected hidden>Select</option>
+                                    <% data.forEach((country)=> { %>
+                                    <option value=<%= country.country_id %> </option> <%= country.country_name %> </option>
+                                    <% }) %>
                                 </select>
                             </div>
 <!--                            State-->

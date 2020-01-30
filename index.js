@@ -8,6 +8,10 @@ const multer = require('multer');
 var router = require('./routes/router.js');
 var Authrouter = require('./Authrouter.js');
 
+const Country = require('./models/country');
+const State = require('./models/state');
+const City = require('./models/city');
+
 
 // Access public folder from root
 app.use('/public', express.static('public'));
@@ -25,6 +29,9 @@ require('./config/connection');
 
 //Associations
 require('./models/Associations')();
+Country.hasMany(State, { foreignKey: "country_id"});
+State.belongsTo(Country, { foreignKey: "country_id"});
+
 // Add Authentication Route file with app
 app.use('/', Authrouter); 
 
