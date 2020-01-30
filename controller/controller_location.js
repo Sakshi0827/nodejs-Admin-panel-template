@@ -153,18 +153,24 @@ exports.city_list = function (req, res) {
           City.findAll({  
             include: [
             {
-                model: State
-            }],
-            include: [
+                model: State,
+                include: [
                 {
                     model:Country
                 }
             ]
+        }
+        ]
+            // include: [
+            //     {
+            //         model:Country
+            //     }
+            // ]
     }).then(city => {
             console.log("All Cities:", JSON.stringify(city, null, 4));
             return res.render('Location/city', {
                 status: 200,
-                data: state,
+                data: city,
                 message: "City fetched successfully."
             })
         }).catch(err => {

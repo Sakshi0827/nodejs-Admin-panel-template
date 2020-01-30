@@ -45,6 +45,7 @@
                                 <th>id</th>
                                 <th>City Name</th>
                                 <th>State Name</th>
+                                <th>Country Name</th>
                                 <th>created_date</th>
                                 <th>updated_date</th>
                                 <th>Actions</th>
@@ -52,24 +53,21 @@
                             </thead>
 
                             <tbody>
-                            <%
-                            for(var i=1;i<=10;i++){
-                            %>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Indore</td>
-                                    <td>MP</td>
-                                    <td>27/08/08</td>
-                                    <td>27/08/08</td>
-                                    <th>
-                                        <button class="btn btn-info waves-effect waves-light">edit</button>
-                                        <button class="btn btn-danger waves-effect waves-light">delete</button>
-                                    </th>
-                                </tr>
-                            <%
-                            }
-                            %>
-                            </tbody>
+                                <% data.forEach((city) => {%>
+                                    <tr>
+                                        <th scope="row"> <%= city.city_id %></th>
+                                        <td><%= city.city_name %></td>
+                                        <td><%= city.State.state_name %></td>
+                                        <td><%= city.State.Country.country_name %></td>
+                                        <td><%= city.createdAt %></td>
+                                        <td><%= city.updatedAt %></td>
+                                        <th>
+                                            <button class="btn btn-info waves-effect waves-light">edit</button>
+                                            <button class="btn btn-danger waves-effect waves-light">delete</button>
+                                        </th>
+                                    </tr>
+                                <% }) %>
+                                </tbody>
                         </table>
                     </div>
                 </div>
