@@ -28,55 +28,9 @@ exports.add_challenges = function (req, res) {
     res.render('Challenges/add_challenges');
 };
 
-<<<<<<< HEAD
 exports.add_challenges_post = function (req, res) {
     Challenges.create(
             req.body
-=======
-exports.challenges_list = function (req, res) {
-    res.locals = {  title: 'Challenges' };
-    try{
-        Challenges.sync({ force: false }).then((result) => {
-        console.log("Result of sync", result);
-            Challenges.findAll({ }).then(challenges => {
-                console.log("All Challenges:", JSON.stringify(challenges, null, 4));
-                return res.render('Challenges/challenges', {
-                    status: 200,
-                    data: challenges,
-                    message: "Challenges fetched successfully."
-                })
-            })
-        }).catch(err => {
-                console.error('Unable to connect to the database:', err);
-                return res.json({
-                    status: 500,
-                    data: err,
-                    message: "Challenges fetching failed."
-                })
-            });
-        } catch (exception){
-            console.log("An exception occured, please contact the administrator.", exception);
-    }
-};
-
-exports.add_challenges = function (req, res) {
-    res.locals = {  title: 'Add Challenges' };
-    res.render('Challenges/add_challenges');
-};
-
-exports.add_challenges_post = function (req, res) {
-    const challenge_tilte = req.body.challenge_tilte;
-    const challenge_price = req.body.challenge_price;
-    const challenge_description = req.body.challenge_description;
-    const challenge_note = req.body.challenge_note;
-    console.log(req.body);
-    //database code to insert dataconsole.log("Attempting to add company.");
-    Challenges.sync({ force: false }).then((result) => {
-        console.log("Result of sync", result);
-        Challenges.create(
-            req.body
-            
->>>>>>> d25986f56f10ec0d4648577a2044e1ac2e79beeb
         ).then(challenge_title => {
             console.log("New challenge's auto-generated ID:", challenge_title.challenge_id);
             res.redirect('/challenges');
@@ -87,10 +41,6 @@ exports.add_challenges_post = function (req, res) {
                 data: err,
                 message: "Challenges creation failed."
             })
-<<<<<<< HEAD
-=======
-        });
->>>>>>> d25986f56f10ec0d4648577a2044e1ac2e79beeb
     }).catch((error) => {
         console.log("An error was encountered during the synchronization", error);
     })
