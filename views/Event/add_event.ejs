@@ -33,23 +33,21 @@
                             </div>
                             <!-- Single Select-->
                             <div class="form-group">
-                                <label class="control-label">Single Select</label>
-                                <select class="form-control select2">
-                                    <option>Select</option>
-                                    <optgroup label="Alaskan/Hawaiian Time Zone">
-                                        <option value="AK">Alaska</option>
-                                        <option value="HI">Hawaii</option>
-                                    </optgroup>
+                                <label class="control-label">Location</label>
+                                <select name="city_id" class="form-control select2" required>
+                                    <option disabled selected hidden>Select</option>
+                                    <% data2.forEach((city)=> { %>
+                                    <option value=<%= city.city_id %> </option> <%= city.city_name %> </option>
+                                    <% }) %>
                                 </select>
                             </div>
                             <!-- Multiple select-->
                             <div class="form-group">
-                                <label class="control-label">Multiple Select</label>
-                                <select class="select2 form-control select2-multiple" multiple="multiple" multiple data-placeholder="Choose ...">
-                                    <optgroup label="Alaskan/Hawaiian Time Zone">
-                                        <option value="AK">Alaska</option>
-                                        <option value="HI">Hawaii</option>
-                                    </optgroup>
+                                <label class="control-label">Blog Category</label>
+                                <select name ="blogs_category_id" class="select2 form-control select2-multiple" multiple="multiple" multiple data-placeholder="Choose ...">
+                                    <% data.forEach((event_category)=> { %>
+                                        <option value=<%= event_category.event_category_id %> </option> <%= event_category.event_category_name %> </option>
+                                        <% }) %>
                                 </select>
                             </div>
                             <!-- submit button-->
