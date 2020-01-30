@@ -94,7 +94,7 @@ exports.state_list =  function (req, res) {
     }
 };
 
-// // Add state get
+// Add state get
 
 exports.add_state = function (req, res) {
     res.locals = {  title: 'Add State' };
