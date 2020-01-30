@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const controller_fitnessGroup = require('../controller/controller_fitness_goup');
+const controller_fitnessGroup = require('../controller/controller_fitness_group');
 
 router.get('/fitness-group', controller_fitnessGroup.fitnessGroup_list);
 router.get('/add-fitness-group', controller_fitnessGroup.add_fitnessGroup);

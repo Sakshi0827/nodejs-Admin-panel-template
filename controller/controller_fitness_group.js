@@ -5,12 +5,6 @@ exports.fitnessGroup_list = function (req, res) {
     try{
         Fitness_group.findAll({ }).then(fitness_group => {
             console.log("All Fitness Group:", JSON.stringify(fitness_group, null, 4));
-            if(!fitness_group.length){
-                return res.json({
-                    status: 404,
-                    message: "Fitness Group not found."
-                })
-            }
             return res.render('Fitness-group/fitness_group', {
                 status: 200,
                 data: fitness_group,
