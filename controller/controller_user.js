@@ -8,9 +8,6 @@ exports.user_list = function(req, res) {
 exports.user_roles = function (req, res) {
     res.locals = {title: 'User Roles'};
     try{
-
-        User_role.sync({ force: false }).then((result) => {
-        console.log("Result of sync", result);
         User_role.findAll({ }).then(user_role => {
             console.log("All user_role:", JSON.stringify(user_role, null, 4));
             
@@ -26,8 +23,6 @@ exports.user_roles = function (req, res) {
                 message: "user_roles fetched successfully."
             })
         })
-
-    })
         .catch(err => {
             console.error('Unable to connect to the database:', err);
             return res.json({
@@ -67,8 +62,6 @@ exports.add_user_roles_post = function (req, res) {
     const userRole = req.body.userRole;
     console.log(req.body);
     //DB
-    User_role.sync({ force: false }).then((result) => {
-        console.log("Result of sync", result);
         User_role.create(
             req.body,
         ).then(user_role_name => {
@@ -82,8 +75,8 @@ exports.add_user_roles_post = function (req, res) {
                 data: err,
                 message: "user_role creation failed."
             })
-        });
-    }).catch((error) => {
+        })
+    .catch((error) => {
         console.log("An error was encountered during the synchronization", error);
     })
     res.redirect('/user-roles');
