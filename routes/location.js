@@ -14,7 +14,7 @@ router.get('/add-city', controller_location.add_city);
 //post add-list
 router.post('/add-country', controller_location.add_country_post);
 router.post('/add-state', controller_location.add_state_post);
-
+router.post('/add-city', controller_location.add_city_post);
 
 
 module.exports = router;

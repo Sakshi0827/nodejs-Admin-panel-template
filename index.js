@@ -32,6 +32,9 @@ require('./models/Associations')();
 Country.hasMany(State, { foreignKey: "country_id"});
 State.belongsTo(Country, { foreignKey: "country_id"});
 
+State.hasMany(City, {foreignKey: "state_id"});
+City.belongsTo(State, {foreignKey: "state_id"});
+
 // Add Authentication Route file with app
 app.use('/', Authrouter); 
 
