@@ -49,7 +49,7 @@ Event.hasMany(Event_category, { foreignKey: "event_category_id"});
 Event_category.hasMany(Event, { foreignKey: "event_category_id"});
 //blogs
 Blogs.hasMany(Blogs_category, { foreignKey: "blogs_category_id"});
-Blogs_category.hasMany(Blogs, { foreignKey: "blogs_category_id"});
+Blogs_category.belongsTo(Blogs, { foreignKey: "blogs_category_id"});
 // User.hasMany(Blogs, {foreignKey: "user_id"});
 // Blogs.belongsTo(User, {foreignKey: "user_id"});
 //User

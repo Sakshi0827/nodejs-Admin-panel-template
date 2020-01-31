@@ -26,7 +26,7 @@ module.exports = {
         allowNull: false
     },
     blogs_category_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.JSON,
         allowNull: false
     },
     blogs_image: {

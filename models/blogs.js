@@ -9,27 +9,27 @@ module.exports = sequelize.define("Blogs", {
             autoIncrement: true,
             allowNull: false
         },
-        user_id: {
+    user_id: {
             type: Sequelize.INTEGER,
             allowNull: false
         },
-        blogs_title: {
+    blogs_title: {
             type: Sequelize.STRING,
             allowNull: false
         },
-        blogs_description: {
+    blogs_description: {
             type: Sequelize.TEXT,
             allowNull: false
         },
-        blogs_post_date: {
+    blogs_post_date: {
             type: Sequelize.DATEONLY,
             allowNull: false
         },
-        blogs_category_id: {
-            type: Sequelize.INTEGER,
+    blogs_category_id: {
+            type: Sequelize.JSON,
             allowNull: false
         },
-        blogs_image: {
+    blogs_image: {
             type: Sequelize.STRING,
             allowNull: false
         }

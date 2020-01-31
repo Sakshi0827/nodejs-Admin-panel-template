@@ -6,7 +6,9 @@ exports.blogs_list = function (req, res) {
     res.locals = {  title: 'Blog List' };
     try{
         Blogs.findAll({ include:[
-                { model: Blogs_category }
+                {
+                    model: Blogs_category
+                }
             ] }).then(blogs => {
             console.log("All blogs:", JSON.stringify(blogs, null, 4));
             // res.json(blogs);
@@ -61,8 +63,7 @@ exports.add_blogs_post =  (req, res) =>{
             blogs_title: req.body.blogs_title,
             blogs_description: req.body.blogs_description,
             blogs_post_date : req.body.blogs_post_date,
-            blogs_category_id: 6,
-            blogs_category_name: JSON.stringify(req.body.blogs_category_name),
+            blogs_category_id: JSON.stringify(req.body.blogs_category_id ),
             blogs_image: req.file.filename
         }
         ).then(blogs => {
