@@ -58,6 +58,13 @@
                             <tbody>
                             <% data.forEach((challenges)=>{ %>
                                 <tr>
+                                    <th>
+                                        <button class="btn btn-info waves-effect waves-light">edit</button>
+                                        <a href="#" data-id="<%= challenges.challenge_id %>"
+                                           class="btn btn-danger waves-effect waves-light delete_challenge">
+                                            delete
+                                        </a>
+                                    </th>
                                     <th scope="row"> <%=challenges.challenge_id%></th>
                                     <td><%=challenges.challenge_title%></td>
                                     <td><%=challenges.challenge_price%></td>
@@ -65,10 +72,6 @@
                                     <td><%=challenges.challenge_note%></td>
                                     <td><%=challenges.createdAt%></td>
                                     <td><%=challenges.updatedAt%></td>
-                                    <th>
-                                        <button class="btn btn-info waves-effect waves-light">edit</button>
-                                        <button class="btn btn-danger waves-effect waves-light">delete</button>
-                                    </th>
                                 </tr>
                             <% }) %>
                             </tbody>
@@ -81,18 +84,35 @@
 </div> <!-- content -->
 
 <%- contentFor('FooterJs') %>
-
+<script>
+    $(document).ready(function(){
+        $('.delete_challenge').click(function (e) {
+            alert(2);
+            $target = $(e.target);
+            console.log($target.attr('data-id'));
+            const challenge_id = $target.attr('data-id');
+            $.ajax({
+                type: 'DELETE',
+                url: '/delete-challenge'+ challenge_id,
+                success: function (response) {
+                    alert('challenge deleted');
+                    window.location.href='/challenge';
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+</script>
 <!-- Required datatable js -->
 <script src="public/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="public/plugins/datatables/dataTables.bootstrap4.min.js"></script>
 <!-- Buttons examples -->
 <script src="public/plugins/datatables/dataTables.buttons.min.js"></script>
 <script src="public/plugins/datatables/buttons.bootstrap4.min.js"></script>
-<script src="public/plugins/datatables/jszip.min.js"></script>
-<script src="public/plugins/datatables/pdfmake.min.js"></script>
 <script src="public/plugins/datatables/vfs_fonts.js"></script>
 <script src="public/plugins/datatables/buttons.html5.min.js"></script>
-<script src="public/plugins/datatables/buttons.print.min.js"></script>
 <script src="public/plugins/datatables/buttons.colVis.min.js"></script>
 <!-- Responsive examples -->
 <script src="public/plugins/datatables/dataTables.responsive.min.js"></script>
