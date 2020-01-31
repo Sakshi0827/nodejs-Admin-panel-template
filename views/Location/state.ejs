@@ -55,15 +55,18 @@
                             <tbody>
                                 <% data.forEach((state) => {%>
                                     <tr>
+                                        <th>
+                                            <button class="btn btn-info waves-effect waves-light">edit</button>
+                                            <a href="#" data-id="<%= state.state_id %>"
+                                               class="btn btn-danger waves-effect waves-light delete_state">
+                                                delete
+                                            </a>
+                                        </th>
                                         <th scope="row"> <%= state.state_id %></th>
                                         <td><%= state.state_name %></td>
                                         <td><%= state.Country.country_name %></td>
                                         <td><%= state.createdAt %></td>
                                         <td><%= state.updatedAt %></td>
-                                        <th>
-                                            <button class="btn btn-info waves-effect waves-light">edit</button>
-                                            <button class="btn btn-danger waves-effect waves-light">delete</button>
-                                        </th>
                                     </tr>
                                 <% }) %>
                                 </tbody>
@@ -76,6 +79,27 @@
 </div> <!-- content -->
 
 <%- contentFor('FooterJs') %>
+
+<script>
+    $(document).ready(function(){
+        $('.delete_state').click(function (e) {
+            $target = $(e.target);
+            console.log($target.attr('data-id'));
+            const state_id = $target.attr('data-id');
+            $.ajax({
+                type: 'DELETE',
+                url: '/delete-state'+ state_id,
+                success: function (response) {
+                    alert('State deleted');
+                    window.location.href='/state';
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+</script>
 
 <!-- Required datatable js -->
 <script src="public/plugins/datatables/jquery.dataTables.min.js"></script>
