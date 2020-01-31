@@ -81,7 +81,39 @@ exports.add_blogs_post =  (req, res) =>{
     })
 };
 
+// blogs delete
 
+exports.delete_blogs = function (req, res){
+    console.log(`Attempting to destroy a blog with blogs_id ${req.params.blogs_id}`);
+    Company.destroy({
+        where: {
+            blogs_id: req.params.blogs_id
+        }
+    }).then((result) => {
+        if(result){
+            console.log("The blog was deleted.", result);
+            return res.json({
+                status: 200,
+                data: result,
+                message: "blog delete successful."
+            })
+        } else {
+            console.log("blog delete failed.", result)
+            return res.json({
+                status: 404,
+                data: result,
+                message: "blog delete failed, no record found to delete."
+            })
+        }
+    }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "blog deletion failed."
+        })
+    });
+};
 
 // blogs category list
 exports.blogs_category =  function (req, res) {
@@ -137,4 +169,39 @@ exports.add_blogs_category_post =  function (req, res) {
         }).catch((exception) => {
             console.log("An exception was encountered during the synchronization", exception);
     })
+};
+
+
+//blog_catgory delete
+
+exports.blogs_category_delete = function (req, res){
+    console.log(`Attempting to destroy a company with blogs_category_id ${req.params.blogs_category_id}`);
+    Company.destroy({
+        where: {
+            blogs_category_id: req.params.blogs_category_id
+        }
+    }).then((result) => {
+        if(result){
+            console.log("The blog category was deleted.", result);
+            return res.json({
+                status: 200,
+                data: result,
+                message: "blog category delete successful."
+            })
+        } else {
+            console.log("blog category delete failed.", result)
+            return res.json({
+                status: 404,
+                data: result,
+                message: "blog category delete failed, no record found to delete."
+            })
+        }
+    }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "blog category deletion failed."
+        })
+    });
 };
