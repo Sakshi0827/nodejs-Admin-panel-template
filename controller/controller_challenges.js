@@ -45,3 +45,37 @@ exports.add_challenges_post = function (req, res) {
         console.log("An error was encountered during the synchronization", error);
     })
 };
+
+//delete challenge
+
+exports.delete_challenges = function (req, res){
+    console.log(`Attempting to destroy a company with company_id ${req.params.company_id}`);
+    Company.destroy({
+        where: {
+            company_id: req.params.company_id
+        }
+    }).then((result) => {
+        if(result){
+            console.log("The Company was deleted.", result);
+            return res.json({
+                status: 200,
+                data: result,
+                message: "Company delete successful."
+            })
+        } else {
+            console.log("Company delete failed.", result)
+            return res.json({
+                status: 404,
+                data: result,
+                message: "Company delete failed, no record found to delete."
+            })
+        }
+    }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "Company deletion failed."
+        })
+    });
+};

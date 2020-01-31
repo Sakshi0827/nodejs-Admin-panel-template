@@ -60,3 +60,35 @@ exports.add_fitnessGroup_post = function (req, res) {
         console.log("An error was encountered during the synchronization", error);
     })
 };
+
+exports.delete_fitnessGroup = function (req, res){
+    console.log(`Attempting to destroy a fitnessGroup with fitness_group_id ${req.params.fitness_group_id}`);
+    Fitness_group.destroy({
+        where: {
+            fitness_group_id: req.params.fitness_group_id
+        }
+    }).then((result) => {
+        if(result){
+            console.log("The fitness group was deleted.", result);
+            return res.json({
+                status: 200,
+                data: result,
+                message: "fitness group delete successful."
+            })
+        } else {
+            console.log("fitness group delete failed.", result)
+            return res.json({
+                status: 404,
+                data: result,
+                message: "Company delete failed, no record found to delete."
+            })
+        }
+    }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "fitness group deletion failed."
+        })
+    });
+};
