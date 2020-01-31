@@ -53,14 +53,17 @@
                             <tbody>
                             <% data.forEach((fitness_group)=>{ %>
                                 <tr>
+                                    <th>
+                                        <button class="btn btn-info waves-effect waves-light">edit</button>
+                                        <a href="#" data-id="<%= fitness_group.fitness_group_id %>"
+                                           class="btn btn-danger waves-effect waves-light delete_fitness_group">
+                                            delete
+                                        </a>
+                                    </th>
                                     <th scope="row"> <%=fitness_group.fitness_group_id%></th>
                                     <td><%=fitness_group.fitness_group_name%></td>
                                     <td><%=fitness_group.createdAt%></td>
                                     <td><%=fitness_group.updatedAt%></td>
-                                    <th>
-                                        <button class="btn btn-info waves-effect waves-light">edit</button>
-                                        <button class="btn btn-danger waves-effect waves-light">delete</button>
-                                    </th>
                                 </tr>
                             <% }) %>
                             </tbody>
@@ -73,6 +76,27 @@
 </div> <!-- content -->
 
 <%- contentFor('FooterJs') %>
+
+<script>
+    $(document).ready(function(){
+        $('.delete_fitness_group').click(function (e) {
+            $target = $(e.target);
+            console.log($target.attr('data-id'));
+            const fitness_group_id = $target.attr('data-id');
+            $.ajax({
+                type: 'DELETE',
+                url: '/delete-fitness-group'+ fitness_group_id,
+                success: function (response) {
+                    alert('Fitness group deleted');
+                    window.location.href='/fitness-group';
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+</script>
 
 <!-- Required datatable js -->
 <script src="public/plugins/datatables/jquery.dataTables.min.js"></script>
