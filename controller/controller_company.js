@@ -1,6 +1,7 @@
 const Company  = require('../models/company');
 
 
+// company list get
 exports.company_list = function (req, res) {
     res.locals = {  title: 'Company' };
     try{
@@ -25,11 +26,13 @@ exports.company_list = function (req, res) {
     }
 };
 
+//add company get
 exports.add_company = function (req, res, next) {
     res.locals = {  title: 'Add Company' };
     res.render('Company/add_company');
 };
 
+// add company post
 exports.add_company_post = function (req, res) {
         Company.create(
             req.body
@@ -48,3 +51,35 @@ exports.add_company_post = function (req, res) {
     })
 };
 
+//delete company
+exports.delete_company = function (req, res){
+        console.log(`Attempting to destroy a company with company_id ${req.params.company_id}`);
+        Company.destroy({
+            where: {
+                company_id: req.params.company_id
+            }
+        }).then((result) => {
+            if(result){
+                console.log("The Company was deleted.", result);
+                return res.json({
+                    status: 200,
+                    data: result,
+                    message: "Company delete successful."
+                })
+            } else {
+                console.log("Company delete failed.", result)
+                return res.json({
+                    status: 404,
+                    data: result,
+                    message: "Company delete failed, no record found to delete."
+                })
+            }
+        }).catch(err => {
+            console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "Company deletion failed."
+            })
+        });
+    };
