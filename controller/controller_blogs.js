@@ -174,7 +174,7 @@ exports.add_blogs_category_post =  function (req, res) {
 
 //blog_catgory delete
 
-exports.blogs_category_delete = function (req, res){
+exports.delete_blogs_category = function (req, res){
     console.log(`Attempting to destroy a company with blogs_category_id ${req.params.blogs_category_id}`);
     Company.destroy({
         where: {

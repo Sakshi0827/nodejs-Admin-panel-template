@@ -61,7 +61,7 @@ exports.add_fitnessGroup_post = function (req, res) {
     })
 };
 
-exports.fitness_group = function (req, res){
+exports.delete_fitnessGroup = function (req, res){
     console.log(`Attempting to destroy a fitnessGroup with fitness_group_id ${req.params.fitness_group_id}`);
     Fitness_group.destroy({
         where: {
