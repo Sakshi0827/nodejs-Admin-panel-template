@@ -54,7 +54,8 @@
                                     <td><%=company.updatedAt%></td>
                                     <th>
                                         <button class="btn btn-info waves-effect waves-light">edit</button>
-                                        <a href="/delete-company<%= company.company_id %>"><button class="btn btn-danger waves-effect waves-light">delete</button></a>
+                                        <a href="#" data-id="<%=company.company_id%>"
+                                           class="btn btn-danger waves-effect waves-light delete_company">delete</a>
                                     </th>
                                 </tr>
                             <% }) %>
@@ -69,7 +70,28 @@
 
 <%- contentFor('FooterJs') %>
 
-<!-- Required datatable js -->
+<script>
+    $(document).ready(function(){
+        $('.delete_company').click(function (e) {
+            $target = $(e.target);
+            console.log($target.attr('data-id'));
+            const company_id = $target.attr('data-id');
+            $.ajax({
+                type: 'DELETE',
+                url: '/delete-company'+ company_id,
+                success: function (response) {
+                    alert('Company deleted');
+                    window.location.href='/company';
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+</script>
+
+<!--  Required datatable js &ndash;&gt;-->
 <script src="public/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="public/plugins/datatables/dataTables.bootstrap4.min.js"></script>
 <!-- Buttons examples -->
