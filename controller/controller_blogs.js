@@ -85,7 +85,7 @@ exports.add_blogs_post =  (req, res) =>{
 
 exports.delete_blogs = function (req, res){
     console.log(`Attempting to destroy a blog with blogs_id ${req.params.blogs_id}`);
-    Company.destroy({
+    Blogs.destroy({
         where: {
             blogs_id: req.params.blogs_id
         }
@@ -176,7 +176,7 @@ exports.add_blogs_category_post =  function (req, res) {
 
 exports.delete_blogs_category = function (req, res){
     console.log(`Attempting to destroy a company with blogs_category_id ${req.params.blogs_category_id}`);
-    Company.destroy({
+    Blogs_category.destroy({
         where: {
             blogs_category_id: req.params.blogs_category_id
         }

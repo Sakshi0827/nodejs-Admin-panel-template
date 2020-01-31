@@ -80,12 +80,13 @@
 <script>
     $(document).ready(function(){
         $('.delete_blogs_category').click(function (e) {
+            
             $target = $(e.target);
             console.log($target.attr('data-id'));
             const blogs_category_id = $target.attr('data-id');
             $.ajax({
                 type: 'DELETE',
-                url: '/delete-blogs-category'+ blogs_category_id,
+                url: '/delete-blog-category'+ blogs_category_id,
                 success: function (response) {
                     alert('Blogs category deleted');
                     window.location.href='/blogs-category';
