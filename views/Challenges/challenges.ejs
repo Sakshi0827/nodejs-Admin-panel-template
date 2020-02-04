@@ -87,16 +87,15 @@
 <script>
     $(document).ready(function(){
         $('.delete_challenge').click(function (e) {
-            alert(2);
             $target = $(e.target);
             console.log($target.attr('data-id'));
             const challenge_id = $target.attr('data-id');
             $.ajax({
                 type: 'DELETE',
-                url: '/delete-challenge'+ challenge_id,
+                url: '/delete-challenges'+ challenge_id,
                 success: function (response) {
                     alert('challenge deleted');
-                    window.location.href='/challenge';
+                    window.location.href='/challenges';
                 },
                 error: function (error) {
                     console.log(error);

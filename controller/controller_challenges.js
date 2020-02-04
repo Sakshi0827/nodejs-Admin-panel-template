@@ -47,27 +47,26 @@ exports.add_challenges_post = function (req, res) {
 };
 
 //delete challenge
-
 exports.delete_challenges = function (req, res){
-    console.log(`Attempting to destroy a company with company_id ${req.params.company_id}`);
-    Company.destroy({
+    console.log(`Attempting to destroy a company with company_id ${req.params.challenge_id}`);
+    Challenges.destroy({
         where: {
-            company_id: req.params.company_id
+            challenge_id: req.params.challenge_id
         }
     }).then((result) => {
         if(result){
-            console.log("The Company was deleted.", result);
+            console.log("The challenge was deleted.", result);
             return res.json({
                 status: 200,
                 data: result,
-                message: "Company delete successful."
+                message: "challenge delete successful."
             })
         } else {
-            console.log("Company delete failed.", result)
+            console.log("challenge delete failed.", result)
             return res.json({
                 status: 404,
                 data: result,
-                message: "Company delete failed, no record found to delete."
+                message: "challenge delete failed, no record found to delete."
             })
         }
     }).catch(err => {
@@ -75,7 +74,7 @@ exports.delete_challenges = function (req, res){
         return res.json({
             status: 500,
             data: err,
-            message: "Company deletion failed."
+            message: "challenge deletion failed."
         })
     });
 };
