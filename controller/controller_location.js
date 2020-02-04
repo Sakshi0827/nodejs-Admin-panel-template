@@ -251,7 +251,7 @@ exports.add_city = function (req, res) {
     res.locals = {  title: 'Add City' };
 
     try{
-        State.findAll({  }).then(state => {
+        // State.findAll({  }).then(state => {
             // console.log("All State:", JSON.stringify(state, null, 4));
 
         Country.findAll({  }).then(country => {
@@ -259,27 +259,26 @@ exports.add_city = function (req, res) {
             return res.render('Location/add_city', {
                 status: 200,
                 data: country,
-                data1: state,
+                // data1: state,
                 message: "Country fetched successfully."
             })
+        // })
+        }).catch(err => {
+            console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "Country fetching failed."
+            })
         })
-    }).catch(err => {
-        console.error('Unable to connect to the database:', err);
-        return res.json({
-            status: 500,
-            data: err,
-            message: "Country fetching failed."
-        })
-    })
-}
-catch (exception){
-    console.log("An exception occurred, please contact the administrator.", exception);
-}
+    }
+    catch (exception){
+        console.log("An exception occurred, please contact the administrator.", exception);
+    }
 };
 
 
 // add city post
-
 exports.add_city_post = function (req, res) {
     res.locals = {  title: 'Add City' };
         console.log(req.body);
@@ -287,10 +286,8 @@ exports.add_city_post = function (req, res) {
         console.log(req.body);
         City.create(req.body)
             .then(city => {
-                console.log("New city's auto-generated ID:", city.city_id);                
-                if(!city.length){
-                    res.redirect('/city')
-                }
+                console.log("New city's auto-generated ID:", city.city_id);
+                res.redirect('/city')
         }).catch(err => {
             console.error('Unable to connect to the database:', err);
             return res.json({
@@ -302,5 +299,30 @@ exports.add_city_post = function (req, res) {
     }
     catch (exception){
         console.log("An exception occured, please contact the administrator.", exception);
+    }
+};
+
+//fetch state for add city dropdown
+exports.fetch_state = function (req, res) {
+    console.log("lol",req.body.country_id);
+    try {
+        State.findAll({ where: {country_id: req.body.country_id }}).then(state => {
+            console.log("<------------------->", state);
+            return res.send({
+                status: 200,
+                data: state,
+                message: "state fetched successfully."
+            });
+        }).catch(err => {
+            console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "state fetching failed."
+            })
+        })
+    }
+    catch (exception){
+        console.log("An exception occurred, please contact the administrator.", exception);
     }
 };

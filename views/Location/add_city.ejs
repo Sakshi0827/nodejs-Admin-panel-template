@@ -18,26 +18,28 @@
                         <h4 class="mt-0 header-title">Add New City</h4>
                         <hr>
                         <form class="" action="/add-city" method="post">
+
+
 <!--                            Country-->
                             <div class="form-group">
                                 <label class="control-label">Country</label>
-                                <select name="country_id" class="form-control select2" required>
+                                <select id="country" name="country_id" class="form-control select2" required>
                                     <option disabled selected hidden>Select</option>
                                     <% data.forEach((country)=> { %>
-                                    <option value=<%= country.country_id %> </option> <%= country.country_name %> </option>
+                                    <option value=<%= country.country_id %> > <%= country.country_name %> </option>
                                     <% }) %>
                                 </select>
                             </div>
+
 <!--                            State-->
                             <div class="form-group">
                                 <label class="control-label">State</label>
-                                <select name="state_id" class="form-control select2" required>
-                                    <option disabled selected hidden>Select</option>
-                                    <% data1.forEach((state)=> { %>
-                                    <option value=<%= state.state_id %> </option> <%= state.state_name %> </option>
-                                    <% }) %>
+                                <select id="state" name="state_id" class="form-control select2" required>
+
+
                                 </select>
                             </div>
+
                             <!--City Name-->
                             <div class="form-group">
                                 <label>City Name</label>
@@ -59,7 +61,31 @@
 </div>
 <%- contentFor('FooterJs') %>
 
-
+<script>
+$('#country').change(function(){
+    console.log("Country id: ", $('#country').val());
+    var $state = $('#state');
+    $.ajax({
+        type: 'POST',
+        url: '/fetch-state',
+        data: { country_id: $('#country').val() },
+        success: function(data){
+            console.log(data);
+            var states;
+            $state.children().remove().end()
+            $state.append('<option disabled selected hidden>Select</option>')
+            data.data.forEach((states)=>{
+                // console.log('hi');
+                console.log('<option value="'+ states.state_id + '"> ' + states.state_name + '</option>')
+                $state.append('<option value="'+ states.state_id + '"> ' + states.state_name + '</option>')
+            })
+        },
+        error: function(){
+            alert('No data');
+        }
+    });
+});
+</script>
 <script src="public/plugins/parsleyjs/parsley.min.js"></script>
 <!--advanced form-->
 <script src="public/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
