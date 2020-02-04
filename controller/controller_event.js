@@ -65,16 +65,6 @@ exports.event_category =  function (req, res) {
     try{
          Event_category.findAll({ }).then(event_category => {
                 console.log("All event_category:", JSON.stringify(event_category, null, 4));
-                
-                if(!event_category.length){
-                    console.log("1");
-                    return res.json({
-                        status: 404,                        
-                        message: "event_category not found."
-                    })    
-                }
-                    console.log("3");
-
                 return res.render('Event/event_category', {
                     status: 200,
                     data: event_category,
@@ -96,7 +86,6 @@ exports.event_category =  function (req, res) {
 };
 
 // event_category get
-
 exports.add_event_category =  function (req, res) {
     res.locals = {  title: 'Add Event Category' };
     res.render('Event/add_event_category.ejs');
@@ -105,12 +94,7 @@ exports.add_event_category =  function (req, res) {
 
 
 // event_category post
-
 exports.add_event_category_post =  function (req, res) {
-    const event_category_name = req.body.event_category_name;
-    console.log(req.body);
-
-   
         Event_category.create(
             req.body
         ).then(event_category_name => {
@@ -133,9 +117,38 @@ exports.add_event_category_post =  function (req, res) {
     .catch((error) => {
         console.log("An error was encountered during the synchronization", error);
     })
+};
 
-    
-    //DB
-    // res.redirect('/event-category');
+//delete event_category
+exports.delete_event_category = function (req, res){
+    console.log(`Attempting to destroy a event_category with event_category id: ${req.params.event_category_id}`);
+    Event_category.destroy({
+        where: {
+            event_category_id: req.params.event_category_id
+        }
+    }).then((result) => {
+        if(result){
+            console.log("The event_category was deleted.", result);
+            return res.json({
+                status: 200,
+                data: result,
+                message: "event_category delete successful."
+            })
+        } else {
+            console.log("event_category delete failed.", result);
+            return res.json({
+                status: 404,
+                data: result,
+                message: "event_category delete failed, no record found to delete."
+            })
+        }
+    }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "event_category deletion failed."
+        })
+    });
 };
 
