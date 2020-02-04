@@ -58,7 +58,7 @@ exports.add_country_post = function (req, res) {
 
 //delete country
 exports.delete_country = function (req, res){
-    console.log(`Attempting to destroy a country with country id: ${req.params.fitness_group_id}`);
+    console.log(`Attempting to destroy a country with country id: ${req.params.country_id}`);
     Country.destroy({
         where: {
             country_id: req.params.country_id
@@ -121,7 +121,6 @@ exports.state_list =  function (req, res) {
 };
 
 // Add state get
-
 exports.add_state = function (req, res) {
     res.locals = {  title: 'Add State' };
     try{
@@ -147,7 +146,6 @@ catch (exception){
 };
 
 // add state post
-
 exports.add_state_post = function (req, res) {
     res.locals = {  title: 'Add State' };
     try{
@@ -171,8 +169,41 @@ exports.add_state_post = function (req, res) {
     }
 };
 
-//CITY LIST
+//delete state
+exports.delete_state = function (req, res){
+    console.log(`Attempting to destroy a state with state id: ${req.params.state_id}`);
+    State.destroy({
+        where: {
+            state_id: req.params.state_id
+        }
+    }).then((result) => {
+        if(result){
+            console.log("The state was deleted.", result);
+            return res.json({
+                status: 200,
+                data: result,
+                message: "state delete successful."
+            })
+        } else {
+            console.log("state delete failed.", result);
+            return res.json({
+                status: 404,
+                data: result,
+                message: "state delete failed, no record found to delete."
+            })
+        }
+    }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "state deletion failed."
+        })
+    });
+};
 
+
+//CITY LIST
 exports.city_list = function (req, res) {
     res.locals = {  title: 'City' };
     try{
