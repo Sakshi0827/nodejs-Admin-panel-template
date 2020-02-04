@@ -16,7 +16,7 @@ router.post('/add-country', controller_location.add_country_post);
 router.post('/add-state', controller_location.add_state_post);
 router.post('/add-city', controller_location.add_city_post);
 //delete
-// router.delete('/delete-country:country_id', controller_location.delete_country);
+router.delete('/delete-country:country_id', controller_location.delete_country);
 // router.delete('/delete-state:state_id', controller_location.delete_state);
 // router.delete('/delete-city:city_id', controller_location.delete_city);
 

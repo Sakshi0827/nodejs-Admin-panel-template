@@ -60,7 +60,8 @@ exports.add_fitnessGroup_post = function (req, res) {
         console.log("An error was encountered during the synchronization", error);
     })
 };
- //Delete Fitness group
+
+//Delete fitness group
 exports.delete_fitnessGroup = function (req, res){
     console.log(`Attempting to destroy a fitnessGroup with fitness_group_id ${req.params.fitness_group_id}`);
     Fitness_group.destroy({
@@ -76,7 +77,7 @@ exports.delete_fitnessGroup = function (req, res){
                 message: "fitness group delete successful."
             })
         } else {
-            console.log("fitness group delete failed.", result)
+            console.log("fitness group delete failed.", result);
             return res.json({
                 status: 404,
                 data: result,

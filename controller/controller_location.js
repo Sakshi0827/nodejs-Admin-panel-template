@@ -1,13 +1,9 @@
 const Country = require('../models/country');
 const State = require('../models/state');
 const City = require('../models/city');
-// require('../models/Associations')();
 
-// Country.hasMany(State, { foreignKey: "country_id"});
-// State.belongsTo(Country, { foreignKey: "country_id"});
 
 // Country LIST
-
 exports.country_list = function (req, res) {
     res.locals = {  title: 'Country' };
     try{
@@ -33,22 +29,19 @@ exports.country_list = function (req, res) {
 };
 
 // Add country get
-
 exports.add_country = function (req, res) {
     res.locals = {  title: 'Add Country' };
     res.render('Location/add_country');
 };
 
 // Add country post
-
 exports.add_country_post = function (req, res) {
     res.locals = {  title: 'Add Country' };
     try{
         Country.create(req.body)
             .then(country => {
-                console.log("New Country's auto-generated ID:", country.country_id);                if(!country.length){
-                    res.redirect('/country')
-                }
+                console.log("New Country's auto-generated ID:", country.country_id);
+                res.redirect('/country')
         }).catch(err => {
             console.error('Unable to connect to the database:', err);
             return res.json({
@@ -63,8 +56,41 @@ exports.add_country_post = function (req, res) {
     }
 };
 
-// State LIST
+//delete country
+exports.delete_country = function (req, res){
+    console.log(`Attempting to destroy a country with country id: ${req.params.fitness_group_id}`);
+    Country.destroy({
+        where: {
+            country_id: req.params.country_id
+        }
+    }).then((result) => {
+        if(result){
+            console.log("The country was deleted.", result);
+            return res.json({
+                status: 200,
+                data: result,
+                message: "country delete successful."
+            })
+        } else {
+            console.log("country delete failed.", result);
+            return res.json({
+                status: 404,
+                data: result,
+                message: "country delete failed, no record found to delete."
+            })
+        }
+    }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "country deletion failed."
+        })
+    });
+};
 
+
+// State LIST
 exports.state_list =  function (req, res) {
     res.locals = {  title: 'State' };
     try{
