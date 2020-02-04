@@ -52,7 +52,7 @@ exports.add_user_roles = function (req, res) {
     res.render('User/add_user_roles');
 };
 
-//add user roles get
+//add user roles post
 exports.add_user_roles_post = function (req, res) {
     const userRole = req.body.userRole;
     console.log(req.body);
@@ -73,7 +73,38 @@ exports.add_user_roles_post = function (req, res) {
         })
     .catch((error) => {
         console.log("An error was encountered during the synchronization", error);
-    })
-    res.redirect('/user-roles');
+    });
+};
 
+//Delete user roles
+exports.delete_user_roles = function (req, res){
+    console.log(`Attempting to destroy a User role with user role id ${req.params.user_role_id}`);
+    User_role.destroy({
+        where: {
+            user_role_id: req.params.user_role_id
+        }
+    }).then((result) => {
+        if(result){
+            console.log("The User role was deleted.", result);
+            return res.json({
+                status: 200,
+                data: result,
+                message: "User role delete successful."
+            })
+        } else {
+            console.log("User role delete failed.", result);
+            return res.json({
+                status: 404,
+                data: result,
+                message: "User role delete failed, no record found to delete."
+            })
+        }
+    }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "User role deletion failed."
+        })
+    });
 };

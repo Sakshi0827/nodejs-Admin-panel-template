@@ -49,14 +49,17 @@
                             <tbody>
                                 <% data.forEach((user_role)=>{ %>
                                     <tr>
+                                        <th>
+                                            <button class="btn btn-info waves-effect waves-light">edit</button>
+                                            <a href="#" data-id="<%= user_role.user_role_id %>"
+                                               class="btn btn-danger waves-effect waves-light delete_user_role">
+                                                delete
+                                            </a>
+                                        </th>
                                         <th scope="row"> <%=user_role.user_role_id%></th>
                                         <td><%=user_role.user_role_name%></td>
                                         <td><%=user_role.createdAt%></td>
                                         <td><%=user_role.updatedAt%></td>
-                                        <th>
-                                            <button class="btn btn-info waves-effect waves-light">edit</button>
-                                            <button class="btn btn-danger waves-effect waves-light">delete</button>
-                                        </th>
                                     </tr>
                                 <% }) %>
                                 </tbody>
@@ -78,10 +81,10 @@
             const user_role_id = $target.attr('data-id');
             $.ajax({
                 type: 'DELETE',
-                url: '/delete-user-role'+ user_role_id,
+                url: '/delete-user-roles'+ user_role_id,
                 success: function (response) {
                     alert('User role deleted');
-                    window.location.href='/user-role';
+                    window.location.href='/user-roles';
                 },
                 error: function (error) {
                     console.log(error);
