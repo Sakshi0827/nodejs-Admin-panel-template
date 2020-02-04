@@ -218,11 +218,6 @@ exports.city_list = function (req, res) {
             ]
         }
         ]
-            // include: [
-            //     {
-            //         model:Country
-            //     }
-            // ]
     }).then(city => {
             console.log("All Cities:", JSON.stringify(city, null, 4));
             return res.render('Location/city', {
@@ -249,20 +244,13 @@ exports.city_list = function (req, res) {
 // Add city get
 exports.add_city = function (req, res) {
     res.locals = {  title: 'Add City' };
-
     try{
-        // State.findAll({  }).then(state => {
-            // console.log("All State:", JSON.stringify(state, null, 4));
-
         Country.findAll({  }).then(country => {
-            // console.log("All Country:", JSON.stringify(country, null, 4));
             return res.render('Location/add_city', {
                 status: 200,
                 data: country,
-                // data1: state,
                 message: "Country fetched successfully."
             })
-        // })
         }).catch(err => {
             console.error('Unable to connect to the database:', err);
             return res.json({
@@ -277,11 +265,33 @@ exports.add_city = function (req, res) {
     }
 };
 
+//fetch state for add city dropdown
+exports.fetch_state = function (req, res) {
+    try {
+        State.findAll({ where: {country_id: req.body.country_id }}).then(state => {
+            console.log("fetched state are: ", state);
+            return res.send({
+                status: 200,
+                data: state,
+                message: "state fetched successfully."
+            });
+        }).catch(err => {
+            console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "state fetching failed."
+            })
+        })
+    }
+    catch (exception){
+        console.log("An exception occurred, please contact the administrator.", exception);
+    }
+};
 
 // add city post
 exports.add_city_post = function (req, res) {
     res.locals = {  title: 'Add City' };
-        console.log(req.body);
     try{
         console.log(req.body);
         City.create(req.body)
@@ -302,27 +312,37 @@ exports.add_city_post = function (req, res) {
     }
 };
 
-//fetch state for add city dropdown
-exports.fetch_state = function (req, res) {
-    console.log("lol",req.body.country_id);
-    try {
-        State.findAll({ where: {country_id: req.body.country_id }}).then(state => {
-            console.log("<------------------->", state);
-            return res.send({
-                status: 200,
-                data: state,
-                message: "state fetched successfully."
-            });
-        }).catch(err => {
-            console.error('Unable to connect to the database:', err);
+
+
+//delete city
+exports.delete_city = function (req, res){
+    console.log(`Attempting to destroy a city with city id: ${req.params.city_id}`);
+    City.destroy({
+        where: {
+            city_id: req.params.city_id
+        }
+    }).then((result) => {
+        if(result){
+            console.log("The city was deleted.", result);
             return res.json({
-                status: 500,
-                data: err,
-                message: "state fetching failed."
+                status: 200,
+                data: result,
+                message: "city delete successful."
             })
+        } else {
+            console.log("city delete failed.", result);
+            return res.json({
+                status: 404,
+                data: result,
+                message: "city delete failed, no record found to delete."
+            })
+        }
+    }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "city deletion failed."
         })
-    }
-    catch (exception){
-        console.log("An exception occurred, please contact the administrator.", exception);
-    }
+    });
 };

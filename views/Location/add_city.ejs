@@ -43,7 +43,7 @@
                             <!--City Name-->
                             <div class="form-group">
                                 <label>City Name</label>
-                                <input type="text" name="city_name" class="form-control" required placeholder="State Name" />
+                                <input type="text" name="city_name" class="form-control" required placeholder="City Name" />
                             </div>
                             <div class="form-group">
                                 <div>
@@ -75,7 +75,6 @@ $('#country').change(function(){
             $state.children().remove().end()
             $state.append('<option disabled selected hidden>Select</option>')
             data.data.forEach((states)=>{
-                // console.log('hi');
                 console.log('<option value="'+ states.state_id + '"> ' + states.state_name + '</option>')
                 $state.append('<option value="'+ states.state_id + '"> ' + states.state_name + '</option>')
             })
