@@ -95,6 +95,41 @@ exports.add_event_post =  function (req, res) {
 };
 
 
+//event delete
+
+
+exports.delete_event = function (req, res){
+    console.log(`Attempting to destroy an event with event_id ${req.params.event_id}`);
+    Event.destroy({
+        where: {
+            event_id: req.params.event_id
+        }
+    }).then((result) => {
+        if(result){
+            console.log("The Event was deleted.", result);
+            return res.json({
+                status: 200,
+                data: result,
+                message: "Event delete successful."
+            })
+        } else {
+            console.log("Event delete failed.", result)
+            return res.json({
+                status: 404,
+                data: result,
+                message: "Event delete failed, no record found to delete."
+            })
+        }
+    }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "Event deletion failed."
+        })
+    });
+};
+
 //event_category list
 exports.event_category =  function (req, res) {
     res.locals = {  title: 'Event Category List' };

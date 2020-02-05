@@ -7,7 +7,7 @@ const controller_event = require('../controller/controller_event');
 router.get('/event-list', controller_event.event_list);
 router.get('/add-event', controller_event.add_event);
 router.post('/add-event', controller_event.add_event_post);
-// router.delete('/delete-event:event_id', controller_event.delete_event);
+router.delete('/delete-event:event_id', controller_event.delete_event);
 
 // event category
 router.get('/event-category', controller_event.event_category);
