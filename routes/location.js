@@ -21,5 +21,6 @@ router.delete('/delete-state:state_id', controller_location.delete_state);
 router.delete('/delete-city:city_id', controller_location.delete_city);
 
 router.post('/fetch-state', controller_location.fetch_state);
+router.post('/fetch-city', controller_location.fetch_city);
 
 module.exports = router;
