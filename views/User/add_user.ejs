@@ -70,12 +70,11 @@
                             <!-- fitness group Single Select-->
                             <div class="form-group">
                                 <label class="control-label">Fitness Group</label>
-                                <select name="fitnessGroup" class="form-control select2">
-                                    <option>Select</option>
-                                    <optgroup label="Alaskan/Hawaiian Time Zone">
-                                        <option value="AK">Alaska</option>
-                                        <option value="HI">Hawaii</option>
-                                    </optgroup>
+                                <select name="fitness_group_id" class="form-control select2" required>
+                                    <option disabled selected hidden>Select</option>
+                                    <% data1.forEach((fitness_group)=> { %>
+                                    <option value=<%= fitness_group.fitness_group_id %> </option> <%= fitness_group.fitness_group_name %> </option>
+                                    <% }) %>
                                 </select>
                             </div>
 
@@ -97,39 +96,36 @@
                                     <input name="mobile" data-parsley-type="number" class="form-control" required data-parsley-length="[10, 10]" placeholder="Phone Number of 10 chars length">
                                 </div>
                             </div>
-                            <!-- Country Single Select-->
+                            
+<!--                            Country-->
                             <div class="form-group">
-                                <label class="control-label">Country Select</label>
-                                <select name="country" class="form-control select2">
-                                    <option>Select</option>
-                                    <optgroup label="Alaskan/Hawaiian Time Zone">
-                                        <option value="AK">Alaska</option>
-                                        <option value="HI">Hawaii</option>
-                                    </optgroup>
+                                <label class="control-label">Country</label>
+                                <select id="country" name="country_id" class="form-control select2" required>
+                                    <option disabled selected hidden>Select</option>
+                                    <% data2.forEach((country)=> { %>
+                                    <option value=<%= country.country_id %> > <%= country.country_name %> </option>
+                                    <% }) %>
                                 </select>
                             </div>
-                            <!-- State Single Select-->
+
+<!--                            State-->
                             <div class="form-group">
-                                <label class="control-label">State Select</label>
-                                <select name="state" class="form-control select2">
-                                    <option>Select</option>
-                                    <optgroup label="Alaskan/Hawaiian Time Zone">
-                                        <option value="AK">Alaska</option>
-                                        <option value="HI">Hawaii</option>
-                                    </optgroup>
+                                <label class="control-label">State</label>
+                                <select id="state" name="state_id" class="form-control select2" required>
+                                    <option disabled selected hidden>Select</option>
+<!--                                    Injecting options using AJAX-->
                                 </select>
                             </div>
-                            <!--  City Single Select-->
+
+                            <!--City Name-->
                             <div class="form-group">
-                                <label class="control-label">City Select</label>
-                                <select name="city" class="form-control select2">
-                                    <option>Select</option>
-                                    <optgroup label="Alaskan/Hawaiian Time Zone">
-                                        <option value="AK">Alaska</option>
-                                        <option value="HI">Hawaii</option>
-                                    </optgroup>
+                                <label class="control-label">City</label>
+                                <select id="city" name="city_id" class="form-control select2" required>
+                                    <option disabled selected hidden>Select</option>
+<!--                                    Injecting options using AJAX-->
                                 </select>
                             </div>
+                            
 
                             <!--                            number-->
                             <div class="form-group">
@@ -141,23 +137,22 @@
                             <!--  Company Select-->
                             <div class="form-group">
                                 <label class="control-label">Company Select</label>
-                                <select name="company" class="form-control select2">
-                                    <option>Select</option>
-                                    <optgroup label="Alaskan/Hawaiian Time Zone">
-                                        <option value="AK">Alaska</option>
-                                        <option value="HI">Hawaii</option>
-                                    </optgroup>
+                                <select name="company_id" class="form-control select2" required>
+                                    <option disabled selected hidden>Select</option>
+                                    <% data5.forEach((company)=> { %>
+                                    <option value=<%= company.company_id %> </option> <%= company.company_name %> </option>
+                                    <% }) %>
                                 </select>
                             </div>
+
                             <!--  User role Select-->
                             <div class="form-group">
                                 <label class="control-label">User Role Select</label>
-                                <select name="userRole" class="form-control select2">
-                                    <option>Select</option>
-                                    <optgroup label="Alaskan/Hawaiian Time Zone">
-                                        <option value="AK">Alaska</option>
-                                        <option value="HI">Hawaii</option>
-                                    </optgroup>
+                                <select name="user_role_id" class="form-control select2" required>
+                                    <option disabled selected hidden>Select</option>
+                                    <% data6.forEach((user_role)=> { %>
+                                    <option value=<%= user_role.user_role_id %> </option> <%= user_role.user_role_name %> </option>
+                                    <% }) %>
                                 </select>
                             </div>
                             <!--                            submit button-->
@@ -189,6 +184,53 @@
 <!-- Plugins Init js -->
 <script src="public/assets/pages/form-advanced.js"></script>
 <script>
+    $('#country').change(function(){
+        console.log("Country id: ", $('#country').val());
+        var $state = $('#state');
+        $.ajax({
+            type: 'POST',
+            url: '/fetch-state',
+            data: { country_id: $('#country').val() },
+            success: function(data){
+                console.log(data);
+                var states;
+                $state.children().remove().end()
+                $state.append('<option disabled selected hidden>Select</option>')
+                data.data.forEach((states)=>{
+                    console.log('<option value="'+ states.state_id + '"> ' + states.state_name + '</option>')
+                    $state.append('<option value="'+ states.state_id + '"> ' + states.state_name + '</option>')
+                })
+            },
+            error: function(){
+                alert('No data');
+            }
+        });
+    });
+
+
+    $('#state').change(function(){
+        console.log("state id: ", $('#state').val());
+        var $city = $('#city');
+        $.ajax({
+            type: 'POST',
+            url: '/fetch-city',
+            data: { state_id: $('#state').val() },
+            success: function(data){
+                console.log(data);
+                var cities;
+                $city.children().remove().end()
+                $city.append('<option disabled selected hidden>Select</option>')
+                data.data.forEach((cities)=>{
+                    console.log('<option value="'+ cities.city_id + '"> ' + cities.city_name + '</option>')
+                    $city.append('<option value="'+ cities.city_id + '"> ' + cities.city_name + '</option>')
+                })
+            },
+            error: function(){
+                alert('No data');
+            }
+        });
+    });
+
     $(document).ready(function() {
         $('form').parsley();
     });

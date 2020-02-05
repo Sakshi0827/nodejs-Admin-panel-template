@@ -289,6 +289,32 @@ exports.fetch_state = function (req, res) {
     }
 };
 
+//fetch-city
+
+exports.fetch_city = function (req, res) {
+    try {
+        console.log("CCCCCCCCCCCCIIIIIIIIIITTTTTTTTYYYYYYY",req.body.state_id );
+        City.findAll({ where: {state_id: req.body.state_id }}).then(city => {
+            console.log("fetched city are: ", city);
+            return res.send({
+                status: 200,
+                data: city,
+                message: "city fetched successfully."
+            });
+        }).catch(err => {
+            console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "city fetching failed."
+            })
+        })
+    }
+    catch (exception){
+        console.log("An exception occurred, please contact the administrator.", exception);
+    }
+};
+
 // add city post
 exports.add_city_post = function (req, res) {
     res.locals = {  title: 'Add City' };

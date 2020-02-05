@@ -13,11 +13,6 @@ exports.user_list = function(req, res) {
 };
 
 //add user get
-exports.add_user = function (req, res) {
-    res.locals = {title: 'User Roles'};
-    res.render('User/add_user');
-};
-
 
 exports.add_user = function (req, res) {
     res.locals = {  title: 'User Roles' };
@@ -30,11 +25,11 @@ exports.add_user = function (req, res) {
                     console.log("All state:", JSON.stringify(state, null, 4));
                     City.findAll({ }).then(city => {
                         console.log("All city:", JSON.stringify(city, null, 4));
-                        Company.findAll({ }).then(Company => { 
+                        Company.findAll({ }).then(company => { 
                             console.log("All company:", JSON.stringify(company, null, 4));
                             User_role.findAll({ }).then(user_role => {
                                 console.log("All user_role:", JSON.stringify(user_role, null, 4));
-                                return res.render('Event/add_event', {
+                                return res.render('User/add_user', {
                                     status: 200,
                                     data1: fitness_group,
                                     data2: country,
