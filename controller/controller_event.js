@@ -71,7 +71,7 @@ exports.add_event_post =  function (req, res) {
             {
                 event_title: req.body.event_title,
                 event_description: req.body.event_description,
-                event_location:req.body.event_location,
+                city_id:req.body.city_id,
                 event_category_id: JSON.stringify(req.body.event_category_id)
             }
         ).then(event => {

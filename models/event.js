@@ -17,8 +17,8 @@ module.exports = sequelize.define("Event", {
         type: Sequelize.TEXT,
         allowNull: false
     },
-    event_location: {
-        type: Sequelize.STRING,
+    city_id: {
+        type: Sequelize.INTEGER,
         allowNull: false
     },
     event_category_id: {
