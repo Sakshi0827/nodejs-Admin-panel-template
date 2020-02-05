@@ -60,13 +60,13 @@
                                             delete
                                         </a>
                                     </th>
-                                    <th scope="row">1</th>
-                                    <th>Marathon</th>
-                                    <th>Lorem ipsum</th>
-                                    <th>UK</th>
-                                    <th>2 KM</th>
-                                    <th>29/39/39</th>
-                                    <th>29/39/39</th>
+                                    <th scope="row"><%= event.event_id %></th>
+                                    <th><%= event.event_title %></th>
+                                    <th><%= event.event_description %></th>
+                                    <th><%= event.event_location %></th>
+                                    <th><%= event.event_category_id %></th>
+                                    <th><%= event.createdAt %></th>
+                                    <th><%= event.updatedAt %></th>
                                 </tr>
                             <% }) %>
                             </tbody>

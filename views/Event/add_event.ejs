@@ -22,19 +22,19 @@
                             <!--Event Title-->
                             <div class="form-group">
                                 <label>Event Title</label>
-                                <input type="text" name="blogTitle" class="form-control" required placeholder="Event Title" />
+                                <input type="text" name="event_title" class="form-control" required placeholder="Event Title" />
                             </div>
                             <!--Event Description-->
                             <div class="form-group">
                                 <label>Event Description</label>
                                 <div>
-                                    <textarea required class="form-control" rows="5"></textarea>
+                                    <textarea name="event_description" required class="form-control" rows="5"></textarea>
                                 </div>
                             </div>
                             <!-- Single Select-->
                             <div class="form-group">
                                 <label class="control-label">Location</label>
-                                <select name="city_id" class="form-control select2" required>
+                                <select name="event_location" class="form-control select2" required>
                                     <option disabled selected hidden>Select</option>
                                     <% data2.forEach((city)=> { %>
                                     <option value=<%= city.city_id %> </option> <%= city.city_name %> </option>
@@ -43,8 +43,8 @@
                             </div>
                             <!-- Multiple select-->
                             <div class="form-group">
-                                <label class="control-label">Blog Category</label>
-                                <select name ="blogs_category_id" class="select2 form-control select2-multiple" multiple="multiple" multiple data-placeholder="Choose ...">
+                                <label class="control-label">Event Category</label>
+                                <select name ="event_category_id" class="select2 form-control select2-multiple" multiple="multiple" multiple data-placeholder="Choose ...">
                                     <% data.forEach((event_category)=> { %>
                                         <option value=<%= event_category.event_category_id %> </option> <%= event_category.event_category_name %> </option>
                                         <% }) %>

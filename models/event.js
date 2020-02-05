@@ -22,7 +22,7 @@ module.exports = sequelize.define("Event", {
         allowNull: false
     },
     event_category_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false
     }
 });

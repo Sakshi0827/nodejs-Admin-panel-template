@@ -22,7 +22,7 @@ module.exports = {
           allowNull: false
       },
       event_category_id: {
-          type: Sequelize.INTEGER,
+          type: Sequelize.STRING,
           allowNull: false
       },
       createdAt: Sequelize.DATE,
@@ -32,6 +32,5 @@ module.exports = {
 
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable("events");
-
   }
 };

@@ -47,6 +47,8 @@ City.belongsTo(State, {foreignKey: "state_id"});
 //event
 Event.hasMany(Event_category, { foreignKey: "event_category_id"});
 Event_category.hasMany(Event, { foreignKey: "event_category_id"});
+Event.hasOne(City, { foreignKey: "city_id" });
+City.belongsTo(Event, { foreignKey: "city_id" });
 //blogs
 Blogs.hasMany(Blogs_category, { foreignKey: "blogs_category_id"});
 Blogs_category.belongsTo(Blogs, { foreignKey: "blogs_category_id"});
