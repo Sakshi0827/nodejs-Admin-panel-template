@@ -25,10 +25,6 @@ module.exports = {
         type: Sequelize.DATEONLY,
         allowNull: false
     },
-    blogs_category_id: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
     blogs_image: {
         type: Sequelize.STRING,
         allowNull: false

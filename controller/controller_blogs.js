@@ -1,5 +1,6 @@
 const Blogs = require('../models/blogs');
 const Blogs_category = require('../models/blogs_category');
+const Blogs_category_intermediate = require('../models/blogs_category_intermediate');
 
 // blogs list
 exports.blogs_list = function (req, res) {
@@ -57,27 +58,35 @@ exports.add_blogs =  function (req, res) {
 //add blogs post
 exports.add_blogs_post =  (req, res) =>{
     res.locals = {  title: 'Add Blogs' };
+    // console.log('<----------->', req.body);
     Blogs.create(
         {
             user_id: 1,
             blogs_title: req.body.blogs_title,
             blogs_description: req.body.blogs_description,
             blogs_post_date : req.body.blogs_post_date,
-            blogs_category_id: JSON.stringify(req.body.blogs_category_id ),
             blogs_image: req.file.filename
         }
-        ).then(blogs => {
-            console.log("New Blog's auto-generated ID:", blogs.blogs_id);
-            return res.redirect('/blogs-list');
-        }).catch(err => {
-            console.error('Unable to connect to the database:', err);
-            return res.json({
-                status: 500,
-                data: err,
-                message: "New Blogs creation failed."
-            })
-        }).catch((exception) => {
-            console.log("An exception was encountered during the synchronization", exception);
+    ).then(blogs => {
+        console.log("New Blog's auto-generated ID:", blogs.blogs_id);
+        console.log("New Blog's auto-generated ID:", req.body.blogs_category_id.length);
+        for(let i=0; i<req.body.blogs_category_id.length; i++){
+            Blogs_category_intermediate.create(
+            {
+                blogs_id: blogs.blogs_id,
+                blogs_category_id: req.body.blogs_category_id[i]
+            });
+        }
+        return res.redirect('/add-blogs');
+    }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "New Blogs creation failed."
+        })
+    }).catch((exception) => {
+        console.log("An exception was encountered during the synchronization", exception);
     })
 };
 

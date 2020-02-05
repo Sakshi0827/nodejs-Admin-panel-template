@@ -19,6 +19,7 @@ const Blogs_category = require('./models/blogs_category');
 // const User_role = require('./models/user_role');
 const Fitness_group = require('./models/fitness_group');
 const Company = require('./models/company');
+const Blogs_category_intermediate = require('./models/blogs_category_intermediate');
 
 
 
@@ -50,10 +51,13 @@ City.hasMany(Event, { foreignKey: "city_id" });
 Event.belongsTo(Event_category, { foreignKey: "event_category_id"});
 Event_category.hasMany(Event, { foreignKey: "event_category_id"});
 //blogs
-Blogs.hasMany(Blogs_category, { foreignKey: "blogs_category_id"});
-Blogs_category.belongsTo(Blogs, { foreignKey: "blogs_category_id"});
-// User.hasMany(Blogs, {foreignKey: "user_id"});
-// Blogs.belongsTo(User, {foreignKey: "user_id"});
+// Blogs.hasMany(Blogs_category, { foreignKey: "blogs_category_id"});
+// Blogs_category.belongsTo(Blogs, { foreignKey: "blogs_category_id"});
+Blogs_category_intermediate.hasMany(Blogs, { foreignKey: "blogs_id"});
+Blogs_category_intermediate.hasMany(Blogs_category, { foreignKey: "blogs_category_id" });
+Blogs.belongsTo(Blogs_category_intermediate, { foreignKey: "blogs_category_id" });
+Blogs_category.belongsTo(Blogs_category_intermediate, { foreignKey: "blogs_category_id" });
+
 //User
 // User.hasOne(Fitness_group, { foreignKey: "fitness_group_id"});
 // User.hasOne(Company, { foreignKey: "company_id"});
