@@ -15,6 +15,10 @@ router.get('/', function (req, res) {
     res.locals = {  title: 'Dashboard' };
     res.render('Dashboard/dashboard');
 });
+router.get('/form-editors', function (req, res) {
+    res.locals = {  title: 'Form Editor' };
+    res.render('Forms/form_editors');
+});
 // User
 router.use('/', userRouter);
 // // Location
