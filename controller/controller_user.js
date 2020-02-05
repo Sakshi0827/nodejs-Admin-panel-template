@@ -1,4 +1,10 @@
 const User_role  = require('../models/user_role');
+const Fitness_group = require('../models/fitness_group');
+const Country = require('../models/country');
+const State = require('../models/state');
+const City = require('../models/city');
+const Company = require('../models/company');
+
 
 //user list get
 exports.user_list = function(req, res) {
@@ -10,6 +16,51 @@ exports.user_list = function(req, res) {
 exports.add_user = function (req, res) {
     res.locals = {title: 'User Roles'};
     res.render('User/add_user');
+};
+
+
+exports.add_user = function (req, res) {
+    res.locals = {  title: 'User Roles' };
+    try{
+        Fitness_group.findAll({ }).then(fitness_group => {
+            console.log("All fitness_group:", JSON.stringify(fitness_group, null, 4));
+            Country.findAll({ }).then(country => {
+                console.log("All country:", JSON.stringify(country, null, 4));
+                State.findAll({ }).then(state =>{
+                    console.log("All state:", JSON.stringify(state, null, 4));
+                    City.findAll({ }).then(city => {
+                        console.log("All city:", JSON.stringify(city, null, 4));
+                        Company.findAll({ }).then(Company => { 
+                            console.log("All company:", JSON.stringify(company, null, 4));
+                            User_role.findAll({ }).then(user_role => {
+                                console.log("All user_role:", JSON.stringify(user_role, null, 4));
+                                return res.render('Event/add_event', {
+                                    status: 200,
+                                    data1: fitness_group,
+                                    data2: country,
+                                    data3: state,
+                                    data4: city,
+                                    data5: company,
+                                    data6: user_role,
+                                    message: "city fetched successfully."
+                                })
+                            })
+                        })
+                    })
+                })
+            })
+        }).catch(err => {
+            console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "event_category fetching failed."
+            })
+        })
+    }
+    catch (exception){
+        console.log("An exception occurred, please contact the administrator.", exception);
+    }
 };
 
 //add user post
