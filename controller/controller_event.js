@@ -7,14 +7,16 @@ const City = require('../models/city');
 exports.event_list = function (req, res) {
     res.locals = {  title: 'Event List' };
     try{
-        Event.findAll({ include: [
-            {
-                model:City
-            },
-            {
-                model: Event_category
-            }]
-        }).then(event => {
+        Event.findAll({  
+          include: [
+          {
+              model: City
+          },
+              {
+                  model:Event_category
+              }
+      ]
+  }).then(event => {
             console.log("All event:", JSON.stringify(event, null, 4));
             return res.render('Event/event_list', {
                 status: 200,
@@ -65,15 +67,10 @@ exports.add_event = function (req, res) {
 
 // Add-event post
 exports.add_event_post =  function (req, res) {
-    console.log("<------------>", JSON.stringify(req.body.event_category_id));
+    console.log("<------------>",  JSON.stringify(req.body.event_category_id));
     try{
         Event.create(
-            {
-                event_title: req.body.event_title,
-                event_description: req.body.event_description,
-                city_id:req.body.city_id,
-                event_category_id: JSON.stringify(req.body.event_category_id)
-            }
+                req.body
         ).then(event => {
             console.log("New event's auto-generated ID:", event.event_id);
             // return res.json({

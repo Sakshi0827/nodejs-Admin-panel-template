@@ -44,7 +44,8 @@
                             <!-- Multiple select-->
                             <div class="form-group">
                                 <label class="control-label">Event Category</label>
-                                <select name ="event_category_id" class="select2 form-control select2-multiple" multiple="multiple" multiple data-placeholder="Choose ...">
+                                <select name ="event_category_id" class="form-control select2" >
+                                    <option disabled selected hidden>Select</option>
                                     <% data.forEach((event_category)=> { %>
                                         <option value=<%= event_category.event_category_id %> </option> <%= event_category.event_category_name %> </option>
                                         <% }) %>
