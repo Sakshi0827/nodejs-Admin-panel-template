@@ -59,8 +59,8 @@
                                 <label>Date Of Birth</label>
                                 <div>
                                     <div class="input-group">
-                                        <input type="text" name="dob" class="form-control" placeholder="mm/dd/yyyy" id="datepicker-autoclose">
-                                        <div class="input-group-append">
+                                        <input type="text" name="dob" class="form-control" placeholder="mm/dd/yyyy" id="datepicker-autoclose" required>
+                                        <div class="input-group-append" >
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                         </div>
                                     </div><!-- input-group -->
@@ -81,8 +81,8 @@
                             <!-- Gender Single Select-->
                             <div class="form-group">
                                 <label class="control-label">Gender</label>
-                                <select name="gender" class="form-control select2">
-                                    <option>Select</option>
+                                <select name="gender" class="form-control select2" required>
+                                    <option disabled selected hidden>Select</option>
                                     <optgroup label="Gender">
                                         <option value="M">Male</option>
                                         <option value="F">Female</option>

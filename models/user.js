@@ -19,7 +19,8 @@ module.exports = sequelize.define("User", {
     },
     username: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     email: {
         type: Sequelize.STRING,

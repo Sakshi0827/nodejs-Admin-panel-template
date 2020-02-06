@@ -1,6 +1,7 @@
 const Blogs = require('../models/blogs');
 const Blogs_category = require('../models/blogs_category');
 const Blogs_category_intermediate = require('../models/blogs_category_intermediate');
+const User = require('../models/user');
 
 // blogs list
 exports.blogs_list = function (req, res) {
@@ -35,19 +36,24 @@ exports.blogs_list = function (req, res) {
 exports.add_blogs =  function (req, res) {
     res.locals = {  title: 'Add Blogs' };
     try{
+        User.findAll({ }).then(user => {
+            console.log("All user:", JSON.stringify(user, null, 4));
         Blogs_category.findAll({ }).then(blogs_category => {
         console.log("All blogs_category:", JSON.stringify(blogs_category, null, 4));
-        return res.render('Blogs/add_blogs', {
+        
+         return res.render('Blogs/add_blogs', {
             status: 200,
             data: blogs_category,
+            data2: user,
             message: "blogs_category fetched successfully."
         })
+    })
     }).catch(err => {
         console.error('Unable to connect to the database:', err);
         return res.json({
             status: 500,
             data: err,
-            message: "company fetching failed."
+            message: "blogs fetching failed."
         })
     });
     } catch (exception){

@@ -20,10 +20,15 @@
                         <hr>
                         <!--                    <p class="text-muted m-b-30">Parsley is a javascript form validation library. It helps you provide your users with feedback on their form submission before sending it to your server.</p>-->
                         <form class="" action="/add-blogs" method="post" enctype="multipart/form-data">
-                            <!--Company Name-->
+                            <!--User Name-->
                             <div class="form-group">
-                                <label>User Name</label>
-                                <input type="text" name="username" class="form-control" required placeholder="User Name" />
+                                <label class="control-label">Blog user</label>
+                                <select name="user_id" class="form-control select2" required>
+                                    <option disabled selected hidden>Select</option>
+                                    <% data2.forEach((user)=> { %>
+                                        <option value=<%= user.user_id %> </option> <%= user.username %> </option>
+                                    <% }) %>
+                                </select>
                             </div>
 <!--                            Blog Title-->
                             <div class="form-group">
