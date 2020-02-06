@@ -8,9 +8,13 @@ exports.blogs_list = function (req, res) {
     try{
         Blogs.findAll({ include:[
                 {
-                    model: Blogs_category
+                    model: Blogs_category_intermediate,
+                    include: [{
+                        model: Blogs_category
+                    }]
                 }
-            ] }).then(blogs => {
+            ]
+        }).then(blogs => {
             console.log("All blogs:", JSON.stringify(blogs, null, 4));
             // res.json(blogs);
             return res.render('Blogs/blogs_list', {
@@ -77,7 +81,7 @@ exports.add_blogs_post =  (req, res) =>{
                 blogs_category_id: req.body.blogs_category_id[i]
             });
         }
-        return res.redirect('/add-blogs');
+        return res.redirect('/blogs-list');
     }).catch(err => {
         console.error('Unable to connect to the database:', err);
         return res.json({
