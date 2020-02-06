@@ -66,7 +66,7 @@
                                         <th>
                                             <button class="btn btn-info waves-effect waves-light">edit</button>
                                             <a href="#" data-id="<%= user.user_id %>"
-                                               class="btn btn-danger waves-effect waves-light delete_state">
+                                               class="btn btn-danger waves-effect waves-light delete_user">
                                                 delete
                                             </a>
                                         </th>
@@ -116,7 +116,7 @@
                 url: '/delete-user'+ user_id,
                 success: function (response) {
                     alert('User deleted');
-                    window.location.href='/user';
+                    window.location.href='/user-list';
                 },
                 error: function (error) {
                     console.log(error);

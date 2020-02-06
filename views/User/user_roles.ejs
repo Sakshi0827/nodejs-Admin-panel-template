@@ -81,7 +81,7 @@
             const user_role_id = $target.attr('data-id');
             $.ajax({
                 type: 'DELETE',
-                url: '/delete-user-roles'+ user_role_id,
+                url: '/delete-user-role'+ user_role_id,
                 success: function (response) {
                     alert('User role deleted');
                     window.location.href='/user-roles';

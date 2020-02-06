@@ -119,6 +119,43 @@ exports.add_user_post = function (req, res) {
     });
 };
 
+
+//delete user
+exports.delete_user = function (req, res){
+    console.log(`Attempting to destroy a user with user id: ${req.params.user_id}`);
+    User.destroy({
+        where: {
+            user_id: req.params.user_id
+        }
+    }).then((result) => {
+        if(result){
+            console.log("The user was deleted.", result);
+            return res.json({
+                status: 200,
+                data: result,
+                message: "User delete successful."
+            })
+        } else {
+            console.log("User delete failed.", result);
+            return res.json({
+                status: 404,
+                data: result,
+                message: "User delete failed, no record found to delete."
+            })
+        }
+    }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "User deletion failed."
+        })
+    });
+};
+
+
+
+
 //user roles list get
 exports.user_roles = function (req, res) {
     res.locals = {title: 'User Roles'};
@@ -160,7 +197,7 @@ exports.add_user_roles_post = function (req, res) {
         ).then(user_role_name => {
             console.log("New user_role's auto-generated ID:", user_role_name.user_role_id);
         
-            // res.redirect('/user_roles');
+            res.redirect('/user-roles');
         }).catch(err => {
             console.error('Unable to connect to the database:', err);
             return res.json({
@@ -174,27 +211,27 @@ exports.add_user_roles_post = function (req, res) {
     });
 };
 
-//Delete user roles
-exports.delete_user_roles = function (req, res){
-    console.log(`Attempting to destroy a User role with user role id ${req.params.user_role_id}`);
+//delete USER_ROLES
+exports.delete_user_role = function (req, res){
+    console.log(`Attempting to destroy a user_role with usrr role id: ${req.params.user_role_id}`);
     User_role.destroy({
         where: {
             user_role_id: req.params.user_role_id
         }
     }).then((result) => {
         if(result){
-            console.log("The User role was deleted.", result);
+            console.log("The user role was deleted.", result);
             return res.json({
                 status: 200,
                 data: result,
-                message: "User role delete successful."
+                message: "user_role delete successful."
             })
         } else {
-            console.log("User role delete failed.", result);
+            console.log("user_role delete failed.", result);
             return res.json({
                 status: 404,
                 data: result,
-                message: "User role delete failed, no record found to delete."
+                message: "user_role delete failed, no record found to delete."
             })
         }
     }).catch(err => {
@@ -202,7 +239,8 @@ exports.delete_user_roles = function (req, res){
         return res.json({
             status: 500,
             data: err,
-            message: "User role deletion failed."
+            message: "user_role deletion failed."
         })
     });
 };
+
