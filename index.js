@@ -51,13 +51,14 @@ City.hasMany(Event, { foreignKey: "city_id" });
 Event.belongsTo(Event_category, { foreignKey: "event_category_id"});
 Event_category.hasMany(Event, { foreignKey: "event_category_id"});
 //blogs
-// Blogs.hasMany(Blogs_category, { foreignKey: "blogs_category_id"});
-// Blogs_category.belongsTo(Blogs, { foreignKey: "blogs_category_id"});
-Blogs_category_intermediate.hasMany(Blogs, { foreignKey: "blogs_id"});
-Blogs_category_intermediate.hasMany(Blogs_category, { foreignKey: "blogs_category_id" });
-Blogs.hasMany(Blogs_category_intermediate, { foreignKey: "blogs_category_id" });
-Blogs_category.hasMany(Blogs_category_intermediate, { foreignKey: "blogs_category_id" });
-
+// Blogs_category_intermediate.hasMany(Blogs, { foreignKey: "blogs_id"});
+// Blogs_category_intermediate.hasMany(Blogs_category, { foreignKey: "blogs_category_id" });
+// Blogs.hasMany(Blogs_category_intermediate, { foreignKey: "blogs_category_id" });
+// Blogs_category.hasMany(Blogs_category_intermediate, { foreignKey: "blogs_category_id" });
+Blogs_category_intermediate.belongsTo(Blogs, {foreignKey: "blogs_id"});
+Blogs_category_intermediate.belongsTo(Blogs_category, {foreignKey: "blogs_category_id"});
+Blogs.belongsToMany(Blogs_category, {through: Blogs_category_intermediate , foreignKey: "blogs_id"});
+Blogs_category.belongsToMany(Blogs, {through: Blogs_category_intermediate, foreignKey: "blogs_category_id"});
 //User
 User.hasOne(Fitness_group, { foreignKey: "fitness_group_id"});
 User.hasOne(Company, { foreignKey: "company_id"});

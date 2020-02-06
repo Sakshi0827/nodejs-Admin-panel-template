@@ -68,9 +68,11 @@
                                 <td><%=blogs.blogs_post_date%></td>
                                 <td><%=blogs.blogs_description%></td>
                                 <td><img src="<%=blogs.blogs_image%>" alt="Blog Image :)" width="50%"></td>
+                                <% var categoryName= ""%>
                                 <% blogs.Blogs_categories.forEach((blogs_category)=>{ %>
-                                <td><%= blogs_category.blogs_category_name %></td>
+                                <% categoryName= categoryName + blogs_category.blogs_category_name+", " %>
                                 <% }) %>
+                                <td><%- categoryName %></td>
                                 <td><%=blogs.createdAt%></td>
                                 <td><%=blogs.updatedAt%></td>
                             </tr>
