@@ -8,11 +8,6 @@ const Company = require('../models/company');
 
 
 //user list get
-// exports.user_list = function(req, res) {
-//     res.locals = {  title: 'User List' };
-//     res.render('User/user_list',{list:[{id:101,name:"abc"}]});
-// };
-
 
 exports.user_list = function (req, res) {
     res.locals = {  title: 'User List' };
@@ -21,23 +16,25 @@ exports.user_list = function (req, res) {
           include: [
           {
               model: Fitness_group
+          },  
+          {
+              model: Company
+          },
+          {
+              model: User_role
+          },
+          {     
+              model: City,
+                    include: [
+                    {
+                        model:State,
+                        include: [
+                            {
+                            model: Country
+                        }]
+                    }]
           }
-        //       {
-        //         model: City,
-        //         include: [
-        //         {
-        //             model:State,
-        //             include: [{
-        //                 model: Country
-        //             }]
-        //         }]
-        //       },
-        //       {
-        //           model: Company
-        //       },
-        //       {
-        //           model: User_role
-        //       }
+
       ]
   }).then(user => {
             console.log("All user:", JSON.stringify(user, null, 4));
@@ -58,6 +55,8 @@ exports.user_list = function (req, res) {
         console.log("An exception occured, please contact the administrator.", exception);
     }
 };
+
+  
 
 
 //add user get

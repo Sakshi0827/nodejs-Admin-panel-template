@@ -61,40 +61,36 @@
                             </thead>
 
                             <tbody>
-                            <%
-                             for(var i=1;i<=10;i++){
-                             %>
-                            <tr>
-                                <th>
-                                    <button class="btn btn-info waves-effect waves-light">edit</button>
-                                    <a href="#" data-id="<%=  %>"
-                                       class="btn btn-danger waves-effect waves-light delete_user">
-                                        delete
-                                    </a>
-                                </th>
-                                <th><%= "Hello"%></th>
-                                <th>first name</th>
-                                <th>last name</th>
-                                <th>username</th>
-                                <th>email</th>
-                                <th>password</th>
-                                <th>DOB</th>
-                                <th>fitness_group</th>
-                                <th>gender</th>
-                                <th>mobile</th>
-                                <th>city</th>
-                                <th>state</th>
-                                <th>country</th>
-                                <th>pincode</th>
-                                <th>company</th>
-                                <th>user_role</th>
-                                <th>created_date</th>
-                                <th>updated_date</th>
-                            </tr>
-                            <%
-                            }
-                             %>
-                            </tbody>
+                                <% data.forEach((user) => {%>
+                                    <tr>
+                                        <th>
+                                            <button class="btn btn-info waves-effect waves-light">edit</button>
+                                            <a href="#" data-id="<%= user.user_id %>"
+                                               class="btn btn-danger waves-effect waves-light delete_state">
+                                                delete
+                                            </a>
+                                        </th>
+                                        <th scope="row"> <%= user.user_id %></th>
+                                        <td><%= user.first_name %></td>
+                                        <td><%= user.last_name %></td>
+                                        <td><%= user.username %></td>
+                                        <td><%= user.email %></td>
+                                        <td><%= user.password %></td>
+                                        <td><%= user.dob %></td>
+                                        <td><%= user.Fitness_group.fitness_group_name%></td>
+                                        <td><%= user.gender %></td>
+                                        <td><%= user.mobile %></td>
+                                        <td><%= user.City.city_name %></td>
+                                        <td><%= user.City.State.state_name %></td>
+                                        <td><%= user.City.State.Country.country_name %></td>
+                                        <td><%= user.pincode %></td>
+                                        <td><%= user.Company.company_name %></td>
+                                        <td><%= user.User_role.user_role_name %></td>
+                                        <td><%= user.createdAt %></td>
+                                        <td><%= user.updatedAt %></td>
+                                    </tr>
+                                <% }) %>
+                                </tbody>
                         </table>
                     </div>
                 </div>

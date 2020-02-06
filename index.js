@@ -55,21 +55,26 @@ Event_category.hasMany(Event, { foreignKey: "event_category_id"});
 // Blogs_category.belongsTo(Blogs, { foreignKey: "blogs_category_id"});
 Blogs_category_intermediate.hasMany(Blogs, { foreignKey: "blogs_id"});
 Blogs_category_intermediate.hasMany(Blogs_category, { foreignKey: "blogs_category_id" });
-Blogs.hasMany(Blogs_category_intermediate, { foreignKey: "blogs_category_id" });
+Blogs.hasMany(Blogs_category_intermediate, { foreignKey: "blogs_id" });
 Blogs_category.hasMany(Blogs_category_intermediate, { foreignKey: "blogs_category_id" });
 
 //User
-User.hasOne(Fitness_group, { foreignKey: "fitness_group_id"});
-User.hasOne(Company, { foreignKey: "company_id"});
-User.hasOne(Country, { foreignKey: "country_id"});
-User.hasOne(State, { foreignKey: "state_id"});
-User.hasOne(City, { foreignKey: "city_id"});
+User.belongsTo(Fitness_group, { foreignKey: "fitness_group_id"});
 Fitness_group.hasMany(User, {foreignKey: "fitness_group_id"});
-Company.belongsTo(User, {foreignKey: "company_id"});
-Country.hasMany(User, {foreignKey: "country_id"});
-State.hasMany(User, {foreignKey: "state_id"});
+
+User.belongsTo(Company, { foreignKey: "company_id"});
+Company.hasMany(User, {foreignKey: "company_id"});
+
+// User.hasOne(Country, { foreignKey: "country_id"});
+// Country.hasMany(User, {foreignKey: "country_id"});
+
+// User.hasOne(State, { foreignKey: "state_id"});
+// State.hasMany(User, {foreignKey: "state_id"});
+
+User.belongsTo(City, { foreignKey: "city_id"});
 City.hasMany(User, {foreignKey: "city_id"});
-User.hasOne(User_role, { foreignKey: "user_role_id"});
+
+User.belongsTo(User_role, { foreignKey: "user_role_id"});
 User_role.hasMany(User, {foreignKey: "user_role_id"});
 
 // Add Authentication Route file with app
