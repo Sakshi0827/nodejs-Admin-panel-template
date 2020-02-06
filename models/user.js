@@ -45,7 +45,7 @@ module.exports = sequelize.define("User", {
         type: Sequelize.INTEGER(10),
         allowNull: false
     },
-    city_id: {
+    country_id: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
@@ -53,7 +53,7 @@ module.exports = sequelize.define("User", {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    country_id: {
+    city_id: {
         type: Sequelize.INTEGER,
         allowNull: false
     },

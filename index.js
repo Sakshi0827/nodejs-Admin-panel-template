@@ -15,8 +15,8 @@ const Event = require('./models/event');
 const Event_category = require('./models/event_category');
 const Blogs = require('./models/blogs');
 const Blogs_category = require('./models/blogs_category');
-// const User = require('./models/user');
-// const User_role = require('./models/user_role');
+const User = require('./models/user');
+const User_role = require('./models/user_role');
 const Fitness_group = require('./models/fitness_group');
 const Company = require('./models/company');
 const Blogs_category_intermediate = require('./models/blogs_category_intermediate');
@@ -55,22 +55,22 @@ Event_category.hasMany(Event, { foreignKey: "event_category_id"});
 // Blogs_category.belongsTo(Blogs, { foreignKey: "blogs_category_id"});
 Blogs_category_intermediate.hasMany(Blogs, { foreignKey: "blogs_id"});
 Blogs_category_intermediate.hasMany(Blogs_category, { foreignKey: "blogs_category_id" });
-Blogs.belongsTo(Blogs_category_intermediate, { foreignKey: "blogs_category_id" });
-Blogs_category.belongsTo(Blogs_category_intermediate, { foreignKey: "blogs_category_id" });
+Blogs.hasMany(Blogs_category_intermediate, { foreignKey: "blogs_category_id" });
+Blogs_category.hasMany(Blogs_category_intermediate, { foreignKey: "blogs_category_id" });
 
 //User
-// User.hasOne(Fitness_group, { foreignKey: "fitness_group_id"});
-// User.hasOne(Company, { foreignKey: "company_id"});
-// User.hasOne(Country, { foreignKey: "country_id"});
-// User.hasOne(State, { foreignKey: "state_id"});
-// User.hasOne(City, { foreignKey: "city_id"});
-// Fitness_group.belongsTo(User, {foreignKey: "fitness_group_id"});
-// Company.belongsTo(User, {foreignKey: "company_id"});
-// Country.belongsTo(User, {foreignKey: "country_id"});
-// State.belongsTo(User, {foreignKey: "state_id"});
-// City.belongsTo(User, {foreignKey: "city_id"});
-
-
+User.hasOne(Fitness_group, { foreignKey: "fitness_group_id"});
+User.hasOne(Company, { foreignKey: "company_id"});
+User.hasOne(Country, { foreignKey: "country_id"});
+User.hasOne(State, { foreignKey: "state_id"});
+User.hasOne(City, { foreignKey: "city_id"});
+Fitness_group.hasMany(User, {foreignKey: "fitness_group_id"});
+Company.belongsTo(User, {foreignKey: "company_id"});
+Country.hasMany(User, {foreignKey: "country_id"});
+State.hasMany(User, {foreignKey: "state_id"});
+City.hasMany(User, {foreignKey: "city_id"});
+User.hasOne(User_role, { foreignKey: "user_role_id"});
+User_role.hasMany(User, {foreignKey: "user_role_id"});
 
 // Add Authentication Route file with app
 app.use('/', Authrouter); 
