@@ -58,19 +58,10 @@ Blogs_category.belongsToMany(Blogs, {through: Blogs_category_intermediate, forei
 //User
 User.belongsTo(Fitness_group, { foreignKey: "fitness_group_id"});
 Fitness_group.hasMany(User, {foreignKey: "fitness_group_id"});
-
 User.belongsTo(Company, { foreignKey: "company_id"});
 Company.hasMany(User, {foreignKey: "company_id"});
-
-// User.hasOne(Country, { foreignKey: "country_id"});
-// Country.hasMany(User, {foreignKey: "country_id"});
-
-// User.hasOne(State, { foreignKey: "state_id"});
-// State.hasMany(User, {foreignKey: "state_id"});
-
 User.belongsTo(City, { foreignKey: "city_id"});
 City.hasMany(User, {foreignKey: "city_id"});
-
 User.belongsTo(User_role, { foreignKey: "user_role_id"});
 User_role.hasMany(User, {foreignKey: "user_role_id"});
 
