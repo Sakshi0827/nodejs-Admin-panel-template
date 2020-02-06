@@ -20,8 +20,11 @@ router.get('/add-user-roles', controller_user.add_user_roles);
 router.post('/add-user-roles', controller_user.add_user_roles_post);
 
 //delete
-// router.delete('/delete-user:user_id', controller_user.delete_user);
-router.delete('/delete-user-roles:user_role_id', controller_user.delete_user_roles);
+
+router.delete('/delete-user-role:user_role_id', controller_user.delete_user_role);
+
+router.delete('/delete-user:user_id', controller_user.delete_user);
+
 
 
 
