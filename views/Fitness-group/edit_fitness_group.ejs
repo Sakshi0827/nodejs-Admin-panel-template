@@ -1,0 +1,95 @@
+
+
+<%- contentFor('HeaderCss') %>
+<!-- perticular page css -->
+<!-- X-editable css -->
+<link type="text/css" href="public/plugins/x-editable/css/bootstrap-editable.css" rel="stylesheet">
+
+
+
+<%- contentFor('body') %>
+<div class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <h4 class="page-title">Edit Fitness Group (<%= data[0].fitness_group_name %>)</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card m-b-20">
+                    <div class="card-body">
+                        <h4 class="mt-0 header-title">Edit Fitness Group</h4>
+                        <br>
+                        <form class="" id="edit-fitness-group" data-id="<%= data[0].fitness_group_id %>">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th style="width: 25%;">Attributes</th>
+                                    <th>Edit Values</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr>
+                                    <td>Fitness Group Name</td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="text" name="fitness_group_name" class="form-control" required placeholder="Fitness Group Name" value="<%= data[0].fitness_group_name%>"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div style="text-align: center">
+                                <button type="submit"
+                                        class="btn btn-success editable-submit btn-sm waves-effect waves-light">
+                                    <i class="mdi mdi-check"></i>
+                                </button>
+                                <a href="/fitness-group"
+                                   class="btn btn-danger editable-cancel btn-sm waves-effect waves-light">
+                                    <i class="mdi mdi-close"></i>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+
+    </div> <!-- container-fluid -->
+
+</div> <!-- content -->
+
+<%- contentFor('FooterJs') %>
+<!-- XEditable Plugin -->
+<script>
+    const $form = $('#edit-fitness-group')
+    $form.on('submit', submitHandler)
+    var fitness_group_id = $form.attr('data-id');
+
+    function submitHandler (e) {
+        e.preventDefault()
+        $.ajax({
+            url: '/edit-fitness-group'+ fitness_group_id,
+            type:'PUT',
+            data: $form.serialize(),
+            success: function (response) {
+                alert('Fitness Group edited');
+                window.location.href='/fitness-group';
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        }).done(response => {
+            console.log(response)
+        })
+    }
+</script>
+<script src="public/plugins/moment/moment.js"></script>
+
