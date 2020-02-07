@@ -31,7 +31,6 @@
                                             <thead>
                                             <tr>
                                                 <th style="width: 25%;">Attributes</th>
-                                                <th>Values</th>
                                                 <th>Edit values</th>
                                             </tr>
                                             </thead>
@@ -43,19 +42,20 @@
                                                         <input type="text" name="company_name" class="form-control" required placeholder="Company Name" value="<%= data[0].company_name%>"/>
                                                     </div>
                                                 </td>
-                                                <td>
-                                                    <button type="submit"
-                                                            class="btn btn-success editable-submit btn-sm waves-effect waves-light">
-                                                        <i class="mdi mdi-check"></i>
-                                                    </button>
-                                                    <button type="button"
-                                                            class="btn btn-danger editable-cancel btn-sm waves-effect waves-light">
-                                                        <i class="mdi mdi-close"></i>
-                                                    </button>
-                                                </td>
                                             </tr>
+
                                             </tbody>
                                         </table>
+                                            <div style="text-align: center">
+                                                <button type="submit"
+                                                        class="btn btn-success editable-submit btn-sm waves-effect waves-light">
+                                                    <i class="mdi mdi-check"></i>
+                                                </button>
+                                                <a href="/company"
+                                                        class="btn btn-danger editable-cancel btn-sm waves-effect waves-light">
+                                                    <i class="mdi mdi-close"></i>
+                                                </a>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
