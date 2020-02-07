@@ -1,0 +1,344 @@
+
+
+   <%- contentFor('HeaderCss') %>
+   <!-- perticular page css -->
+    <!-- X-editable css -->
+    <link type="text/css" href="public/plugins/x-editable/css/bootstrap-editable.css" rel="stylesheet">
+
+     
+   
+   <%- contentFor('body') %>
+                <div class="content">
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <h4 class="page-title">Edit User (<%= data[0].username %>)</h4>
+                                    </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card m-b-20">
+                                    <div class="card-body">
+                                        <h4 class="mt-0 header-title">Edit User</h4>
+                                        <br>
+                                        <form class="" id="edit-user" data-id="<%= data[0].user_id %>">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 25%;">Attributes</th>
+                                                <th>Edit values</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- first name -->
+                                            <tr>
+                                                <td>First Name</td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input type="text" name="first_name" class="form-control" required placeholder="First name" value="<%= data[0].first_name%>"/>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- last_name -->
+                                            <tr>
+                                                <td>Last Name</td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input type="text" name="last_name" class="form-control" required placeholder="Last name" value="<%= data[0].last_name%>"/>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- username -->
+                                            <tr>
+                                                <td>User Name</td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input type="text" name="username" class="form-control" required placeholder="Username" value="<%= data[0].username%>"/>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- email -->
+                                            <tr>
+                                                <td>Email</td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input type="text" name="email" class="form-control" required placeholder="email" value="<%= data[0].email%>"/>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- password -->
+                                            <tr>
+                                                <td> Password </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <div>
+                                                            <input type="password" name="password" id="pass2" class="form-control" required placeholder="Password" value="<%= data[0].password%>">
+                                                        </div>
+                                                        <div class="m-t-10">
+                                                            <input type="password" class="form-control" required data-parsley-equalto="#pass2" placeholder="Re-Type Password">
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- dob -->
+                                            <tr>
+                                                <td>
+                                                    Date of birth
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <label>Date Of Birth</label>
+                                                        <div>
+                                                            <div class="input-group">
+                                                                <input type="text" name="dob" class="form-control" placeholder="mm/dd/yyyy" id="datepicker-autoclose" required>
+                                                                <div class="input-group-append" >
+                                                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                                                                </div>
+                                                            </div><!-- input-group -->
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>                                          
+                                            <tr>
+                                                <td>
+                                                    Fitness group
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Fitness Group</label>
+                                                        <select name="fitness_group_id" class="form-control select2" required>
+                                                            <option disabled selected hidden>Select</option>
+                                                            <% data1.forEach((fitness_group)=> { %>
+                                                            <option value=<%= fitness_group.fitness_group_id %> </option> <%= fitness_group.fitness_group_name %> </option>
+                                                            <% }) %>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- gender -->
+                                            <tr>
+                                                <td>
+                                                    gender
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Gender</label>
+                                                        <select name="gender" class="form-control select2" required>
+                                                            <option disabled selected hidden>Select</option>
+                                                            <optgroup label="Gender">
+                                                                <option value="M">Male</option>
+                                                                <option value="F">Female</option>
+                                                            </optgroup>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>contact number</td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input type="text" name="mobile" class="form-control" required placeholder="mobile" value="<%= data[0].mobile%>"/>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- country -->
+                                            <tr>
+                                                <td>
+                                                    country
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Country</label>
+                                                        <select id="country" name="country_id" class="form-control select2" required>
+                                                            <option disabled selected hidden>Select</option>
+                                                            <% data2.forEach((country)=> { %>
+                                                            <option value=<%= country.country_id %> > <%= country.country_name %> </option>
+                                                            <% }) %>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- state -->
+                                            <tr>
+                                                <td>
+                                                    State
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <label class="control-label">State</label>
+                                                        <select id="state" name="state_id" class="form-control select2" required>
+                                                            <option disabled selected hidden>Select</option>
+                        <!--                                    Injecting options using AJAX-->
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- City -->
+                                            <tr>
+                                                <td>
+                                                    City
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <label class="control-label">City</label>
+                                                        <select id="city" name="city_id" class="form-control select2" required>
+                                                            <option disabled selected hidden>Select</option>
+                        <!--                                    Injecting options using AJAX-->
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- pincode -->
+                                            <tr>
+                                                <td>
+                                                    Pincode
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <label>Pin Code</label>
+                                                        <div>
+                                                            <input name="pincode" data-parsley-type="number" class="form-control" required data-parsley-length="[6, 6]" placeholder="Pin Code" value="<%= data[0].pincode %>">
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- company -->
+                                            <tr>
+                                                <td>
+                                                    Company
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Company Select</label>
+                                                        <select name="company_id" class="form-control select2" required>
+                                                            <option disabled selected hidden>Select</option>
+                                                            <% data3.forEach((company)=> { %>
+                                                            <option value=<%= company.company_id %> </option> <%= company.company_name %> </option>
+                                                            <% }) %>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- User role -->
+                                            <tr>
+                                                <td>
+                                                    User role
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <label class="control-label">User Role Select</label>
+                                                        <select name="user_role_id" class="form-control select2" required>
+                                                            <option disabled selected hidden>Select</option>
+                                                            <% data4.forEach((user_role)=> { %>
+                                                            <option value=<%= user_role.user_role_id %> </option> <%= user_role.user_role_name %> </option>
+                                                            <% }) %>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <div style="text-align: center" class="form-group">
+                                            <button type="submit"
+                                                    class="btn btn-success editable-submit btn-sm waves-effect waves-light">
+                                                <i class="mdi mdi-check"></i>
+                                            </button>
+                                            <a href="/event-list"
+                                                    class="btn btn-danger editable-cancel btn-sm waves-effect waves-light">
+                                                <i class="mdi mdi-close"></i>
+                                            </a>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div> <!-- end col -->
+                        </div> <!-- end row -->        
+
+                    </div> <!-- container-fluid -->
+
+                </div> <!-- content -->
+                
+<%- contentFor('FooterJs') %>
+ <!-- XEditable Plugin -->
+   <script>
+       const $form = $('#edit-user')
+       $form.on('submit', submitHandler)
+       var user_id = $form.attr('data-id');
+
+       function submitHandler (e) {
+           e.preventDefault()
+           $.ajax({
+               url: '/edit-user'+ user_id,
+               type:'PUT',
+               data: $form.serialize(),
+               success: function (response) {
+                   alert('user edited');
+                   window.location.href='/user-list';
+               },
+               error: function (error) {
+                   console.log(error);
+               }
+           }).done(response => {
+               console.log(response)
+           })
+       }
+   </script>
+   <script>
+    $('#country').change(function(){
+        console.log("Country id: ", $('#country').val());
+        var $state = $('#state');
+        $.ajax({
+            type: 'POST',
+            url: '/fetch-state',
+            data: { country_id: $('#country').val() },
+            success: function(data){
+                console.log(data);
+                var states;
+                $state.children().remove().end()
+                $state.append('<option disabled selected hidden>Select</option>')
+                data.data.forEach((states)=>{
+                    console.log('<option value="'+ states.state_id + '"> ' + states.state_name + '</option>')
+                    $state.append('<option value="'+ states.state_id + '"> ' + states.state_name + '</option>')
+                })
+            },
+            error: function(){
+                alert('No data');
+            }
+        });
+    });
+
+
+    $('#state').change(function(){
+        console.log("state id: ", $('#state').val());
+        var $city = $('#city');
+        $.ajax({
+            type: 'POST',
+            url: '/fetch-city',
+            data: { state_id: $('#state').val() },
+            success: function(data){
+                console.log(data);
+                var cities;
+                $city.children().remove().end()
+                $city.append('<option disabled selected hidden>Select</option>')
+                data.data.forEach((cities)=>{
+                    console.log('<option value="'+ cities.city_id + '"> ' + cities.city_name + '</option>')
+                    $city.append('<option value="'+ cities.city_id + '"> ' + cities.city_name + '</option>')
+                })
+            },
+            error: function(){
+                alert('No data');
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        $('form').parsley();
+    });
+</script>
+ <script src="public/plugins/moment/moment.js"></script>
+

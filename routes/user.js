@@ -31,6 +31,10 @@ router.get('/edit-user-roles:user_role_id', controller_user.edit_user_role);
 
 router.put('/edit-user-roles:user_role_id', controller_user.edit_user_role_put);
 
+router.get('/edit-user:user_id', controller_user.edit_user);
+
+router.put('/edit-user:user_id', controller_user.edit_user_put);
+
 
 
 

@@ -153,6 +153,83 @@ exports.delete_user = function (req, res){
     });
 };
 
+//edit user get
+exports.edit_user = function(req, res) {
+    res.locals = {  title: 'Edit User' };
+    console.log(req.params);
+    try{
+        User.findAll({ where: {user_id: req.params.user_id } }).then(user => {
+            console.log("user with user id: ",req.params.user_id, " is", JSON.stringify(user, null, 4));
+            Fitness_group.findAll({ }).then(fitness_group => {
+                console.log("All fitness group:", JSON.stringify(fitness_group, null, 4));
+                Country.findAll({ }).then(country => {
+                    console.log("All country:", JSON.stringify(country, null, 4));
+                    Company.findAll({ }).then(company => { 
+                        console.log("All company:", JSON.stringify(company, null, 4));
+                        User_role.findAll({ }).then(user_role => {
+                            console.log("All user_role:", JSON.stringify(user_role, null, 4));
+                                return res.render('User/edit_user', {
+                                    status: 200,
+                                    data: user,
+                                    data1: fitness_group,
+                                    data2: country,
+                                    data3: company,
+                                    data4: user_role,
+                                    message: "user fetched successfully."
+                                })
+                        })
+                    })
+                })
+            })
+        }).catch(err => {
+            console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "user fetching failed."
+            })
+        });
+    } catch (exception){
+        console.log("An exception occured, please contact the administrator.", exception);
+    }
+};
+
+//edit user put
+exports.edit_user_put = function(req, res) {
+    res.locals = {title: 'User Company'};
+    console.log("------------",req.params, req.body);
+    User.findOne({ where: { user_id: req.params.user_id }})
+        .then((result) => {
+            if(result){
+                result.update(
+                    // company_name:req.body.company_name
+                    req.body
+                );
+                console.log("The User was edited.", result);
+                return res.json({
+                    status: 200,
+                    data: result,
+                    message: "User edit successful."
+                })
+            } else {
+                console.log("User edit failed.", result);
+                return res.json({
+                    status: 404,
+                    data: result,
+                    message: "User edit failed, no record found to edit."
+                })
+            }
+        }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "User edit failed."
+        })
+    });
+};
+
+
 
 
 
