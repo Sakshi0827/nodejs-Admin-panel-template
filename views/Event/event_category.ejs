@@ -52,7 +52,10 @@
                             <% data.forEach((event_category)=>{ %>
                                 <tr>
                                     <th>
-                                        <button class="btn btn-info waves-effect waves-light">edit</button>
+                                        <a href="edit-event-category<%= event_category.event_category_id %>"
+                                            class="btn btn-info waves-effect waves-light">
+                                             edit
+                                         </a>
                                         <a href="#" data-id="<%= event_category.event_category_id %>"
                                            class="btn btn-danger waves-effect waves-light delete_event_category">
                                             delete

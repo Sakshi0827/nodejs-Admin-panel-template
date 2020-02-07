@@ -68,6 +68,7 @@
                                                 <td>Event Category</td>
                                                 <td>
                                                     <div class="form-group">
+                                                        <label class="control-label"><%= data[0].event_category%></label>
                                                         <select name ="event_category_id" class="form-control select2" >
                                                             <option disabled selected hidden>Select</option>
                                                             <% data3.forEach((event_category)=> { %>
@@ -81,16 +82,16 @@
 
                                             </tbody>
                                         </table>
-                                            <div style="text-align: center">
-                                                <button type="submit"
-                                                        class="btn btn-success editable-submit btn-sm waves-effect waves-light">
-                                                    <i class="mdi mdi-check"></i>
-                                                </button>
-                                                <a href="/company"
-                                                        class="btn btn-danger editable-cancel btn-sm waves-effect waves-light">
-                                                    <i class="mdi mdi-close"></i>
-                                                </a>
-                                            </div>
+                                        <div style="text-align: center" class="form-group">
+                                            <button type="submit"
+                                                    class="btn btn-success editable-submit btn-sm waves-effect waves-light">
+                                                <i class="mdi mdi-check"></i>
+                                            </button>
+                                            <a href="/event-list"
+                                                    class="btn btn-danger editable-cancel btn-sm waves-effect waves-light">
+                                                <i class="mdi mdi-close"></i>
+                                            </a>
+                                        </div>
                                         </form>
                                     </div>
                                 </div>
@@ -116,7 +117,7 @@
                data: $form.serialize(),
                success: function (response) {
                    alert('Event edited');
-                   window.location.href='/event';
+                   window.location.href='/event-list';
                },
                error: function (error) {
                    console.log(error);

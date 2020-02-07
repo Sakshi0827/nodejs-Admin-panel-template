@@ -29,6 +29,9 @@ router.delete('/delete-user:user_id', controller_user.delete_user);
 
 router.get('/edit-user-roles:user_role_id', controller_user.edit_user_role);
 
+router.put('/edit-user-roles:user_role_id', controller_user.edit_user_role_put);
+
+
 
 
 

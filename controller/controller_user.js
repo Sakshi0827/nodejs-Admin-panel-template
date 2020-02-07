@@ -268,3 +268,38 @@ exports.edit_user_role = function(req, res) {
         console.log("An exception occured, please contact the administrator.", exception);
     }
 };
+
+//edit user role put
+exports.edit_user_role_put = function(req, res) {
+    res.locals = {title: 'Edit User role'};
+    console.log("------------",req.params, req.body);
+    User_role.findOne({ where: { user_role_id: req.params.user_role_id }})
+        .then((result) => {
+            if(result){
+                result.update({
+                    user_role_name:req.body.user_role_name
+                });
+                console.log("The User role was edited.", result);
+                return res.json({
+                    status: 200,
+                    data: result,
+                    message: "User role edit successful."
+                })
+            } else {
+                console.log("User role edit failed.", result);
+                return res.json({
+                    status: 404,
+                    data: result,
+                    message: "User role edit failed, no record found to edit."
+                })
+            }
+        }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "User role edit failed."
+        })
+    });
+};
+

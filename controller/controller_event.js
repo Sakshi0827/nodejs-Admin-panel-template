@@ -255,3 +255,103 @@ exports.edit_event = function(req, res) {
         console.log("An exception occured, please contact the administrator.", exception);
     }
 };
+
+
+//edit event put
+exports.edit_event_put = function(req, res) {
+    res.locals = {title: 'Edit Event'};
+    console.log("------------",req.params, req.body);
+    Event.findOne({ where: { event_id: req.params.event_id }})
+        .then((result) => {
+            if(result){
+                result.update({
+                    event_title:req.body.event_title,
+                    event_description: req.body.event_description,
+                    city_id: req.body.city_id,
+                    event_category_id: req.body.event_category_id
+                });
+                console.log("The Event was edited.", result);
+                return res.json({
+                    status: 200,
+                    data: result,
+                    message: "Event edit successful."
+                })
+            } else {
+                console.log("Event edit failed.", result);
+                return res.json({
+                    status: 404,
+                    data: result,
+                    message: "Event edit failed, no record found to edit."
+                })
+            }
+        }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "Event edit failed."
+        })
+    });
+};
+
+
+
+//edit event category get
+exports.edit_event_category = function(req, res) {
+    res.locals = {  title: 'Edit Event Category' };
+    console.log(req.params);
+    try{
+        Event_category.findAll({ where: {event_category_id: req.params.event_category_id } }).then(event_category => {
+            console.log("event category with event category id: ",req.params.event_category_id, " is", JSON.stringify(event_category, null, 4));
+            return res.render('Event/edit_event_category', {
+                status: 200,
+                data: event_category,
+                message: "event category fetched successfully."
+            })
+        }).catch(err => {
+            console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "event category fetching failed."
+            })
+        });
+    } catch (exception){
+        console.log("An exception occured, please contact the administrator.", exception);
+    }
+};
+
+//edit event category put
+exports.edit_event_category_put = function(req, res) {
+    res.locals = {title: 'Edit Event Catgeory'};
+    console.log("------------",req.params, req.body);
+    Event_category.findOne({ where: { event_category_id: req.params.event_category_id }})
+        .then((result) => {
+            if(result){
+                result.update({
+                    event_category_name: req.body.event_category_name
+                });
+                console.log("The Event Category was edited.", result);
+                return res.json({
+                    status: 200,
+                    data: result,
+                    message: "Event Category edit successful."
+                })
+            } else {
+                console.log("Event Category edit failed.", result);
+                return res.json({
+                    status: 404,
+                    data: result,
+                    message: "Event Category edit failed, no record found to edit."
+                })
+            }
+        }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "Event Category edit failed."
+        })
+    });
+};
+

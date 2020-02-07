@@ -16,8 +16,11 @@ router.get('/add-event', controller_event.add_event);
 router.post('/add-event', controller_event.add_event_post);
 router.delete('/delete-event:event_id', controller_event.delete_event);
 
-router.get('/edit-event:event_id', controller_event.edit_event);
+router.get('/edit-event-category:event_category_id', controller_event.edit_event_category);
+router.put('/edit-event-category:event_category_id', controller_event.edit_event_category_put);
 
+router.get('/edit-event:event_id', controller_event.edit_event);
+router.put('/edit-event:event_id', controller_event.edit_event_put);
 
 
 module.exports = router;
