@@ -1,0 +1,130 @@
+
+
+   <%- contentFor('HeaderCss') %>
+   <!-- perticular page css -->
+    <!-- X-editable css -->
+    <link type="text/css" href="public/plugins/x-editable/css/bootstrap-editable.css" rel="stylesheet">
+
+     
+   
+   <%- contentFor('body') %>
+                <div class="content">
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <h4 class="page-title">Edit Event (<%= data[0].event_title %>)</h4>
+                                    </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card m-b-20">
+                                    <div class="card-body">
+                                        <h4 class="mt-0 header-title">Edit Event</h4>
+                                        <br>
+                                        <form class="" id="edit-event" data-id="<%= data[0].event_id %>">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 25%;">Attributes</th>
+                                                <th>Edit values</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>Event title</td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input type="text" name="event_title" class="form-control" required placeholder="Event title" value="<%= data[0].event_title%>"/>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Event description</td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input type="text" name="event_description" class="form-control" required placeholder="Event description" value="<%= data[0].event_description%>"/>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Event Location</td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <select name="city_id" class="form-control select2" required>
+                                                            <option disabled selected hidden>Select</option>
+                                                            <% data2.forEach((city)=> { %>
+                                                            <option value=<%= city.city_id %> </option> <%= city.city_name %> </option>
+                                                            <% }) %>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Event Category</td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <select name ="event_category_id" class="form-control select2" >
+                                                            <option disabled selected hidden>Select</option>
+                                                            <% data3.forEach((event_category)=> { %>
+                                                                <option value=<%= event_category.event_category_id %> </option> <%= event_category.event_category_name %> </option>
+                                                                <% }) %>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+
+                                            </tbody>
+                                        </table>
+                                            <div style="text-align: center">
+                                                <button type="submit"
+                                                        class="btn btn-success editable-submit btn-sm waves-effect waves-light">
+                                                    <i class="mdi mdi-check"></i>
+                                                </button>
+                                                <a href="/company"
+                                                        class="btn btn-danger editable-cancel btn-sm waves-effect waves-light">
+                                                    <i class="mdi mdi-close"></i>
+                                                </a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div> <!-- end col -->
+                        </div> <!-- end row -->        
+
+                    </div> <!-- container-fluid -->
+
+                </div> <!-- content -->
+                
+<%- contentFor('FooterJs') %>
+ <!-- XEditable Plugin -->
+   <script>
+       const $form = $('#edit-event')
+       $form.on('submit', submitHandler)
+       var event_id = $form.attr('data-id');
+
+       function submitHandler (e) {
+           e.preventDefault()
+           $.ajax({
+               url: '/edit-event'+ event_id,
+               type:'PUT',
+               data: $form.serialize(),
+               success: function (response) {
+                   alert('Event edited');
+                   window.location.href='/event';
+               },
+               error: function (error) {
+                   console.log(error);
+               }
+           }).done(response => {
+               console.log(response)
+           })
+       }
+   </script>
+ <script src="public/plugins/moment/moment.js"></script>
+

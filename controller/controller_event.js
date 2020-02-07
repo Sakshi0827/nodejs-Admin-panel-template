@@ -223,3 +223,35 @@ exports.delete_event_category = function (req, res){
     });
 };
 
+//edit event get
+exports.edit_event = function(req, res) {
+    res.locals = {  title: 'Edit Event' };
+    console.log(req.params);
+    try{
+        Event.findAll({ where: {event_id: req.params.event_id } }).then(event => {
+            console.log("event with event id: ",req.params.event_id, " is", JSON.stringify(event, null, 4));
+            City.findAll({ }).then(city => {
+                console.log("All city:", JSON.stringify(city, null, 4));
+                Event_category.findAll({ }).then(event_category => {
+                    console.log("All event_category:", JSON.stringify(event_category, null, 4));
+                        return res.render('Event/edit_event', {
+                            status: 200,
+                            data: event,
+                            data2: city,
+                            data3: event_category,
+                            message: "event fetched successfully."
+                        })
+                })
+            })
+        }).catch(err => {
+            console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "event fetching failed."
+            })
+        });
+    } catch (exception){
+        console.log("An exception occured, please contact the administrator.", exception);
+    }
+};
