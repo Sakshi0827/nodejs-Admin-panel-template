@@ -234,13 +234,21 @@ exports.edit_event = function(req, res) {
                 console.log("All city:", JSON.stringify(city, null, 4));
                 Event_category.findAll({ }).then(event_category => {
                     console.log("All event_category:", JSON.stringify(event_category, null, 4));
-                        return res.render('Event/edit_event', {
-                            status: 200,
-                            data: event,
-                            data2: city,
-                            data3: event_category,
-                            message: "event fetched successfully."
+                    City.findAll({where:{city_id: event[0].city_id} }).then(city_result => {
+                        console.log("City-------", JSON.stringify(city_result));
+                        Event_category.findAll({where:{event_category_id: event[0].event_category_id} }).then(event_category_result => {
+                            console.log("City-------", JSON.stringify(event_category_result));
+                            return res.render('Event/edit_event', {
+                                status: 200,
+                                data: event,
+                                data2: city,
+                                data3: event_category,
+                                data4: city_result,
+                                data5: event_category_result,
+                                message: "event fetched successfully."
+                            })
                         })
+                    })
                 })
             })
         }).catch(err => {

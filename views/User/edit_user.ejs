@@ -79,9 +79,9 @@
                                                         <div>
                                                             <input type="password" name="password" id="pass2" class="form-control" required placeholder="Password" value="<%= data[0].password%>">
                                                         </div>
-                                                        <div class="m-t-10">
+                                                        <!-- <div class="m-t-10">
                                                             <input type="password" class="form-control" required data-parsley-equalto="#pass2" placeholder="Re-Type Password">
-                                                        </div>
+                                                        </div> -->
                                                     </div>
                                                 </td>
                                             </tr>
@@ -95,7 +95,7 @@
                                                         <label>Date Of Birth</label>
                                                         <div>
                                                             <div class="input-group">
-                                                                <input type="text" name="dob" class="form-control" placeholder="mm/dd/yyyy" id="datepicker-autoclose" required>
+                                                                <input type="text" name="dob" class="form-control" placeholder="mm/dd/yyyy" id="datepicker-autoclose" required value="<%=data[0].dob%>">
                                                                 <div class="input-group-append" >
                                                                     <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                                                 </div>

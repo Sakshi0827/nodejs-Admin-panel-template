@@ -56,7 +56,7 @@
                                                 <td>
                                                     <div class="form-group">
                                                         <select name="city_id" class="form-control select2" required>
-                                                            <option disabled selected hidden>Select</option>
+                                                            <option disabled selected hidden><%= data4[0].city_name%></option>
                                                             <% data2.forEach((city)=> { %>
                                                             <option value=<%= city.city_id %> </option> <%= city.city_name %> </option>
                                                             <% }) %>
@@ -68,9 +68,8 @@
                                                 <td>Event Category</td>
                                                 <td>
                                                     <div class="form-group">
-                                                        <label class="control-label"><%= data[0].event_category%></label>
                                                         <select name ="event_category_id" class="form-control select2" >
-                                                            <option disabled selected hidden>Select</option>
+                                                            <option disabled selected hidden><%= data5[0].event_category_name%></option>
                                                             <% data3.forEach((event_category)=> { %>
                                                                 <option value=<%= event_category.event_category_id %> </option> <%= event_category.event_category_name %> </option>
                                                                 <% }) %>
