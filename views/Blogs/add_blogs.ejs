@@ -41,7 +41,7 @@
                                 <div class="row">
                                     <div class="col-12" style="height:450px;">
                                         <div class="card m-b-20" >
-                                            <textarea id="elm1" name="blogs_description"></textarea>
+                                            <textarea id="elm1" name="blogs_description" required></textarea>
                                         </div>
                                     </div> <!-- end col -->
                                 </div> <!-- end row -->
@@ -51,7 +51,7 @@
                                 <label>Post Date</label>
                                 <div>
                                     <div class="input-group">
-                                        <input type="text" name ="blogs_post_date" class="form-control" placeholder="mm/dd/yyyy" id="datepicker-autoclose">
+                                        <input type="text" name ="blogs_post_date" class="form-control" placeholder="mm/dd/yyyy" id="datepicker-autoclose" required>
                                         <div class="input-group-append">
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                         </div>
@@ -62,10 +62,12 @@
 <!--                            Blog Category-->
                             <div class="form-group">
                                 <label class="control-label">Blog Category</label>
-                                <select name ="blogs_category_id" class="select2 form-control select2-multiple" multiple="multiple" multiple data-placeholder="Choose ...">
+                                <select name ="blogs_category_id" class="select2 form-control select2-multiple" multiple="multiple" multiple data-placeholder="Choose ..." required>
                                     <% data.forEach((blogs_category)=> { %>
                                         <option value=<%= blogs_category.blogs_category_id %> </option> <%= blogs_category.blogs_category_name %> </option>
                                     <% }) %>
+                                    <span class="input-group-text"></span>
+                                        
                                 </select>
                             </div>
 <!--                            dropzone-->

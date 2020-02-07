@@ -83,3 +83,10 @@ exports.delete_company = function (req, res){
             })
         });
     };
+
+//edit company get
+exports.edit_company = function(req, res) {
+    res.locals = {  title: 'Edit Company' };
+    console.log(req.params);
+    res.render('Company/edit_company');   
+}

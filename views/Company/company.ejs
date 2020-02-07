@@ -51,7 +51,7 @@
                             <% data.forEach((company)=>{ %>
                                 <tr>
                                     <th>
-                                        <button class="btn btn-info waves-effect waves-light">edit</button>
+                                        <a href="#" data-id="<%=company.company_id%>" class="btn btn-info waves-effect waves-light edit_company">edit</a>
                                         <a href="#" data-id="<%= company.company_id %>"
                                            class="btn btn-danger waves-effect waves-light delete_company">
                                             delete
@@ -75,6 +75,7 @@
 <%- contentFor('FooterJs') %>
 
 <script>
+    // delete-company
     $(document).ready(function(){
         $('.delete_company').click(function (e) {
             $target = $(e.target);
@@ -86,6 +87,25 @@
                 success: function (response) {
                     alert('Company deleted');
                     window.location.href='/company';
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+// edit-company
+    $(document).ready(function(){
+        $('.edit_company').click(function (e) {
+            $target = $(e.target);
+            console.log($target.attr('data-id'));
+            const company_id = $target.attr('data-id');
+            $.ajax({
+                type: 'GET',
+                url: '/edit-company'+ company_id,
+                success: function (response) {
+                    alert('Company deleted');
+                    window.location.href='/edit-company'+ company_id;
                 },
                 error: function (error) {
                     console.log(error);
