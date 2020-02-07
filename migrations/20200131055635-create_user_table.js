@@ -19,7 +19,7 @@ module.exports = {
       },
       username: {
           type: Sequelize.STRING,
-          allowN:ull: false,
+          allowNull: false,
           unique: true
       },
       email: {

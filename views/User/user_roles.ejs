@@ -50,7 +50,10 @@
                                 <% data.forEach((user_role)=>{ %>
                                     <tr>
                                         <th>
-                                            <button class="btn btn-info waves-effect waves-light">edit</button>
+                                            <a href="edit-user-roles<%= user_role.user_role_id %>"
+                                                class="btn btn-info waves-effect waves-light">
+                                                 edit
+                                             </a>
                                             <a href="#" data-id="<%= user_role.user_role_id %>"
                                                class="btn btn-danger waves-effect waves-light delete_user_role">
                                                 delete

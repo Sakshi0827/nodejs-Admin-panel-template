@@ -1,0 +1,95 @@
+
+
+   <%- contentFor('HeaderCss') %>
+   <!-- perticular page css -->
+    <!-- X-editable css -->
+    <link type="text/css" href="public/plugins/x-editable/css/bootstrap-editable.css" rel="stylesheet">
+
+     
+   
+   <%- contentFor('body') %>
+                <div class="content">
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <h4 class="page-title">Edit User role (<%= data[0].user_role_name %>)</h4>
+                                    </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card m-b-20">
+                                    <div class="card-body">
+                                        <h4 class="mt-0 header-title">Edit User role</h4>
+                                        <br>
+                                        <form class="" id="edit-user-roles" data-id="<%= data[0].user_role_id %>">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 25%;">Attributes</th>
+                                                <th>Values</th>
+                                                <th>Edit values</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>User role Name</td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input type="text" name="user_role_name" class="form-control" required placeholder="User role Name" value="<%= data[0].user_role_name%>"/>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <button type="submit"
+                                                            class="btn btn-success editable-submit btn-sm waves-effect waves-light">
+                                                        <i class="mdi mdi-check"></i>
+                                                    </button>
+                                                    <button type="button"
+                                                            class="btn btn-danger editable-cancel btn-sm waves-effect waves-light">
+                                                        <i class="mdi mdi-close"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div> <!-- end col -->
+                        </div> <!-- end row -->        
+
+                    </div> <!-- container-fluid -->
+
+                </div> <!-- content -->
+                
+<%- contentFor('FooterJs') %>
+ <!-- XEditable Plugin -->
+   <script>
+       const $form = $('#edit-user-roles')
+       $form.on('submit', submitHandler)
+       var user_role_id = $form.attr('data-id');
+
+       function submitHandler (e) {
+           e.preventDefault()
+           $.ajax({
+               url: '/edit-user-roles'+ user_role_id,
+               type:'PUT',
+               data: $form.serialize(),
+               success: function (response) {
+                   alert('User role edited');
+                   window.location.href='/user-roles';
+               },
+               error: function (error) {
+                   console.log(error);
+               }
+           }).done(response => {
+               console.log(response)
+           })
+       }
+   </script>
+ <script src="public/plugins/moment/moment.js"></script>
+

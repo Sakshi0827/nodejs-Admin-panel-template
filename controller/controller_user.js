@@ -244,3 +244,27 @@ exports.delete_user_role = function (req, res){
     });
 };
 
+//edit user role get
+exports.edit_user_role = function(req, res) {
+    res.locals = {  title: 'Edit User role' };
+    console.log(req.params);
+    try{
+        User_role.findAll({ where: {user_role_id: req.params.user_role_id } }).then(user_role => {
+            console.log("user role with user role id: ",req.params.user_role_id, " is", JSON.stringify(user_role, null, 4));
+            return res.render('User/edit_user_role', {
+                status: 200,
+                data: user_role,
+                message: "user role fetched successfully."
+            })
+        }).catch(err => {
+            console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "user role fetching failed."
+            })
+        });
+    } catch (exception){
+        console.log("An exception occured, please contact the administrator.", exception);
+    }
+};
