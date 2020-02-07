@@ -25,6 +25,10 @@ router.delete('/delete-user-role:user_role_id', controller_user.delete_user_role
 
 router.delete('/delete-user:user_id', controller_user.delete_user);
 
+//edit get
+
+router.get('/edit-user-roles:user_role_id', controller_user.edit_user_role);
+
 
 
 

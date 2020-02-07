@@ -11,6 +11,7 @@ module.exports = sequelize.define("User_role", {
     },
     user_role_name: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     }
 });

@@ -11,7 +11,8 @@ module.exports = {
     },
     user_role_name: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     createdAt: Sequelize.DATE,
     updatedAt: Sequelize.DATE
