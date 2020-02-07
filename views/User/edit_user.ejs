@@ -112,7 +112,7 @@
                                                     <div class="form-group">
                                                         <label class="control-label">Fitness Group</label>
                                                         <select name="fitness_group_id" class="form-control select2" required>
-                                                            <option disabled selected hidden>Select</option>
+                                                            <option disabled selected hidden><%= data5[0].fitness_group_name%></option>
                                                             <% data1.forEach((fitness_group)=> { %>
                                                             <option value=<%= fitness_group.fitness_group_id %> </option> <%= fitness_group.fitness_group_name %> </option>
                                                             <% }) %>
@@ -155,7 +155,7 @@
                                                     <div class="form-group">
                                                         <label class="control-label">Country</label>
                                                         <select id="country" name="country_id" class="form-control select2" required>
-                                                            <option disabled selected hidden>Select</option>
+                                                            <option disabled selected hidden><%= data8[0].country_name%></option>
                                                             <% data2.forEach((country)=> { %>
                                                             <option value=<%= country.country_id %> > <%= country.country_name %> </option>
                                                             <% }) %>
@@ -172,7 +172,7 @@
                                                     <div class="form-group">
                                                         <label class="control-label">State</label>
                                                         <select id="state" name="state_id" class="form-control select2" required>
-                                                            <option disabled selected hidden>Select</option>
+                                                            <option disabled selected hidden><%= data7[0].state_name%></option>
                         <!--                                    Injecting options using AJAX-->
                                                         </select>
                                                     </div>
@@ -187,7 +187,7 @@
                                                     <div class="form-group">
                                                         <label class="control-label">City</label>
                                                         <select id="city" name="city_id" class="form-control select2" required>
-                                                            <option disabled selected hidden>Select</option>
+                                                            <option disabled selected hidden><%= data6[0].city_name%></option>
                         <!--                                    Injecting options using AJAX-->
                                                         </select>
                                                     </div>
@@ -216,7 +216,7 @@
                                                     <div class="form-group">
                                                         <label class="control-label">Company Select</label>
                                                         <select name="company_id" class="form-control select2" required>
-                                                            <option disabled selected hidden>Select</option>
+                                                            <option disabled selected hidden><%= data9[0].company_name%></option>
                                                             <% data3.forEach((company)=> { %>
                                                             <option value=<%= company.company_id %> </option> <%= company.company_name %> </option>
                                                             <% }) %>
@@ -233,7 +233,7 @@
                                                     <div class="form-group">
                                                         <label class="control-label">User Role Select</label>
                                                         <select name="user_role_id" class="form-control select2" required>
-                                                            <option disabled selected hidden>Select</option>
+                                                            <option disabled selected hidden><%= data10[0].user_role_name%></option>
                                                             <% data4.forEach((user_role)=> { %>
                                                             <option value=<%= user_role.user_role_id %> </option> <%= user_role.user_role_name %> </option>
                                                             <% }) %>

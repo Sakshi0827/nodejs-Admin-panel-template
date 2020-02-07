@@ -168,15 +168,39 @@ exports.edit_user = function(req, res) {
                         console.log("All company:", JSON.stringify(company, null, 4));
                         User_role.findAll({ }).then(user_role => {
                             console.log("All user_role:", JSON.stringify(user_role, null, 4));
-                                return res.render('User/edit_user', {
-                                    status: 200,
-                                    data: user,
-                                    data1: fitness_group,
-                                    data2: country,
-                                    data3: company,
-                                    data4: user_role,
-                                    message: "user fetched successfully."
+                            Fitness_group.findAll({ where: {fitness_group_id: user[0].fitness_group_id } }).then(fitness_group_result => {
+                                console.log("Fitness group is------", JSON.stringify(fitness_group_result, null, 4));
+                                City.findAll({ where: {city_id: user[0].city_id } }).then(city_result => {
+                                    console.log("City is------", JSON.stringify(city_result, null, 4));
+                                    State.findAll({ where: {state_id: user[0].state_id } }).then(state_result => {
+                                        console.log("state is------", JSON.stringify(state_result, null, 4));  
+                                        Country.findAll({ where: {country_id: user[0].country_id } }).then(country_result => {
+                                            console.log("Country is------", JSON.stringify(country_result, null, 4)); 
+                                            Company.findAll({ where: {company_id: user[0].company_id } }).then(company_result => {
+                                                console.log("company result is------", JSON.stringify(company_result, null, 4));
+                                                User_role.findAll({ where: {user_role_id: user[0].user_role_id } }).then(User_role_result => {
+                                                    console.log("User role is------", JSON.stringify(User_role_result, null, 4));                           
+                                                    return res.render('User/edit_user', {
+                                                        status: 200,
+                                                        data: user,
+                                                        data1: fitness_group,
+                                                        data2: country,
+                                                        data3: company,
+                                                        data4: user_role,
+                                                        data5: fitness_group_result,
+                                                        data6: city_result,
+                                                        data7: state_result,
+                                                        data8: country_result,
+                                                        data9: company_result,
+                                                        data10: User_role_result,
+                                                        message: "user fetched successfully."
+                                                    })
+                                                })
+                                            })
+                                        })
+                                    })
                                 })
+                            })
                         })
                     })
                 })
