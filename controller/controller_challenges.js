@@ -78,3 +78,64 @@ exports.delete_challenges = function (req, res){
         })
     });
 };
+
+exports.edit_challenges = function (req, res) {
+    res.locals = {  title: 'Edit Challenges' };
+    try{
+        Challenges.findAll({ where:{challenge_id: req.params.challenge_id }}).then(challenges => {
+            console.log("Fetched Challenges:", JSON.stringify(challenges, null, 4));
+            return res.render('Challenges/edit_challenges', {
+                status: 200,
+                data: challenges,
+                message: "Challenges fetched successfully."
+            })
+        }).catch(err => {
+            console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "Challenges fetching failed."
+            })
+        });
+    } catch (exception){
+        console.log("An exception occured, please contact the administrator.", exception);
+    }
+};
+
+//edit challenges put
+exports.edit_challenges_put = function(req, res) {
+    res.locals = {title: 'Edit Challenges'};
+    console.log("------------",req.params, req.body);
+    Challenges.findOne({ where: { challenge_id: req.params.challenge_id }})
+        .then((result) => {
+            if(result){
+                result.update({
+                    challenge_title:req.body.challenge_title,
+                    challenge_price:req.body.challenge_price,
+                    challenge_description:req.body.challenge_description,
+                    challenge_note:req.body.challenge_note,
+                });
+                console.log("The Challenges was edited.", result);
+                return res.json({
+                    status: 200,
+                    data: result,
+                    message: "Challenges edit successful."
+                })
+            } else {
+                console.log("Challenges edit failed.", result);
+                return res.json({
+                    status: 404,
+                    data: result,
+                    message: "Challenges edit failed, no record found to edit."
+                })
+            }
+        }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "Challenges edit failed."
+        })
+    });
+};
+

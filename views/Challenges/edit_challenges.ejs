@@ -1,0 +1,157 @@
+
+
+<%- contentFor('HeaderCss') %>
+<!-- perticular page css -->
+<!-- X-editable css -->
+<link type="text/css" href="public/plugins/x-editable/css/bootstrap-editable.css" rel="stylesheet">
+
+
+
+<%- contentFor('body') %>
+<div class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <h4 class="page-title">Edit Challenges (<%= data[0].challenge_title %>)</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card m-b-20">
+                    <div class="card-body">
+                        <h4 class="mt-0 header-title">Edit Challenges</h4>
+                        <br>
+                        <form class="" id="edit-challenges" data-id="<%= data[0].challenge_id %>">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th style="width: 25%;">Attributes</th>
+                                    <th>Edit Values</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr>
+                                    <td>Challenge Title</td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input value="<%= data[0].challenge_title %>" type="text" name="challenge_title" class="form-control" required placeholder="Challenge Title">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Challenge Price</td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input value="<%= data[0].challenge_price %>" data-parsley-type="digits" name="challenge_price" type="text" class="form-control" required placeholder="Challenge Price">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Challenge Description</td>
+                                    <td>
+                                        <div class="form-group">
+                                            <label>Challenge Description</label>
+                                            <div class="row">
+                                                <div class="col-12" style="height:450px;">
+                                                    <div class="card m-b-20" >
+                                                        <textarea id="elm1" name="challenge_description"><%= data[0].challenge_description %></textarea>
+                                                    </div>
+                                                </div> <!-- end col -->
+                                            </div> <!-- end row -->
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Challenge Note</td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input value="<%= data[0].challenge_note %>" type="text" name="challenge_note" class="form-control" required placeholder="Challenge Note">
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div style="text-align: center" class="form-group">
+                                <button type="submit"
+                                        class="btn btn-success editable-submit btn-sm waves-effect waves-light">
+                                    <i class="mdi mdi-check"></i>
+                                </button>
+                                <a href="/challenges"
+                                   class="btn btn-danger editable-cancel btn-sm waves-effect waves-light">
+                                    <i class="mdi mdi-close"></i>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+
+    </div> <!-- container-fluid -->
+
+</div> <!-- content -->
+
+<%- contentFor('FooterJs') %>
+<!-- XEditable Plugin -->
+<script>
+    const $form = $('#edit-challenges')
+    $form.on('submit', submitHandler)
+    var challenges_id = $form.attr('data-id');
+
+    function submitHandler (e) {
+        e.preventDefault()
+        $.ajax({
+            url: '/edit-challenges'+ challenges_id,
+            type:'PUT',
+            data: $form.serialize(),
+            success: function (response) {
+                alert('Challenges edited');
+                window.location.href='/challenges';
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        }).done(response => {
+            console.log(response)
+        })
+    }
+</script>
+
+<script src="public/plugins/tinymce/tinymce.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        if($("#elm1").length > 0){
+            tinymce.init({
+                selector: "textarea#elm1",
+                theme: "modern",
+                height:300,
+                plugins: [
+                    "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                    "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                    "save table contextmenu directionality emoticons template paste textcolor"
+                ],
+                toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
+                style_formats: [
+                    {title: 'Bold text', inline: 'b'},
+                    {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+                    {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+                    {title: 'Example 1', inline: 'span', classes: 'example1'},
+                    {title: 'Example 2', inline: 'span', classes: 'example2'},
+                    {title: 'Table styles'},
+                    {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+                ]
+            });
+        }
+    });
+</script>
+<script src="public/plugins/parsleyjs/parsley.min.js"></script>
+
+<script src="public/plugins/moment/moment.js"></script>
+
