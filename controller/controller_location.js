@@ -504,5 +504,79 @@ exports.delete_city = function (req, res){
 };
 
 
+//edit city get
+exports.edit_city = function(req, res) {
+    res.locals = {  title: 'Edit city' };
+    console.log(req.params);
+    try{
+        City.findAll({ where: {city_id: req.params.city_id } }).then(city => {
+            console.log("city with city id: ",req.params.city_id, " is", JSON.stringify(city, null, 4));
+            Country.findAll({ }).then(country => {
+                console.log("All country:", JSON.stringify(country, null, 4));
+                State.findAll({ }).then(state => {
+                    console.log("all states", JSON.stringify(state));
+                    State.findAll({where:{state_id: city[0].state_id} }).then(state_result => {
+                        console.log("state-----", JSON.stringify(state_result));
+                        Country.findAll({where:{country_id: state_result[0].country_id} }).then(country_result => {
+                            console.log("country-------", JSON.stringify(country_result));
+                            return res.render('Location/edit_city', {
+                                status: 200,
+                                data: city,
+                                data3: country,
+                                data2: state,
+                                data4: state_result,
+                                data5: country_result,
+                            })
+                        })
+                    })
+                })
+            })
+        }).catch(err => {
+            console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "event fetching failed."
+            })
+        });
+    } catch (exception){
+        console.log("An exception occured, please contact the administrator.", exception);
+    }
+};
 
+//edit city put
+exports.edit_city_put = function(req, res) {
+    res.locals = {title: 'Edit city'};
+    console.log("------------",req.params, req.body);
+    City.findOne({ where: { city_id: req.params.city_id }})
+        .then((result) => {
+            if(result){
+                result.update({
+                    city_name:req.body.city_name,
+
+                    state_id: req.body.state_id
+                });
+                console.log("The state was edited.", result);
+                return res.json({
+                    status: 200,
+                    data: result,
+                    message: "state edit successful."
+                })
+            } else {
+                console.log("state edit failed.", result);
+                return res.json({
+                    status: 404,
+                    data: result,
+                    message: "state edit failed, no record found to edit."
+                })
+            }
+        }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "state edit failed."
+        })
+    });
+};
 

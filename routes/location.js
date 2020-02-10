@@ -26,9 +26,11 @@ router.post('/fetch-city', controller_location.fetch_city);
 // edit
 router.get('/edit-country:country_id', controller_location.edit_country);
 router.get('/edit-state:state_id', controller_location.edit_state);
+router.get('/edit-city:city_id', controller_location.edit_city);
 
 router.put('/edit-country:country_id', controller_location.edit_country_put);
 router.put('/edit-state:state_id', controller_location.edit_state_put);
+router.put('/edit-city:city_id', controller_location.edit_city_put);
 
 
 

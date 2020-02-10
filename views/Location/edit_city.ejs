@@ -1,0 +1,155 @@
+
+
+   <%- contentFor('HeaderCss') %>
+   <!-- perticular page css -->
+    <!-- X-editable css -->
+    <link type="text/css" href="public/plugins/x-editable/css/bootstrap-editable.css" rel="stylesheet">
+
+     
+   
+   <%- contentFor('body') %>
+   <div class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <h4 class="page-title">Edit City (<%= data[0].city_name %>)</h4>
+                    </div>
+            </div>
+        </div>
+        <!-- end row -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card m-b-20">
+                    <div class="card-body">
+                        <h4 class="mt-0 header-title">Edit City</h4>
+                        <br>
+                        <form class="" id="edit-city" data-id="<%= data[0].city_id %>">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th style="width: 25%;">Attributes</th>
+                                <th>Edit values</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        country
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <label class="control-label">Country</label>
+                                            <select id="country" name="country_id" class="form-control select2" required>
+                                                <option disabled selected hidden><%= data5[0].country_name%></option>
+                                                <% data3.forEach((country)=> { %>
+                                                <option value=<%= country.country_id %> > <%= country.country_name %> </option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- state -->
+                                <tr>
+                                    <td>
+                                        State
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <label class="control-label">State</label>
+                                            <select id="state" name="state_id" class="form-control select2" required>
+                                                <option disabled selected hidden><%= data4[0].state_name%></option>
+            <!--                                    Injecting options using AJAX-->
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- City -->
+                                <tr>
+                                    <td>City </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="text" name="city_name" class="form-control" required placeholder="city_name" value="<%= data[0].city_name%>"/>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <div style="text-align: center" class="form-group">
+                            <button type="submit"
+                                    class="btn btn-success editable-submit btn-sm waves-effect waves-light">
+                                <i class="mdi mdi-check"></i>
+                            </button>
+                            <a href="/city"
+                                    class="btn btn-danger editable-cancel btn-sm waves-effect waves-light">
+                                <i class="mdi mdi-close"></i>
+                            </a>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->        
+
+    </div> <!-- container-fluid -->
+
+</div> <!-- content -->
+
+
+
+<%- contentFor('FooterJs') %>
+ <!-- XEditable Plugin -->
+ <script>
+    $('#country').change(function(){
+        console.log("Country id: ", $('#country').val());
+        var $state = $('#state');
+        $.ajax({
+            type: 'POST',
+            url: '/fetch-state',
+            data: { country_id: $('#country').val() },
+            success: function(data){
+                console.log(data);
+                var states;
+                $state.children().remove().end()
+                $state.append('<option disabled selected hidden>Select</option>')
+                data.data.forEach((states)=>{
+                    console.log('<option value="'+ states.state_id + '"> ' + states.state_name + '</option>')
+                    $state.append('<option value="'+ states.state_id + '"> ' + states.state_name + '</option>')
+                })
+            },
+            error: function(){
+                alert('No data');
+            }
+        });
+    });
+    </script> 
+   
+   
+   <script>
+       const $form = $('#edit-city')
+       $form.on('submit', submitHandler)
+       var city_id = $form.attr('data-id');
+
+       function submitHandler (e) {
+           e.preventDefault()
+           $.ajax({
+               url: '/edit-city'+ city_id,
+               type:'PUT',
+               data: $form.serialize(),
+               success: function (response) {
+                   alert('city edited');
+                   window.location.href='/city';
+               },
+               error: function (error) {
+                   console.log(error);
+               }
+           }).done(response => {
+               console.log(response)
+           })
+       }
+   </script>
+ <script src="public/plugins/moment/moment.js"></script>
+
