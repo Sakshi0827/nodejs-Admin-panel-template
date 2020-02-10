@@ -71,7 +71,13 @@
                                 </select>
                             </div>
 <!--                            dropzone-->
-<input name="blogs_image" id = "blogs_image" type="file" accept ="image/*">
+                            <div>
+                                <img style="width:50%" id="blah" src="<%=data[0].blogs_image%>" alt="your image" />
+                            </div>
+                            <br>
+                            <div>
+                                <input name="blogs_image" id = "blogs_image" type="file" accept ="image/*">
+                            </div>
 
                             <!-- <div class="row">
                                 <div class="col-12">
@@ -108,6 +114,23 @@
 <script src="public/plugins/tinymce/tinymce.min.js"></script>
 
 <script>
+    // Image preview
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#blah').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#blogs_image").change(function() {
+        alert("Image Uploaded");
+        readURL(this);
+    });
+//textarea
     $(document).ready(function () {
         if($("#elm1").length > 0){
             tinymce.init({
