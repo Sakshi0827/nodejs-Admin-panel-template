@@ -23,4 +23,10 @@ router.delete('/delete-city:city_id', controller_location.delete_city);
 router.post('/fetch-state', controller_location.fetch_state);
 router.post('/fetch-city', controller_location.fetch_city);
 
+// edit
+router.get('/edit-country:country_id', controller_location.edit_country);
+router.put('/edit-country:country_id', controller_location.edit_country_put);
+
+
+
 module.exports = router;
