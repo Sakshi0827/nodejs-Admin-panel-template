@@ -101,7 +101,7 @@
                                                         <label>Date Of Birth</label>
                                                         <div>
                                                             <div class="input-group">
-                                                                <input type="text" name="dob" class="form-control" placeholder="mm/dd/yyyy" id="datepicker-autoclose" required value="<%=data[0].dob%>">
+                                                                <input type="text" name="dob" class="form-control" placeholder="mm/dd/yyyy" data-date-format="yyyy/mm/dd" id="datepicker-autoclose" required value="<%=data[0].dob%>">
                                                                 <div class="input-group-append" >
                                                                     <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                                                 </div>
@@ -118,9 +118,10 @@
                                                     <div class="form-group">
                                                         <label class="control-label">Fitness Group</label>
                                                         <select name="fitness_group_id" class="form-control select2" required>
-                                                            <option disabled selected hidden><%= data5[0].fitness_group_name%></option>
+<!--                                                            <option selected hidden value=<%= data5[0].fitness_group_id %>><%= data5[0].fitness_group_name%></option>-->
                                                             <% data1.forEach((fitness_group)=> { %>
-                                                            <option value=<%= fitness_group.fitness_group_id %> </option> <%= fitness_group.fitness_group_name %> </option>
+                                                            <option <% if (fitness_group.fitness_group_name===data5[0].fitness_group_name){ %>selected <% } %>
+                                                                    value=<%= fitness_group.fitness_group_id %> </option> <%= fitness_group.fitness_group_name %> </option>
                                                             <% }) %>
                                                         </select>
                                                     </div>
@@ -135,14 +136,15 @@
                                                     <div class="form-group">
                                                         <label class="control-label">Gender</label>
                                                         <select name="gender" class="form-control select2" required>
-                                                            <option disabled selected hidden><% if (data[0].gender == 'F') { %>
-                                                                Female
-                                                                <%} else { %>
-                                                                <p> Male </p>
-                                                                <% } %></option>
+
                                                             <optgroup label="Gender">
-                                                                <option value="M">Male</option>
-                                                                <option value="F">Female</option>
+                                                                <% if (data[0].gender == 'F') { %>
+                                                                    <option selected hidden value="F">Female</option>
+                                                                    <option value="M">Male</option>
+                                                                <%} else { %>
+                                                                    <option selected hidden value="M">Male</option>
+                                                                    <option value="F">Female</option>
+                                                                <% } %>
                                                             </optgroup>
                                                         </select>
                                                     </div>
@@ -226,9 +228,8 @@
                                                     <div class="form-group">
                                                         <label class="control-label">Company Select</label>
                                                         <select name="company_id" class="form-control select2" required>
-                                                            <option disabled selected hidden><%= data9[0].company_name%></option>
                                                             <% data3.forEach((company)=> { %>
-                                                            <option value=<%= company.company_id %> </option> <%= company.company_name %> </option>
+                                                            <option <% if (company.company_name===data9[0].company_name){ %>selected <% } %> value=<%= company.company_id %> </option> <%= company.company_name %> </option>
                                                             <% }) %>
                                                         </select>
                                                     </div>
@@ -243,9 +244,8 @@
                                                     <div class="form-group">
                                                         <label class="control-label">User Role Select</label>
                                                         <select name="user_role_id" class="form-control select2" required>
-                                                            <option disabled selected hidden><%= data10[0].user_role_name%></option>
-                                                            <% data4.forEach((user_role)=> { %>
-                                                            <option value=<%= user_role.user_role_id %> </option> <%= user_role.user_role_name %> </option>
+                                                        <% data4.forEach((user_role)=> { %>
+                                                            <option <% if (user_role.user_role_name===data10[0].user_role_name){ %>selected <% } %> value=<%= user_role.user_role_id %> </option> <%= user_role.user_role_name %> </option>
                                                             <% }) %>
                                                         </select>
                                                     </div>
@@ -276,6 +276,14 @@
 <%- contentFor('FooterJs') %>
  <!-- XEditable Plugin -->
    <script>
+       // date value
+       $('.datepicker-autoclose').datepicker({
+           timepicker:false,
+           format:'yyyy/mm/dd'
+       }).on("changeDate", function(e) {
+           $('#datepicker-autoclose').attr('value', e.format());
+       });
+       // put method
        const $form = $('#edit-user')
        $form.on('submit', submitHandler)
        var user_id = $form.attr('data-id');
