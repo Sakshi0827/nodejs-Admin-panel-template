@@ -90,6 +90,68 @@ exports.delete_country = function (req, res){
 };
 
 
+//edit Country get
+exports.edit_country = function(req, res) {
+    res.locals = {  title: 'Edit Country' };
+    console.log(req.params);
+    try{
+        Country.findAll({ where: {country_id: req.params.country_id } }).then(country => {
+            console.log("country with country id: ",req.params.country_id, " is", JSON.stringify(country, null, 4));
+            return res.render('Location/edit_country', {
+                status: 200,
+                data: country,
+                message: "country fetched successfully."
+            })
+        }).catch(err => {
+            console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "country fetching failed."
+            })
+        });
+    } catch (exception){
+        console.log("An exception occured, please contact the administrator.", exception);
+    }
+};
+
+//edit Country put
+exports.edit_country_put = function(req, res) {
+    res.locals = {title: 'Edit country'};
+    console.log("------------",req.params, req.body);
+    Country.findOne({ where: { country_id: req.params.country_id }})
+        .then((result) => {
+            if(result){
+                result.update({
+                    country_name:req.body.country_name
+                });
+                console.log("The country was edited.", result);
+                return res.json({
+                    status: 200,
+                    data: result,
+                    message: "country edit successful."
+                })
+            } else {
+                console.log("country edit failed.", result);
+                return res.json({
+                    status: 404,
+                    data: result,
+                    message: "country edit failed, no record found to edit."
+                })
+            }
+        }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "country edit failed."
+        })
+    });
+};
+
+
+
+
 // State LIST
 exports.state_list =  function (req, res) {
     res.locals = {  title: 'State' };
@@ -372,3 +434,7 @@ exports.delete_city = function (req, res){
         })
     });
 };
+
+
+
+
