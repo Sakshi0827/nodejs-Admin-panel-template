@@ -513,20 +513,16 @@ exports.edit_city = function(req, res) {
             console.log("city with city id: ",req.params.city_id, " is", JSON.stringify(city, null, 4));
             Country.findAll({ }).then(country => {
                 console.log("All country:", JSON.stringify(country, null, 4));
-                State.findAll({ }).then(state => {
-                    console.log("all states", JSON.stringify(state));
-                    State.findAll({where:{state_id: city[0].state_id} }).then(state_result => {
-                        console.log("state-----", JSON.stringify(state_result));
-                        Country.findAll({where:{country_id: state_result[0].country_id} }).then(country_result => {
-                            console.log("country-------", JSON.stringify(country_result));
-                            return res.render('Location/edit_city', {
-                                status: 200,
-                                data: city,
-                                data3: country,
-                                data2: state,
-                                data4: state_result,
-                                data5: country_result,
-                            })
+                State.findAll({where:{state_id: city[0].state_id} }).then(state_result => {
+                    console.log("state-----", JSON.stringify(state_result));
+                    Country.findAll({where:{country_id: state_result[0].country_id} }).then(country_result => {
+                        console.log("country-------", JSON.stringify(country_result));
+                        return res.render('Location/edit_city', {
+                            status: 200,
+                            data: city,
+                            data3: country,
+                            data4: state_result,
+                            data5: country_result,
                         })
                     })
                 })
@@ -536,7 +532,7 @@ exports.edit_city = function(req, res) {
             return res.json({
                 status: 500,
                 data: err,
-                message: "event fetching failed."
+                message: "city fetching failed."
             })
         });
     } catch (exception){
@@ -556,18 +552,18 @@ exports.edit_city_put = function(req, res) {
 
                     state_id: req.body.state_id
                 });
-                console.log("The state was edited.", result);
+                console.log("The city was edited.", result);
                 return res.json({
                     status: 200,
                     data: result,
-                    message: "state edit successful."
+                    message: "city edit successful."
                 })
             } else {
-                console.log("state edit failed.", result);
+                console.log("city edit failed.", result);
                 return res.json({
                     status: 404,
                     data: result,
-                    message: "state edit failed, no record found to edit."
+                    message: "city edit failed, no record found to edit."
                 })
             }
         }).catch(err => {
@@ -575,7 +571,7 @@ exports.edit_city_put = function(req, res) {
         return res.json({
             status: 500,
             data: err,
-            message: "state edit failed."
+            message: "city edit failed."
         })
     });
 };
