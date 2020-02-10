@@ -52,7 +52,10 @@
                                 <% data.forEach((city) => {%>
                                     <tr>
                                         <th>
-                                            <button class="btn btn-info waves-effect waves-light">edit</button>
+                                            <a href="edit-city<%= city.city_id %>"
+                                                class="btn btn-info waves-effect waves-light">
+                                                 edit
+                                             </a>
                                             <a href="#" data-id="<%= city.city_id %>"
                                                class="btn btn-danger waves-effect waves-light delete_city">
                                                 delete
