@@ -8,7 +8,9 @@
     <link href="public/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
     <link href="public/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
     <link href="public/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
-    <link href="public/plugins/dropzone/dist/dropzone.css" rel="stylesheet" type="text/css"> 
+    <link href="public/plugins/dropzone/dist/dropzone.css" rel="stylesheet" type="text/css">
+    
+     
    
    <%- contentFor('body') %>
                 <div class="content">
@@ -17,7 +19,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="page-title-box">
-                                    <h4 class="page-title">Edit Event (<%= data[0].event_title %>)</h4>
+                                    <h4 class="page-title">Edit STATE (<%= data[0].state_name %>)</h4>
                                     </div>
                             </div>
                         </div>
@@ -27,9 +29,9 @@
                             <div class="col-12">
                                 <div class="card m-b-20">
                                     <div class="card-body">
-                                        <h4 class="mt-0 header-title">Edit Event</h4>
+                                        <h4 class="mt-0 header-title">Edit state</h4>
                                         <br>
-                                        <form class="" id="edit-event" data-id="<%= data[0].event_id %>">
+                                        <form class="" id="edit-state" data-id="<%= data[0].state_id %>">
                                         <table class="table table-striped">
                                             <thead>
                                             <tr>
@@ -38,50 +40,26 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td>Event title</td>
+                                                <td> Country name</td>
                                                 <td>
                                                     <div class="form-group">
-                                                        <input type="text" name="event_title" class="form-control" required placeholder="Event title" value="<%= data[0].event_title%>"/>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Event description</td>
-                                                <td>
-                                                    <div class="form-group">
-                                                        <input type="text" name="event_description" class="form-control" required placeholder="Event description" value="<%= data[0].event_description%>"/>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Event Location</td>
-                                                <td>
-                                                    <div class="form-group">
-                                                        <select name="city_id" class="form-control select2" required>
-                                                            <option disabled selected hidden><%= data4[0].city_name%></option>
-                                                            <% data2.forEach((city)=> { %>
-                                                            <option value=<%= city.city_id %> </option> <%= city.city_name %> </option>
+                                                        <select name="country_id" class="form-control select2" required>
+                                                            <option disabled selected hidden><%= data3[0].country_name%></option>
+                                                            <% data2.forEach((country)=> { %>
+                                                            <option value=<%= country.country_id %> </option> <%= country.country_name %> </option>
                                                             <% }) %>
                                                         </select>
                                                     </div>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Event Category</td>
+                                                <td>State Name</td>
                                                 <td>
                                                     <div class="form-group">
-                                                        <select name ="event_category_id" class="form-control select2" >
-                                                            <option disabled selected hidden><%= data5[0].event_category_name%></option>
-                                                            <% data3.forEach((event_category)=> { %>
-                                                                <option value=<%= event_category.event_category_id %> </option> <%= event_category.event_category_name %> </option>
-                                                                <% }) %>
-                                                        </select>
+                                                        <input type="text" name="state_name" class="form-control" required placeholder="state Name" value="<%= data[0].state_name%>"/>
                                                     </div>
                                                 </td>
                                             </tr>
-
-
                                             </tbody>
                                         </table>
                                         <div style="text-align: center" class="form-group">
@@ -89,7 +67,7 @@
                                                     class="btn btn-success editable-submit btn-sm waves-effect waves-light">
                                                 <i class="mdi mdi-check"></i>
                                             </button>
-                                            <a href="/event-list"
+                                            <a href="/state"
                                                     class="btn btn-danger editable-cancel btn-sm waves-effect waves-light">
                                                 <i class="mdi mdi-close"></i>
                                             </a>
@@ -107,19 +85,19 @@
 <%- contentFor('FooterJs') %>
  <!-- XEditable Plugin -->
    <script>
-       const $form = $('#edit-event')
+       const $form = $('#edit-state')
        $form.on('submit', submitHandler)
-       var event_id = $form.attr('data-id');
+       var state_id = $form.attr('data-id');
 
        function submitHandler (e) {
            e.preventDefault()
            $.ajax({
-               url: '/edit-event'+ event_id,
+               url: '/edit-state'+ state_id,
                type:'PUT',
                data: $form.serialize(),
                success: function (response) {
-                   alert('Event edited');
-                   window.location.href='/event-list';
+                   alert('state edited');
+                   window.location.href='/state';
                },
                error: function (error) {
                    console.log(error);
