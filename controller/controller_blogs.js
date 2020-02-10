@@ -97,7 +97,6 @@ exports.add_blogs_post =  (req, res) =>{
 };
 
 // blogs delete
-
 exports.delete_blogs = function (req, res){
     console.log(`Attempting to destroy a blog with blogs_id ${req.params.blogs_id}`);
     Blogs.destroy({
@@ -113,7 +112,7 @@ exports.delete_blogs = function (req, res){
                 message: "blog delete successful."
             })
         } else {
-            console.log("blog delete failed.", result)
+            console.log("blog delete failed.", result);
             return res.json({
                 status: 404,
                 data: result,
@@ -129,6 +128,44 @@ exports.delete_blogs = function (req, res){
         })
     });
 };
+
+// Edit blogs get
+exports.edit_blogs = function (req, res) {
+    res.locals = {  title: 'Edit Blog' };
+    try{
+        User.findAll({}).then(users => {
+            console.log("All blogs:", JSON.stringify(users, null, 4));
+            Blogs.findAll({
+                where: {blogs_id: req.params.blogs_id},
+                include: [{
+                    model: Blogs_category
+                }]
+            }).then(blogs => {
+                console.log("All blogs:", JSON.stringify(blogs, null, 4));
+                User.findAll({where: {user_id: blogs[0].user_id}}).then(user_result => {
+                    // res.json(blogs);
+                    return res.render('Blogs/edit_blogs', {
+                        status: 200,
+                        data: blogs,
+                        data2: users,
+                        data3:user_result,
+                        message: "blogs fetched successfully."
+                    })
+                })
+            })
+        }).catch(err => {
+            console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "Blogs fetching failed."
+            })
+        });
+    } catch (exception){
+        console.log("An exception occured, please contact the administrator.", exception);
+    }
+};
+
 
 // blogs category list
 exports.blogs_category =  function (req, res) {
