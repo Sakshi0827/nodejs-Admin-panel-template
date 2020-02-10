@@ -165,9 +165,7 @@ exports.add_blogs_category =  function (req, res) {
 
 
 
-//add blogs category POST 
-
-
+//add blogs category POST
 exports.add_blogs_category_post =  function (req, res) {
     Blogs_category.create(
             req.body
@@ -217,6 +215,63 @@ exports.delete_blogs_category = function (req, res){
             status: 500,
             data: err,
             message: "blog category deletion failed."
+        })
+    });
+};
+
+//edit blogs category
+exports.edit_blogs_category =  function (req, res) {
+    res.locals = {  title: 'Edit Blog Category' };
+    try{
+        Blogs_category.findAll({ }).then(blogs_category => {
+            console.log("All blogs_category:", JSON.stringify(blogs_category, null, 4));
+            return res.render('Blogs/edit_blogs_category', {
+                status: 200,
+                data: blogs_category,
+                message: "blogs_category fetched successfully."
+            })
+        }).catch(err => {
+            console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "company fetching failed."
+            })
+        });
+    } catch (exception){
+        console.log("An exception occured, please contact the administrator.", exception);
+    }
+};
+
+// edit blogs category put
+exports.edit_blogs_category_put =  function (req, res) {
+    res.locals = {title: 'Edit Blog Category'};
+    Blogs_category.findOne({ where: { blogs_category_id: req.params.blogs_category_id }})
+        .then((result) => {
+            if(result){
+                result.update({
+                    blogs_category_name:req.body.blogs_category_name,
+                });
+                console.log("The blogs_category_name was edited.", result);
+                return res.json({
+                    status: 200,
+                    data: result,
+                    message: "blogs_category_name edit successful."
+                })
+            } else {
+                console.log("blogs_category_name edit failed.", result);
+                return res.json({
+                    status: 404,
+                    data: result,
+                    message: "blogs_category_name edit failed, no record found to edit."
+                })
+            }
+        }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "blogs_category_name edit failed."
         })
     });
 };
