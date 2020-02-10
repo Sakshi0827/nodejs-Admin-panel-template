@@ -50,7 +50,7 @@
                             <% data.forEach((blogs_category)=>{ %>
                                 <tr>
                                     <th>
-                                        <button class="btn btn-info waves-effect waves-light">edit</button>
+                                        <a href="/edit-blogs-category<%= blogs_category.blogs_category_id %>" class="btn btn-info waves-effect waves-light">edit</a>
                                         <a href="#" data-id="<%= blogs_category.blogs_category_id %>"
                                            class="btn btn-danger waves-effect waves-light delete_blogs_category">
                                             delete
