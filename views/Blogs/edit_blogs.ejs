@@ -48,9 +48,12 @@
                                     <td>
                                         <div class="form-group">
                                             <select name="user_id" class="form-control select2" required>
-                                                <option disabled selected hidden><%=data3[0].username%></option>
-                                                <% data2.forEach((user)=> { %>
-                                                    <option value=<%= user.user_id %> </option> <%= user.username %> </option>
+                                                <% data2.forEach((user)=> {
+                                                    if (data3[0].username===user.username){%>
+                                                        <option selected value=<%= user.user_id %> </option> <%= user.username %> </option>
+                                                    <% } else { %>
+                                                        <option value=<%= user.user_id %> </option> <%= user.username %> </option>
+                                                    <% } %>
                                                 <% }) %>
                                             </select>
                                         </div>
@@ -108,8 +111,18 @@
                                     <td>
                                         <div class="form-group">
                                             <select name ="blogs_category_id" class="select2 form-control select2-multiple" multiple="multiple" multiple data-placeholder="Choose ..." required>
-                                                <% data.forEach((blogs_category)=> { %>
-                                                    <option value=<%= blogs_category.blogs_category_id %> </option> <%= blogs_category.blogs_category_name %> </option>
+                                                <% var arr=[];
+                                                data4.forEach((blogs_category)=> {
+                                                    arr.push(blogs_category.blogs_category_name);
+                                                }) %>
+                                                <% data[0].Blogs_categories.forEach((blogs_category_result)=> {
+                                                         if(arr.includes(blogs_category_result.blogs_category_name)) { %>
+                                                            <option selected value=<%= blogs_category_result.blogs_category_id %>>
+                                                                    <%= blogs_category_result.blogs_category_name %></option>
+                                                        <% }else{ %>
+                                                            <option value= <%= blogs_category_result.blogs_category_id %>>
+                                                                <%= blogs_category_result.blogs_category_name %></option>
+                                                    <% } %>
                                                 <% }) %>
                                                 <span class="input-group-text"></span>
                                             </select>

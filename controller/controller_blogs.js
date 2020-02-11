@@ -134,22 +134,26 @@ exports.edit_blogs = function (req, res) {
     res.locals = {  title: 'Edit Blog' };
     try{
         User.findAll({}).then(users => {
-            console.log("All blogs:", JSON.stringify(users, null, 4));
+            console.log("All Users:", JSON.stringify(users, null, 4));
             Blogs.findAll({
                 where: {blogs_id: req.params.blogs_id},
                 include: [{
                     model: Blogs_category
                 }]
-            }).then(blogs => {
-                console.log("All blogs:", JSON.stringify(blogs, null, 4));
-                User.findAll({where: {user_id: blogs[0].user_id}}).then(user_result => {
-                    // res.json(blogs);
-                    return res.render('Blogs/edit_blogs', {
-                        status: 200,
-                        data: blogs,
-                        data2: users,
-                        data3:user_result,
-                        message: "blogs fetched successfully."
+            }).then(blogs_result => {
+                console.log("Blog Fetched:", JSON.stringify(blogs_result, null, 4));
+                User.findAll({where: {user_id: blogs_result[0].user_id}}).then(user_result => {
+                    console.log("User Fetched:", JSON.stringify(user_result, null, 4));
+                    Blogs_category.findAll({}).then(blogs_category => {
+                        console.log("All blogs category:", JSON.stringify(blogs_category, null, 4));
+                        return res.render('Blogs/edit_blogs', {
+                            status: 200,
+                            data: blogs_result,
+                            data2: users,
+                            data3: user_result,
+                            data4: blogs_category,
+                            message: "blogs fetched successfully."
+                        })
                     })
                 })
             })
