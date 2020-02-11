@@ -166,10 +166,14 @@
                                                 <td>
                                                     <div class="form-group">
                                                         <label class="control-label">Country</label>
-                                                        <select id="country" name="country_id" class="form-control select2" required>
-                                                            <option disabled selected hidden><%= data8[0].country_name%></option>
+                                                        <select id="country" data7="<%= data7[0].state_id%>" name="country_id" class="form-control select2" required>
+                                                            <!-- <option disabled selected hidden><%= data8[0].country_name%></option> -->
                                                             <% data2.forEach((country)=> { %>
-                                                            <option value=<%= country.country_id %> > <%= country.country_name %> </option>
+                                                                <% if(country.country_name===data8[0].country_name) { %>
+                                                                    <option selected value=<%= country.country_id %> > <%= country.country_name %> </option>
+                                                                <% } else{ %>
+                                                                    <option value=<%= country.country_id %> > <%= country.country_name %> </option>
+                                                                <% } %>
                                                             <% }) %>
                                                         </select>
                                                     </div>
@@ -183,8 +187,8 @@
                                                 <td>
                                                     <div class="form-group">
                                                         <label class="control-label">State</label>
-                                                        <select id="state" name="state_id" class="form-control select2" required>
-                                                            <option disabled selected hidden><%= data7[0].state_name%></option>
+                                                        <select id="state" data6="<%= data6[0].city_id %>" data7="<%= data7[0].state_id%>" name="state_id" class="form-control select2" required>
+                                                            <!-- <option disabled selected hidden><%= data7[0].state_name%></option> -->
                         <!--                                    Injecting options using AJAX-->
                                                         </select>
                                                     </div>
@@ -307,6 +311,7 @@
        }
    </script>
    <script>
+       //dynamic fetching of states ONCHANGE
     $('#country').change(function(){
         console.log("Country id: ", $('#country').val());
         var $state = $('#state');
@@ -329,8 +334,68 @@
             }
         });
     });
+    // default selected value for state OnLOAD
+    $('#country').ready(function(){
+        console.log("Country id: ", $('#country').val());
+        var $state = $('#state');
+        const data7 = $('#country').attr('data7');
+        console.log('data7', data7);
+        $.ajax({
+            type: 'POST',
+            url: '/fetch-state',
+            data: { country_id: $('#country').val() },
+            success: function(data){
+                console.log(data);
+                var states;
+                $state.children().remove().end()
+                $state.append('<option disabled selected hidden>Select</option>')
+                data.data.forEach((states)=>{
+                    console.log('<option value="'+ states.state_id + '"> ' + states.state_name + '</option>')
+                    if(states.state_id==data7){
+                    $state.append('<option selected value="'+ states.state_id + '"> ' + states.state_name + '</option>')
+                    }else{
+                    $state.append('<option value="'+ states.state_id + '"> ' + states.state_name + '</option>')
+                    }
+                })
+            },
+            error: function(){
+                alert('No data');
+            }
+        });
+    });
+    //fetching default city ONCHANGE
+    $('#state').ready(function(){
+        // console.log("state id: ", $('#state').val());
+        var $city = $('#city');
+        const data6 = $('#state').attr('data6');
+        console.log('data6', data6);
+        const data7 = $('#state').attr('data7');
+        console.log('data7', data7);
+        $.ajax({
+            type: 'POST',
+            url: '/fetch-city',
+            data: { state_id: data7 },
+            success: function(data){
+                console.log(data);
+                var cities;
+                $city.children().remove().end()
+                $city.append('<option disabled selected hidden>Select</option>')
+                data.data.forEach((cities)=>{
+                    console.log('<option value="'+ cities.city_id + '"> ' + cities.city_name + '</option>')
+                    if(cities.city_id==data6){
+                        $city.append('<option selected value="'+ cities.city_id + '"> ' + cities.city_name + '</option>')
+                    }else{
+                        $city.append('<option value="'+ cities.city_id + '"> ' + cities.city_name + '</option>')
+                    }
+                })
+            },
+            error: function(){
+                alert('No data');
+            }
+        });
+    });
 
-
+// dynamic fetching of city ONCHANGE
     $('#state').change(function(){
         console.log("state id: ", $('#state').val());
         var $city = $('#city');
@@ -354,6 +419,8 @@
         });
     });
 
+    
+    //parsley form validation
     $(document).ready(function() {
         $('form').parsley();
     });
