@@ -26,7 +26,7 @@ router.delete('/delete-blog-category:blogs_category_id', controller_blogs.delete
 router.get('/edit-blogs-category:blogs_category_id', controller_blogs.edit_blogs_category);
 router.put('/edit-blogs-category:blogs_category_id', controller_blogs.edit_blogs_category_put);
 router.get('/edit-blogs:blogs_id', controller_blogs.edit_blogs);
-// router.put('/edit-blogs:blogs_id', controller_blogs.edit_blogs_put);
+router.put('/edit-blogs:blogs_id',upload.single('blogs_image'), controller_blogs.edit_blogs_put);
 
 
 module.exports = router;
