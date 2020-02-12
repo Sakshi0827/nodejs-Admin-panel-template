@@ -50,11 +50,11 @@ City.belongsTo(State, {foreignKey: "state_id"});
 Event.belongsTo(City, { foreignKey: "city_id" });
 City.hasMany(Event, { foreignKey: "city_id" });
 Event.belongsTo(Event_category, { foreignKey: "event_category_id"});
-Event_category.hasMany(Event, { foreignKey: "event_category_id"});
+Event_category.hasMany(Event, { foreignKey: "event_category_id", onDelete: 'CASCADE', hooks: true });
 //blogs
-Blogs_category_intermediate.belongsTo(Blogs, {foreignKey: "blogs_id"});
-Blogs_category_intermediate.belongsTo(Blogs_category, {foreignKey: "blogs_category_id"});
-Blogs.belongsToMany(Blogs_category, {through: Blogs_category_intermediate , foreignKey: "blogs_id"});
+Blogs_category_intermediate.belongsTo(Blogs, {foreignKey: "blogs_id", onDelete: 'cascade',onUpdate: 'cascade'});
+Blogs_category_intermediate.belongsTo(Blogs_category, {foreignKey: "blogs_category_id", onDelete: 'cascade', onUpdate: 'cascade'});
+Blogs.belongsToMany(Blogs_category, {through: Blogs_category_intermediate , foreignKey: "blogs_id", onDelete: 'cascade', onUpdate: 'cascade'});
 Blogs_category.belongsToMany(Blogs, {through: Blogs_category_intermediate, foreignKey: "blogs_category_id"});
 User.hasMany(Blogs, {foreignKey: "user_id"});
 Blogs.belongsTo(User, {foreignKey: "user_id"});
@@ -86,3 +86,21 @@ app.use('/', router);
 http.listen(3000, function(){
   console.log('listening on *:3000');
 });
+
+
+
+// ALTER TABLE events ADD FOREIGN KEY (event_category_id) REFERENCES event_categories(event_category_id);
+
+// ALTER TABLE events change FOREIGN KEY (event_category_id) REFERENCES event_categories(event_category_id) ON DELETE CASCADE;
+
+// Alter table events drop foreign key (event_category_id);
+
+// CREATE TABLE events (
+//   event_id int NOT NULL,
+//   event_title varchar(50) NOT NULL,
+//   event_description varchar(255) NOT NULL,
+//   city_id int NOT NULL,
+//   event_category_id int NOT NULL,
+//   PRIMARY KEY (event_id),
+//   FOREIGN KEY (event_category_id) REFERENCES event_categories(event_category_id) ON DELETE CASCADE
+// );
