@@ -2,6 +2,7 @@ const Blogs = require('../models/blogs');
 const Blogs_category = require('../models/blogs_category');
 const Blogs_category_intermediate = require('../models/blogs_category_intermediate');
 const User = require('../models/user');
+const fs = require('fs');
 
 // blogs list
 exports.blogs_list = function (req, res) {
@@ -68,7 +69,7 @@ exports.add_blogs =  function (req, res) {
 //add blogs post
 exports.add_blogs_post =  (req, res) =>{
     res.locals = {  title: 'Add Blogs' };
-    // console.log('<----------->', req.body);
+    console.log('<----------->', req.file);
     Blogs.create(
         {
             user_id: req.body.user_id,
@@ -79,7 +80,6 @@ exports.add_blogs_post =  (req, res) =>{
         }
     ).then(blogs => {
         console.log("New Blog's auto-generated ID:", blogs.blogs_id);
-        console.log("New Blog's auto-generated ID:", req.body.blogs_category_id.length);
         for(let i=0; i<req.body.blogs_category_id.length; i++){
             Blogs_category_intermediate.create(
             {
@@ -103,6 +103,12 @@ exports.add_blogs_post =  (req, res) =>{
 // blogs delete
 exports.delete_blogs = function (req, res){
     console.log(`Attempting to destroy a blog with blogs_id ${req.params.blogs_id}`);
+    Blogs.findOne({ where: {
+            blogs_id: req.params.blogs_id
+        }}).then(blog_fetched =>{
+            fs.unlink('uploads/'+ blog_fetched.blogs_image,
+                    err => {if (err) throw err }
+    )});
     Blogs.destroy({
         where: {
             blogs_id: req.params.blogs_id
@@ -177,9 +183,10 @@ exports.edit_blogs = function (req, res) {
 exports.edit_blogs_put = function (req, res) {
     res.locals = {  title: 'Edit Blog' };
     // console.log("------------",req.params, req.body);
+    console.log("<----------------->",req.file);
     Blogs.findOne({ where: { blogs_id: req.params.blogs_id }})
         .then((result) => {
-            console.log("<----------------->",req.body);
+
             if(result){
                 if(req.file){
                 result.update(
@@ -191,12 +198,20 @@ exports.edit_blogs_put = function (req, res) {
                         blogs_image: req.file.filename,
                     }
                     ).then(()=>{
-                        for(let i=0; i<req.body.blogs_category_id.length; i++) {
-                            console.log("req.body.blogs_category_id[i]",req.body.blogs_category_id[i]);
-                            Blogs_category_intermediate.update(
-                                {blogs_category_id: req.body.blogs_category_id[i]},
-                                {where: {blogs_id: req.body.blogs_id}
-                            })
+                        Blogs_category_intermediate.destroy({where: {blogs_id: req.params.blogs_id}});
+                        if(req.body.blogs_category_id.length===1){
+                            Blogs_category_intermediate.create(
+                                {
+                                    blogs_id: req.params.blogs_id,
+                                    blogs_category_id: req.body.blogs_category_id
+                                });
+                        }
+                        for (let i = 0; i < req.body.blogs_category_id.length; i++) {
+                            Blogs_category_intermediate.create(
+                            {
+                                blogs_id: req.params.blogs_id,
+                                blogs_category_id: req.body.blogs_category_id[i]
+                            });
                         }
                     });
                 }else {
@@ -208,18 +223,24 @@ exports.edit_blogs_put = function (req, res) {
                             blogs_post_date: req.body.blogs_post_date
                         }
                     ).then(() => {
-                        for (let i = 0; i < req.body.blogs_category_id.length; i++) {
-                            console.log("req.body.blogs_category_id[i]",req.body.blogs_category_id[i]);
-
-                            Blogs_category_intermediate.update(
-                                {blogs_category_id: req.body.blogs_category_id[i]},
+                        Blogs_category_intermediate.destroy({where: {blogs_id: req.params.blogs_id}});
+                        if(req.body.blogs_category_id.length===1){
+                            Blogs_category_intermediate.create(
                                 {
-                                    where: {blogs_id: req.body.blogs_id}
-                                })
+                                    blogs_id: req.params.blogs_id,
+                                    blogs_category_id: req.body.blogs_category_id
+                                });
+                        }
+                        for (let i = 0; i < req.body.blogs_category_id.length; i++) {
+                            Blogs_category_intermediate.create(
+                            {
+                                blogs_id: req.params.blogs_id,
+                                blogs_category_id: req.body.blogs_category_id[i]
+                            });
                         }
                     });
                 }
-                console.log("The Blog was edited.", result);
+                // console.log("The Blog was edited.", result);
                 return res.json({
                     status: 200,
                     data: result,

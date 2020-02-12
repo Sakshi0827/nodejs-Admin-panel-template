@@ -5,6 +5,7 @@ var http = require('http').Server(app);
 var bCrypt = require('bcryptjs');
 var bodyParser = require('body-parser');
 const multer = require('multer');
+const fs = require('fs');
 var router = require('./routes/router.js');
 var Authrouter = require('./Authrouter.js');
 

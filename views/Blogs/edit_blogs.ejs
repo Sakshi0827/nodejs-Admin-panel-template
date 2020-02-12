@@ -32,7 +32,7 @@
                     <div class="card-body">
                         <h4 class="mt-0 header-title">Edit Blogs</h4>
                         <br>
-                        <form class="" id="edit-blogs" data-id="<%= data[0].blogs_id %>">
+                        <form class="" id="edit-blogs" data-id="<%= data[0].blogs_id %>" enctype="multipart/form-data">
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
@@ -187,12 +187,15 @@
     const $form = $('#edit-blogs')
     $form.on('submit', submitHandler)
     var blogs_id = $form.attr('data-id');
+    if ($('input:file').val().length > 0) {
+        var file = $('input:file')[0].files[0];
+    }else{var file}
     function submitHandler (e) {
         e.preventDefault()
         $.ajax({
             url: '/edit-blogs'+ blogs_id,
             type:'PUT',
-            data: $form.serialize(),
+            data:$form.serialize(),
             success: function (response) {
                 alert('Blogs edited');
                 window.location.href='/blogs-list';
@@ -205,6 +208,23 @@
             console.log(response)
         })
     }
+    // Image preview
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#blah').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#blogs_image").change(function() {
+        console.log("Image Uploaded");
+        readURL(this);
+    });
+
     $(document).ready(function () {
         if($("#elm1").length > 0){
             tinymce.init({
@@ -229,22 +249,7 @@
             });
         }
     });
-    // Image preview
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
 
-            reader.onload = function(e) {
-                $('#blah').attr('src', e.target.result);
-            }
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-    $("#blogs_image").change(function() {
-        console.log("Image Uploaded");
-        readURL(this);
-    });
 
     // date value
     $('.datepicker-autoclose').datepicker({
