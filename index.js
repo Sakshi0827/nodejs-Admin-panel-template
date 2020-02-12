@@ -55,6 +55,8 @@ Blogs_category_intermediate.belongsTo(Blogs, {foreignKey: "blogs_id", onDelete: 
 Blogs_category_intermediate.belongsTo(Blogs_category, {foreignKey: "blogs_category_id", onDelete: 'cascade', onUpdate: 'cascade'});
 Blogs.belongsToMany(Blogs_category, {through: Blogs_category_intermediate , foreignKey: "blogs_id", onDelete: 'cascade', onUpdate: 'cascade'});
 Blogs_category.belongsToMany(Blogs, {through: Blogs_category_intermediate, foreignKey: "blogs_category_id"});
+User.hasMany(Blogs, {foreignKey: "user_id"});
+Blogs.belongsTo(User, {foreignKey: "user_id"});
 //User
 User.belongsTo(Fitness_group, { foreignKey: "fitness_group_id"});
 Fitness_group.hasMany(User, {foreignKey: "fitness_group_id"});

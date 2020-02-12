@@ -9,10 +9,14 @@ exports.blogs_list = function (req, res) {
     try{
         Blogs.findAll({
             include: [{
-                model: Blogs_category
-            }]
+                model: Blogs_category,
+            },
+            {
+                model: User
+            }],
+
         }).then(blogs => {
-            console.log("All blogs:", JSON.stringify(blogs, null, 4));
+            // console.log("All blogs:", JSON.stringify(blogs, null, 4));
             // res.json(blogs);
             return res.render('Blogs/blogs_list', {
                 status: 200,
@@ -67,7 +71,7 @@ exports.add_blogs_post =  (req, res) =>{
     // console.log('<----------->', req.body);
     Blogs.create(
         {
-            user_id: 1,
+            user_id: req.body.user_id,
             blogs_title: req.body.blogs_title,
             blogs_description: req.body.blogs_description,
             blogs_post_date : req.body.blogs_post_date,
@@ -134,18 +138,18 @@ exports.edit_blogs = function (req, res) {
     res.locals = {  title: 'Edit Blog' };
     try{
         User.findAll({}).then(users => {
-            console.log("All Users:", JSON.stringify(users, null, 4));
+            // console.log("All Users:", JSON.stringify(users, null, 4));
             Blogs.findAll({
                 where: {blogs_id: req.params.blogs_id},
                 include: [{
                     model: Blogs_category
                 }]
             }).then(blogs_result => {
-                console.log("Blog Fetched:", JSON.stringify(blogs_result, null, 4));
+                // console.log("Blog Fetched:", JSON.stringify(blogs_result, null, 4));
                 User.findAll({where: {user_id: blogs_result[0].user_id}}).then(user_result => {
-                    console.log("User Fetched:", JSON.stringify(user_result, null, 4));
+                    // console.log("User Fetched:", JSON.stringify(user_result, null, 4));
                     Blogs_category.findAll({}).then(blogs_category => {
-                        console.log("All blogs category:", JSON.stringify(blogs_category, null, 4));
+                        // console.log("All blogs category:", JSON.stringify(blogs_category, null, 4));
                         return res.render('Blogs/edit_blogs', {
                             status: 200,
                             data: blogs_result,
@@ -168,6 +172,75 @@ exports.edit_blogs = function (req, res) {
     } catch (exception){
         console.log("An exception occured, please contact the administrator.", exception);
     }
+};
+
+exports.edit_blogs_put = function (req, res) {
+    res.locals = {  title: 'Edit Blog' };
+    // console.log("------------",req.params, req.body);
+    Blogs.findOne({ where: { blogs_id: req.params.blogs_id }})
+        .then((result) => {
+            console.log("<----------------->",req.body);
+            if(result){
+                if(req.file){
+                result.update(
+                    {
+                        user_id: req.body.user_id,
+                        blogs_title: req.body.blogs_title,
+                        blogs_description: req.body.blogs_description,
+                        blogs_post_date: req.body.blogs_post_date,
+                        blogs_image: req.file.filename,
+                    }
+                    ).then(()=>{
+                        for(let i=0; i<req.body.blogs_category_id.length; i++) {
+                            console.log("req.body.blogs_category_id[i]",req.body.blogs_category_id[i]);
+                            Blogs_category_intermediate.update(
+                                {blogs_category_id: req.body.blogs_category_id[i]},
+                                {where: {blogs_id: req.body.blogs_id}
+                            })
+                        }
+                    });
+                }else {
+                    result.update(
+                        {
+                            user_id: req.body.user_id,
+                            blogs_title: req.body.blogs_title,
+                            blogs_description: req.body.blogs_description,
+                            blogs_post_date: req.body.blogs_post_date
+                        }
+                    ).then(() => {
+                        for (let i = 0; i < req.body.blogs_category_id.length; i++) {
+                            console.log("req.body.blogs_category_id[i]",req.body.blogs_category_id[i]);
+
+                            Blogs_category_intermediate.update(
+                                {blogs_category_id: req.body.blogs_category_id[i]},
+                                {
+                                    where: {blogs_id: req.body.blogs_id}
+                                })
+                        }
+                    });
+                }
+                console.log("The Blog was edited.", result);
+                return res.json({
+                    status: 200,
+                    data: result,
+                    message: "Blog edit successful."
+                })
+            } else {
+                console.log("Blog edit failed.", result);
+                return res.json({
+                    status: 404,
+                    data: result,
+                    message: "Blog edit failed, no record found to edit."
+                })
+            }
+        }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "Blog edit failed."
+        })
+    });
 };
 
 
@@ -195,16 +268,11 @@ exports.blogs_category =  function (req, res) {
     }
 };
 
-
-
 // add blogs category get
 exports.add_blogs_category =  function (req, res) {
     res.locals = {  title: 'Add Blogs Category' };
     res.render('Blogs/add_blogs_category');
 };
-
-
-
 
 //add blogs category POST
 exports.add_blogs_category_post =  function (req, res) {
