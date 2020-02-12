@@ -40,6 +40,8 @@
                             </tr>
                             </thead>
                             <tbody>
+                                
+                                <!-- country -->
                                 <tr>
                                     <td>
                                         country
@@ -47,10 +49,13 @@
                                     <td>
                                         <div class="form-group">
                                             <label class="control-label">Country</label>
-                                            <select id="country" name="country_id" class="form-control select2" required>
-                                                <option disabled selected hidden><%= data5[0].country_name%></option>
+                                            <select id="country" data7="<%= data4[0].state_id%>" name="country_id" class="form-control select2" required>
                                                 <% data3.forEach((country)=> { %>
-                                                <option value=<%= country.country_id %> > <%= country.country_name %> </option>
+                                                    <% if(country.country_name===data5[0].country_name) { %>
+                                                        <option selected value=<%= country.country_id %> > <%= country.country_name %> </option>
+                                                    <% } else{ %>
+                                                        <option value=<%= country.country_id %> > <%= country.country_name %> </option>
+                                                    <% } %>
                                                 <% }) %>
                                             </select>
                                         </div>
@@ -65,12 +70,13 @@
                                         <div class="form-group">
                                             <label class="control-label">State</label>
                                             <select id="state" name="state_id" class="form-control select2" required>
-                                                <option disabled selected hidden><%= data4[0].state_name%></option>
             <!--                                    Injecting options using AJAX-->
                                             </select>
                                         </div>
                                     </td>
                                 </tr>
+
+
                                 <!-- City -->
                                 <tr>
                                     <td>City </td>
@@ -156,6 +162,60 @@
            })
        }
    </script>
+   <script>
+    //dynamic fetching of states ONCHANGE
+ $('#country').change(function(){
+     console.log("Country id: ", $('#country').val());
+     var $state = $('#state');
+     $.ajax({
+         type: 'POST',
+         url: '/fetch-state',
+         data: { country_id: $('#country').val() },
+         success: function(data){
+             console.log(data);
+             var states;
+             $state.children().remove().end()
+             $state.append('<option disabled selected hidden>Select</option>')
+             data.data.forEach((states)=>{
+                 console.log('<option value="'+ states.state_id + '"> ' + states.state_name + '</option>')
+                 $state.append('<option value="'+ states.state_id + '"> ' + states.state_name + '</option>')
+             })
+         },
+         error: function(){
+             alert('No data');
+         }
+     });
+ });
+ // default selected value for state OnLOAD
+ $('#country').ready(function(){
+     console.log("Country id: ", $('#country').val());
+     var $state = $('#state');
+     const data7 = $('#country').attr('data7');
+     console.log('data7', data7);
+     $.ajax({
+         type: 'POST',
+         url: '/fetch-state',
+         data: { country_id: $('#country').val() },
+         success: function(data){
+             console.log(data);
+             var states;
+             $state.children().remove().end()
+             $state.append('<option disabled selected hidden>Select</option>')
+             data.data.forEach((states)=>{
+                 console.log('<option value="'+ states.state_id + '"> ' + states.state_name + '</option>')
+                 if(states.state_id==data7){
+                 $state.append('<option selected value="'+ states.state_id + '"> ' + states.state_name + '</option>')
+                 }else{
+                 $state.append('<option value="'+ states.state_id + '"> ' + states.state_name + '</option>')
+                 }
+             })
+         },
+         error: function(){
+             alert('No data');
+         }
+     });
+ });
+</script>
  <script src="public/plugins/moment/moment.js"></script>
  <script src="public/plugins/moment/moment.js"></script>
  <!--advanced form-->
