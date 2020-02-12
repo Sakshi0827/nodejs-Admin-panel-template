@@ -44,10 +44,9 @@
                                                 <td>
                                                     <div class="form-group">
                                                         <select name="country_id" class="form-control select2" required>
-                                                            <option disabled selected hidden><%= data3[0].country_name%></option>
                                                             <% data2.forEach((country)=> { %>
-                                                            <option value=<%= country.country_id %> </option> <%= country.country_name %> </option>
-                                                            <% }) %>
+                                                                <option <% if(country.country_name===data3[0].country_name){ %>selected<% } %> value=<%= country.country_name %> </option> <%= country.country_name %> </option>
+                                                                <% }) %>
                                                         </select>
                                                     </div>
                                                 </td>
