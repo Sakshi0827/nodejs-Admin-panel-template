@@ -19,11 +19,21 @@ module.exports = {
       },
       city_id: {
           type: Sequelize.INTEGER,
-          allowNull: false
+          allowNull: false,
+          references: {
+            model: 'cities',
+            key: 'city_id'
+          }
       },
       event_category_id: {
           type: Sequelize.INTEGER,
-          allowNull: false
+          allowNull: false,
+          references: {
+            model: 'event_categories',
+            key: 'event_category_id'
+          },
+          onDelete: 'CASCADE',
+          onUpdate: 'CASCADE'
       },
       createdAt: Sequelize.DATE,
       updatedAt: Sequelize.DATE

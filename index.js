@@ -36,7 +36,7 @@ app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 
 //DB connection
-require('./config/connection');
+let sequelizeInstance = require('./config/connection');
 
 //Associations
 require('./models/Associations')();
@@ -67,6 +67,8 @@ User.belongsTo(City, { foreignKey: "city_id"});
 City.hasMany(User, {foreignKey: "city_id"});
 User.belongsTo(User_role, { foreignKey: "user_role_id"});
 User_role.hasMany(User, {foreignKey: "user_role_id"});
+
+// sequelizeInstance.sync({force:false});
 
 // Add Authentication Route file with app
 app.use('/', Authrouter); 
