@@ -187,15 +187,33 @@
     const $form = $('#edit-blogs')
     $form.on('submit', submitHandler)
     var blogs_id = $form.attr('data-id');
-    if ($('input:file').val().length > 0) {
-        var file = $('input:file')[0].files[0];
-    }else{var file}
+    
     function submitHandler (e) {
-        e.preventDefault()
+
+        console.log("Form contents", $form.serialize());
+
+        let formData = new FormData();
+
+        // user_id=1&
+        // blogs_title=u&
+        // blogs_description=%3Cp%3Eu%3C%2Fp%3E&
+        // blogs_post_date=2020-02-12&
+        // blogs_category_id=2
+
+        console.log("File is", $('#blogs_image'));
+
+        formData.append('user_id','1');
+        formData.append('blogs_image',$('#blogs_image')[0].files[0]);
+        
+
+        e.preventDefault();
         $.ajax({
             url: '/edit-blogs'+ blogs_id,
             type:'PUT',
-            data:$form.serialize(),
+            // contentType: 'multipart/form-data',
+            data: formData,
+            processData: false,
+            contentType: false,
             success: function (response) {
                 alert('Blogs edited');
                 window.location.href='/blogs-list';
@@ -221,6 +239,7 @@
         }
     }
     $("#blogs_image").change(function() {
+        console.log("The file is",$('#blogs_image'));
         console.log("Image Uploaded");
         readURL(this);
     });
