@@ -199,8 +199,8 @@ exports.edit_blogs_put = function (req, res) {
                         blogs_image: req.file.filename,
                     }
                     ).then(()=>{
-                        Blogs_category_intermediate.destroy({where: {blogs_id: req.params.blogs_id}});
                         if(req.body.blogs_category_id.length===1){
+                            Blogs_category_intermediate.destroy({where: {blogs_id: req.params.blogs_id}});
                             Blogs_category_intermediate.create(
                                 {
                                     blogs_id: req.params.blogs_id,
@@ -208,6 +208,7 @@ exports.edit_blogs_put = function (req, res) {
                                 });
                         }
                         for (let i = 0; i < req.body.blogs_category_id.length; i++) {
+                            Blogs_category_intermediate.destroy({where: {blogs_id: req.params.blogs_id}});
                             Blogs_category_intermediate.create(
                             {
                                 blogs_id: req.params.blogs_id,

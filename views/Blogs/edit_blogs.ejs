@@ -47,7 +47,7 @@
                                     <td>Blog user</td>
                                     <td>
                                         <div class="form-group">
-                                            <select name="user_id" class="form-control select2" required>
+                                            <select name="user_id" id="user_id" class="form-control select2" required>
                                                 <% data2.forEach((user)=> {
                                                     if (data3[0].username===user.username){%>
                                                         <option selected value=<%= user.user_id %> </option> <%= user.username %> </option>
@@ -64,7 +64,7 @@
                                     <td>Blog Title</td>
                                     <td>
                                         <div class="form-group">
-                                            <input type="text" name="blogs_title" class="form-control" required placeholder="Blog Title" value="<%= data[0].blogs_title %>"/>
+                                            <input type="text" name="blogs_title" id="blogs_title" class="form-control" required placeholder="Blog Title" value="<%= data[0].blogs_title %>"/>
                                         </div>
                                     </td>
                                 </tr>
@@ -110,7 +110,7 @@
                                     <td>Blog Category</td>
                                     <td>
                                         <div class="form-group">
-                                            <select name ="blogs_category_id" class="select2 form-control select2-multiple" multiple="multiple" multiple data-placeholder="Choose ..." required>
+                                            <select name ="blogs_category_id" id="blogs_category_id" class="select2 form-control select2-multiple" multiple="multiple" multiple data-placeholder="Choose ..." required>
                                                 <% var arr=[];
                                                 data[0].Blogs_categories.forEach((blogs_category)=> {
                                                     arr.push(blogs_category.blogs_category_name);
@@ -189,28 +189,16 @@
     var blogs_id = $form.attr('data-id');
     
     function submitHandler (e) {
-
-        console.log("Form contents", $form.serialize());
-
         let formData = new FormData();
-
-        // user_id=1&
-        // blogs_title=u&
-        // blogs_description=%3Cp%3Eu%3C%2Fp%3E&
-        // blogs_post_date=2020-02-12&
-        // blogs_category_id=2
-
-        console.log("File is", $('#blogs_image'));
-
-        formData.append('user_id','1');
         formData.append('blogs_image',$('#blogs_image')[0].files[0]);
-        
-
+        $form.serializeArray().forEach((js)=>{
+            formData.append(js.name, js.value);
+        });
+        console.log('formData-', formData);
         e.preventDefault();
         $.ajax({
             url: '/edit-blogs'+ blogs_id,
             type:'PUT',
-            // contentType: 'multipart/form-data',
             data: formData,
             processData: false,
             contentType: false,
@@ -226,6 +214,7 @@
             console.log(response)
         })
     }
+
     // Image preview
     function readURL(input) {
         if (input.files && input.files[0]) {
@@ -244,6 +233,7 @@
         readURL(this);
     });
 
+    //texteare
     $(document).ready(function () {
         if($("#elm1").length > 0){
             tinymce.init({
@@ -284,8 +274,6 @@
 
 <script src="public/plugins/tinymce/tinymce.min.js"></script>
 
-<script>
-</script>
 
 <script src="public/plugins/parsleyjs/parsley.min.js"></script>
 <!--advanced form-->
