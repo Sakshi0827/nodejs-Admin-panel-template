@@ -10,17 +10,19 @@
 
                     <div class="p-3">
                         <h4 class="text-muted font-18 m-b-5 text-center">Welcome Back !</h4>
-                        <p class="text-muted text-center">Sign in to continue to Fonik.</p>
-                        <form class="form-horizontal m-t-30" action="index.html">
-                            
+                        <p class="text-muted text-center">Sign in to continue to Road Runners.</p>
+                        <div style="text-align: center;border-style: solid;border-width: 2px;border-radius: 5px; border-color: red">
+                            <span style="color: red"><%= message %></span>
+                        </div>
+                        <form class="form-horizontal m-t-30" action="/login" method="post">
                             <div class="form-group">
-                                <label for="username">Username</label>
-                                <input type="text" class="form-control" id="username" placeholder="Enter username">
+                                <label for="email">Email</label>
+                                <input type="text" class="form-control" name="email" id="email" placeholder="Enter email">
                             </div>
 
                             <div class="form-group">
                                 <label for="userpassword">Password</label>
-                                <input type="password" class="form-control" id="userpassword" placeholder="Enter password">
+                                <input type="password" class="form-control" name="password" id="userpassword" placeholder="Enter password">
                             </div>
 
                             <div class="form-group row m-t-20">
@@ -47,8 +49,8 @@
             </div>
 
             <div class="m-t-40 text-center">
-                <p>Don't have an account ? <a href="pages-register.html" class="text-primary"> Signup Now </a> </p>
-                <p>© 2018 Lexa. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p>
+<!--                <p>Don't have an account ? <a href="pages-register.html" class="text-primary"> Signup Now </a> </p>-->
+                <p>© 2020 Sid. Crafted with <i class="mdi mdi-heart text-danger"></i> by Sid</p>
             </div>
 
         </div>

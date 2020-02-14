@@ -23,7 +23,6 @@ const Company = require('./models/company');
 const Blogs_category_intermediate = require('./models/blogs_category_intermediate');
 
 
-
 // Access public folder from root
 app.use('/public', express.static('public'));
 app.use('/public', express.static('views'));
@@ -39,7 +38,6 @@ app.use(bodyParser.json());
 let sequelizeInstance = require('./config/connection');
 
 //Associations
-require('./models/Associations')();
 //state
 Country.hasMany(State, { foreignKey: "country_id"});
 State.belongsTo(Country, { foreignKey: "country_id"});
@@ -82,27 +80,7 @@ app.use(expressLayouts);
 // Add Route file with app
 app.use('/', router); 
 
-
-
-
+//server port
 http.listen(3000, function(){
   console.log('listening on *:3000');
 });
-
-
-
-// ALTER TABLE events ADD FOREIGN KEY (event_category_id) REFERENCES event_categories(event_category_id);
-
-// ALTER TABLE events change FOREIGN KEY (event_category_id) REFERENCES event_categories(event_category_id) ON DELETE CASCADE;
-
-// Alter table events drop foreign key (event_category_id);
-
-// CREATE TABLE events (
-//   event_id int NOT NULL,
-//   event_title varchar(50) NOT NULL,
-//   event_description varchar(255) NOT NULL,
-//   city_id int NOT NULL,
-//   event_category_id int NOT NULL,
-//   PRIMARY KEY (event_id),
-//   FOREIGN KEY (event_category_id) REFERENCES event_categories(event_category_id) ON DELETE CASCADE
-// );

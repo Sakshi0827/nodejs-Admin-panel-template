@@ -131,7 +131,6 @@
        const $form = $('#edit-event')
        $form.on('submit', submitHandler)
        var event_id = $form.attr('data-id');
-
        function submitHandler (e) {
            e.preventDefault()
            $.ajax({
@@ -175,10 +174,10 @@
                        {title: 'Example 2', inline: 'span', classes: 'example2'},
                        {title: 'Table styles'},
                        {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
-                   ],
-                   init_instance_callback : function(editor) {
-                       editor.setContent(new_content);
-                   }
+                   ]
+                   // init_instance_callback : function(editor) {
+                   //     editor.setContent(new_content);
+                   // }
                });
            }
        });

@@ -151,11 +151,11 @@ exports.edit_blogs = function (req, res) {
                     model: Blogs_category
                 }]
             }).then(blogs_result => {
-                // console.log("Blog Fetched:", JSON.stringify(blogs_result, null, 4));
+                console.log("Blog Fetched:", JSON.stringify(blogs_result, null, 4));
                 User.findAll({where: {user_id: blogs_result[0].user_id}}).then(user_result => {
-                    // console.log("User Fetched:", JSON.stringify(user_result, null, 4));
+                    console.log("User Fetched:", JSON.stringify(user_result, null, 4));
                     Blogs_category.findAll({}).then(blogs_category => {
-                        // console.log("All blogs category:", JSON.stringify(blogs_category, null, 4));
+                        console.log("All blogs category:", JSON.stringify(blogs_category, null, 4));
                         return res.render('Blogs/edit_blogs', {
                             status: 200,
                             data: blogs_result,
@@ -181,7 +181,7 @@ exports.edit_blogs = function (req, res) {
 };
 
 exports.edit_blogs_put = function (req, res) {
-    console.log("Edit blogs put controller", req.body)
+    console.log("Edit blogs put controller", req.body);
     res.locals = {  title: 'Edit Blog' };
     // console.log("------------",req.params, req.body);
     console.log("<----------------->",req.file);

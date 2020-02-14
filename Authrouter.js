@@ -1,12 +1,41 @@
 var express = require('express');
 var Authrouter = express.Router();
+const User = require('./models/user');
+
 
 //Authentications all TABs.
-Authrouter.get('/pages-login', function(req, res)
-{
+Authrouter.get('/login', function(req, res){
       res.locals = {  title: 'Login' };
-      res.render('Auth/login');
+      res.render('Auth/login',{
+            status: 500,
+            message: ""
+      });
 });
+Authrouter.post('/login', function(req, res){
+      try{
+            User.findOne({ where:{
+                        email: req.body.email,
+                        password: req.body.password
+                  }
+            }).then((user)=>{
+                  console.log("User found:", JSON.stringify(user, null, 4));
+                  if(user.length>1){
+                        res.redirect(200, '/');
+                  }
+            }).catch((err)=>{
+                  console.log("User not found");
+                  return res.render('Auth/login', {
+                        status: 500,
+                        data: err,
+                        message: "Username or Password doesn't match!! Try Again."
+                  })
+            })
+      } catch(exception){
+            console.log("An exception occured, please contact the administrator.", exception);
+      }
+});
+
+
 Authrouter.get('/pages-lock-screen', function(req, res)
 {
       res.locals = {  title: 'Lock Screen' };
