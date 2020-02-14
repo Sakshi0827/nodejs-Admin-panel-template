@@ -30,12 +30,14 @@
                                     <% }) %>
                                 </select>
                             </div>
-<!--                            Blog Title-->
+
+                            <!-- Blog Title-->
                             <div class="form-group">
                                 <label>Blog Title</label>
                                 <input type="text" name="blogs_title" class="form-control" required placeholder="Blog Title" />
                             </div>
-<!--                            Blog Description-->
+
+                            <!--Blog Description-->
                             <div class="form-group">
                                 <label>Blog Description</label>
                                 <div class="row">
@@ -43,10 +45,11 @@
                                         <div class="card m-b-20" >
                                             <textarea id="elm1" name="blogs_description" required></textarea>
                                         </div>
-                                    </div> <!-- end col -->
-                                </div> <!-- end row -->
+                                    </div>
+                                </div>
                             </div>
-<!--                            Post Date-->
+
+                            <!-- Post Date-->
                             <div class="form-group">
                                 <label>Post Date</label>
                                 <div>
@@ -55,11 +58,11 @@
                                         <div class="input-group-append">
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                         </div>
-                                    </div><!-- input-group -->
+                                    </div>
                                 </div>
                             </div>
 
-<!--                            Blog Category-->
+                            <!-- Blog Category-->
                             <div class="form-group">
                                 <label class="control-label">Blog Category</label>
                                 <select name ="blogs_category_id" class="select2 form-control select2-multiple" multiple="multiple" multiple data-placeholder="Choose ..." required>
@@ -70,7 +73,7 @@
                                         
                                 </select>
                             </div>
-<!--                            dropzone-->
+                            <!-- dropzone-->
                             <div>
                                 <img style="width:50%" id="blah" src="<%=data[0].blogs_image%>" alt="your image" />
                             </div>

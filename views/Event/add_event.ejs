@@ -19,11 +19,13 @@
                         <h4 class="mt-0 header-title">Add New Event </h4>
                         <hr>
                         <form class="" action="/add-event" method="post">
+
                             <!--Event Title-->
                             <div class="form-group">
                                 <label>Event Title</label>
                                 <input type="text" name="event_title" class="form-control" required placeholder="Event Title" />
                             </div>
+
                             <!--Event Description-->
                             <div class="form-group">
                                 <label>Event Description</label>
@@ -32,10 +34,24 @@
                                         <div class="card m-b-20" >
                                             <textarea id="elm1" name="event_description"></textarea>
                                         </div>
-                                    </div> <!-- end col -->
-                                </div> <!-- end row -->
+                                    </div>
+                                </div>
                             </div>
-                            <!-- Single Select-->
+
+                            <!-- Post Date-->
+                            <div class="form-group">
+                                <label>Event Date</label>
+                                <div>
+                                    <div class="input-group">
+                                        <input type="text" name ="event_date" class="form-control" placeholder="mm/dd/yyyy" id="datepicker-autoclose" required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- CITY Select-->
                             <div class="form-group">
                                 <label class="control-label">Location</label>
                                 <select name="city_id" class="form-control select2" required>
@@ -45,7 +61,8 @@
                                     <% }) %>
                                 </select>
                             </div>
-                            <!-- Multiple select-->
+
+                            <!-- event_category_id select-->
                             <div class="form-group">
                                 <label class="control-label">Event Category</label>
                                 <select name ="event_category_id" class="form-control select2" >
@@ -56,6 +73,7 @@
                                 </select>
                             </div>
                             <hr>
+
                             <!-- submit button-->
                             <div class="form-group">
                                 <div>
