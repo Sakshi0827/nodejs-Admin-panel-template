@@ -2,25 +2,24 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("user_roles", {
-      user_role_id: {
+    return queryInterface.createTable("fitness_groups", {
+      fitness_group_id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
-    },
-    user_role_name: {
+      },
+      fitness_group_name: {
         type: Sequelize.STRING,
-        allowNull: false,
-        unique: true
-    },
-    createdAt: Sequelize.DATE,
-    updatedAt: Sequelize.DATE
+        allowNull: false
+      },
+      createdAt: Sequelize.DATE,
+      updatedAt: Sequelize.DATE
     })
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("user_roles");
+    return queryInterface.dropTable("fitness_groups");
 
   }
 };

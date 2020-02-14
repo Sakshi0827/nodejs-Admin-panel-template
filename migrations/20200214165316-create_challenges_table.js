@@ -8,25 +8,25 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
-    },
-    challenge_title: {
+      },
+      challenge_title: {
         type: Sequelize.STRING,
         allowNull: false
-    },
-    challenge_price: {
+      },
+      challenge_price: {
         type: Sequelize.INTEGER,
         allowNull: false
-    },
-    challenge_description: {
-    type: Sequelize.STRING,
-        allowNull: false
-    },
-    challenge_note: {
+      },
+      challenge_description: {
         type: Sequelize.STRING,
         allowNull: false
-    },
-    createdAt: Sequelize.DATE,
-    updatedAt: Sequelize.DATE
+      },
+      challenge_note: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      createdAt: Sequelize.DATE,
+      updatedAt: Sequelize.DATE
     })
   },
 

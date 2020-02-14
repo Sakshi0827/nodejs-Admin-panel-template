@@ -2,19 +2,25 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("blogs_category_intermediates", {
-      id: {
+    return queryInterface.createTable("cities", {
+      city_id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
       },
-      blogs_id: {
+      state_id: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+          model: 'states',
+          key: 'state_id'
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
       },
-      blogs_category_id: {
-        type: Sequelize.INTEGER,
+      city_name: {
+        type: Sequelize.STRING,
         allowNull: false
       },
       createdAt: Sequelize.DATE,
@@ -23,6 +29,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("blogs_category_intermediates");
+    return queryInterface.dropTable("cities");
   }
 };

@@ -17,6 +17,10 @@ module.exports = sequelize.define("Event", {
         type: Sequelize.TEXT,
         allowNull: false
     },
+    event_date: {
+        type: Sequelize.DATEONLY,
+        allowNull: false
+    },
     city_id: {
         type: Sequelize.INTEGER,
         allowNull: false

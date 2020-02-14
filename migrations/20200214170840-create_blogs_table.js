@@ -8,29 +8,34 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
-    },
-    user_id: {
+      },
+      user_id: {
         type: Sequelize.INTEGER,
-        allowNull: false
-    },
-    blogs_title: {
+        allowNull: false,
+        references: {
+          model: 'users',
+          key: 'user_id'
+        },
+        onUpdate: 'CASCADE'
+      },
+      blogs_title: {
         type: Sequelize.STRING,
         allowNull: false
-    },
-    blogs_description: {
+      },
+      blogs_description: {
         type: Sequelize.TEXT,
         allowNull: false
-    },
-    blogs_post_date: {
+      },
+      blogs_post_date: {
         type: Sequelize.DATEONLY,
         allowNull: false
-    },
-    blogs_image: {
+      },
+      blogs_image: {
         type: Sequelize.STRING,
         allowNull: false
-    },
-    createdAt: Sequelize.DATE,
-    updatedAt: Sequelize.DATE
+      },
+      createdAt: Sequelize.DATE,
+      updatedAt: Sequelize.DATE
     })
   },
 

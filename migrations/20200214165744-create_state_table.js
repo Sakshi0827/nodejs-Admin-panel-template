@@ -8,17 +8,23 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
-    },
-    country_id: {
+      },
+      country_id: {
         type: Sequelize.INTEGER,
-        allowNull: false
-    },
-    state_name: {
+        allowNull: false,
+        references: {
+          model: 'countries',
+          key: 'country_id'
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      },
+      state_name: {
         type: Sequelize.STRING,
         allowNull: false
-    },
-    createdAt: Sequelize.DATE,
-    updatedAt: Sequelize.DATE
+      },
+      createdAt: Sequelize.DATE,
+      updatedAt: Sequelize.DATE
     })
   },
 

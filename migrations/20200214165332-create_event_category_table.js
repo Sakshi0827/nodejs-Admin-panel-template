@@ -8,13 +8,13 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
-    },
-    event_category_name: {
+      },
+      event_category_name: {
         type: Sequelize.STRING,
         allowNull: false
-    },
-    createdAt: Sequelize.DATE,
-    updatedAt: Sequelize.DATE
+      },
+      createdAt: Sequelize.DATE,
+      updatedAt: Sequelize.DATE
     })
   },
 

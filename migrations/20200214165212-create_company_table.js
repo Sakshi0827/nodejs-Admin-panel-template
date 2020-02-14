@@ -2,24 +2,23 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("fitness_groups", {
-      fitness_group_id: {
+    return queryInterface.createTable("companies", {
+      company_id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
-    },
-    fitness_group_name: {
+      },
+      company_name: {
         type: Sequelize.STRING,
         allowNull: false
-    },
-    createdAt: Sequelize.DATE,
-    updatedAt: Sequelize.DATE
+      },
+      createdAt: Sequelize.DATE,
+      updatedAt: Sequelize.DATE
     })
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("fitness_groups");
-
+    return queryInterface.dropTable("companies");
   }
 };
