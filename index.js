@@ -68,9 +68,6 @@ User_role.hasMany(User, {foreignKey: "user_role_id"});
 
 // sequelizeInstance.sync({force:false});
 
-// Add Authentication Route file with app
-app.use('/', Authrouter); 
-
 //For set layouts of html view
 var expressLayouts = require('express-ejs-layouts');
 app.set('views', path.join(__dirname, 'views'));
@@ -78,7 +75,10 @@ app.set('view engine', 'ejs');
 app.use(expressLayouts);
 
 // Add Route file with app
-app.use('/', router); 
+app.use('/', router);
+
+// Add Authentication Route file with app
+app.use('/', Authrouter);
 
 //server port
 http.listen(3000, function(){
