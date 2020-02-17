@@ -1,16 +1,10 @@
-
-
 <%- contentFor('HeaderCss') %>
 <!-- perticular page css -->
 <!-- X-editable css -->
 <link type="text/css" href="public/plugins/x-editable/css/bootstrap-editable.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <link href="public/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css" rel="stylesheet">
-<link href="public/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
-<link href="public/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
 <link href="public/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
-<link href="public/plugins/dropzone/dist/dropzone.css" rel="stylesheet" type="text/css">
 
 
 <%- contentFor('body') %>
@@ -35,102 +29,99 @@
                         <form class="" id="edit-blogs" data-id="<%= data[0].blogs_id %>" enctype="multipart/form-data">
                             <table class="table table-striped">
                                 <thead>
-                                <tr>
-                                    <th style="width: 25%;">Attributes</th>
-                                    <th>Edit Values</th>
-                                </tr>
+                                    <tr>
+                                        <th style="width: 25%;">Attributes</th>
+                                        <th>Edit Values</th>
+                                    </tr>
                                 </thead>
-
-                                <tr>
-                                <tr>
-                                    <!--blogs user-->
-                                    <td>Blog user</td>
-                                    <td>
-                                        <div class="form-group">
-                                            <select name="user_id" id="user_id" class="form-control select2" required>
-                                                <% data2.forEach((user)=> {
-                                                    if (data3[0].username===user.username){%>
-                                                        <option selected value=<%= user.user_id %> </option> <%= user.username %> </option>
-                                                    <% } else { %>
-                                                        <option value=<%= user.user_id %> </option> <%= user.username %> </option>
-                                                    <% } %>
-                                                <% }) %>
-                                            </select>
-                                        </div>
-                                    </td>
-                                </tr>
-                                    <!--Blog Title-->
-                                <tr>
-                                    <td>Blog Title</td>
-                                    <td>
-                                        <div class="form-group">
-                                            <input type="text" name="blogs_title" id="blogs_title" class="form-control" required placeholder="Blog Title" value="<%= data[0].blogs_title %>"/>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                    <!--Blog Description-->
-                                <tr>
-                                    <td>Blog Description</td>
-                                    <td>
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-12" style="height:450px;">
-                                                    <div class="card m-b-20" >
-                                                        <textarea id="elm1" name="blogs_description" required><%= data[0].blogs_description %></textarea>
-                                                    </div>
-                                                </div> <!-- end col -->
-                                            </div> <!-- end row -->
-                                        </div>
-                                    </td>
-                                </tr>
-                                    <!--Post Date-->
-                                <tr>
-                                    <td>Post Date</td>
-                                    <td>
-                                        <div class="form-group">
-                                            <div>
-                                                <div class="input-group">
-                                                    <input type="text" name ="blogs_post_date"
-                                                           class="form-control datepicker-autoclose"
-                                                           value="<%=data[0].blogs_post_date%>"
-                                                           data-date-format="yyyy/mm/dd"
-                                                           placeholder="yyyy/mm/dd"
-                                                           id="datepicker-autoclose" required>
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                                    </div>
-                                                </div><!-- input-group -->
+                                    <tr>
+                                        <!--blogs user-->
+                                        <td>Blog user</td>
+                                        <td>
+                                            <div class="form-group">
+                                                <select name="user_id" id="user_id" class="form-control select2" required>
+                                                    <% data2.forEach((user)=> {
+                                                        if (data3[0].username===user.username){%>
+                                                            <option selected value=<%= user.user_id %> </option> <%= user.username %> </option>
+                                                        <% } else { %>
+                                                            <option value=<%= user.user_id %> </option> <%= user.username %> </option>
+                                                        <% } %>
+                                                    <% }) %>
+                                                </select>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                    <!--Blog Category-->
-                                <tr>
-                                    <td>Blog Category</td>
-                                    <td>
-                                        <div class="form-group">
-                                            <select name ="blogs_category_id" id="blogs_category_id" class="select2 form-control select2-multiple" multiple="multiple" multiple data-placeholder="Choose ..." required>
-                                                <% var arr=[];
-                                                data[0].Blogs_categories.forEach((blogs_category)=> {
-                                                    arr.push(blogs_category.blogs_category_name);
-                                                }) %>
-                                                <% data4.forEach((blogs_category_result)=> {
-                                                     if(arr.includes(blogs_category_result.blogs_category_name)) { %>
-                                                        <option selected value="<%= blogs_category_result.blogs_category_id %>">
+                                        </td>
+                                    </tr>
+                                        <!--Blog Title-->
+                                    <tr>
+                                        <td>Blog Title</td>
+                                        <td>
+                                            <div class="form-group">
+                                                <input type="text" name="blogs_title" id="blogs_title" class="form-control" required placeholder="Blog Title" value="<%= data[0].blogs_title %>"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                        <!--Blog Description-->
+                                    <tr>
+                                        <td>Blog Description</td>
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-12" style="height:450px;">
+                                                        <div class="card m-b-20" >
+                                                            <textarea id="elm1" name="blogs_description" required><%= data[0].blogs_description %></textarea>
+                                                        </div>
+                                                    </div> <!-- end col -->
+                                                </div> <!-- end row -->
+                                            </div>
+                                        </td>
+                                    </tr>
+                                        <!--Post Date-->
+                                    <tr>
+                                        <td>Post Date</td>
+                                        <td>
+                                            <div class="form-group">
+                                                <div>
+                                                    <div class="input-group">
+                                                        <input type="text" name ="blogs_post_date"
+                                                               class="form-control datepicker-autoclose"
+                                                               value="<%=data[0].blogs_post_date%>"
+                                                               data-date-format="yyyy/mm/dd"
+                                                               placeholder="yyyy/mm/dd"
+                                                               id="datepicker-autoclose" required>
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                                                        </div>
+                                                    </div><!-- input-group -->
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                        <!--Blog Category-->
+                                    <tr>
+                                        <td>Blog Category</td>
+                                        <td>
+                                            <div class="form-group">
+                                                <select name ="blogs_category_id" id="blogs_category_id" class="select2 form-control select2-multiple" multiple="multiple" multiple data-placeholder="Choose ..." required>
+                                                    <% var arr=[];
+                                                    data[0].Blogs_categories.forEach((blogs_category)=> {
+                                                        arr.push(blogs_category.blogs_category_name);
+                                                    }) %>
+                                                    <% data4.forEach((blogs_category_result)=> {
+                                                         if(arr.includes(blogs_category_result.blogs_category_name)) { %>
+                                                            <option selected value="<%= blogs_category_result.blogs_category_id %>">
+                                                                    <%= blogs_category_result.blogs_category_name %></option>
+                                                        <% }else{ %>
+                                                            <option value="<%= blogs_category_result.blogs_category_id %>">
                                                                 <%= blogs_category_result.blogs_category_name %></option>
-                                                    <% }else{ %>
-                                                        <option value="<%= blogs_category_result.blogs_category_id %>">
-                                                            <%= blogs_category_result.blogs_category_name %></option>
-                                                    <% } %>
-                                                <% }) %>
-                                                <span class="input-group-text"></span>
-                                            </select>
-                                        </div>
-                                    </td>
-                                </tr>
-                                    <!--dropzone-->
-                                <tr>
+                                                        <% } %>
+                                                    <% }) %>
+                                                    <span class="input-group-text"></span>
+                                                </select>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                        <!--dropzone-->
+                                    <tr>
                                     <td>Blogs Image</td>
                                     <td>
                                         <div>

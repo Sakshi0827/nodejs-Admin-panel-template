@@ -1,0 +1,139 @@
+<%- contentFor('HeaderCss') %>
+<!-- perticular page css -->
+<!-- X-editable css -->
+<link type="text/css" href="public/plugins/x-editable/css/bootstrap-editable.css" rel="stylesheet">
+<link href="public/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+
+
+<%- contentFor('body') %>
+<div class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <h4 class="page-title">Edit Slider (<%= data[0].slider_title %>)</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card m-b-20">
+                    <div class="card-body">
+                        <h4 class="mt-0 header-title">Edit Slider</h4>
+                        <br>
+                        <form class="" id="edit-slider" data-id="<%= data[0].slider_id %>" enctype="multipart/form-data">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 25%;">Attributes</th>
+                                        <th>Edit Values</th>
+                                    </tr>
+                                </thead>
+                                    <!--slider Title-->
+                                    <tr>
+                                        <td>Slider Title</td>
+                                        <td>
+                                            <div class="form-group">
+                                                <input type="text" name="slider_title" id="slider_title" class="form-control"
+                                                       required placeholder="Slider Title" value="<%= data[0].slider_title %>"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!--dropzone-->
+                                    <tr>
+                                        <td>Slider Image</td>
+                                        <td>
+                                            <div>
+                                                <img style="width:50%" id="blah" src="<%=data[0].slider_image%>" alt="your image" />
+                                            </div>
+                                            <br>
+                                            <div>
+                                                <input name="slider_image" id = "slider_image" type="file" accept ="image/*">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div style="text-align: center">
+                                <button type="submit"
+                                        class="btn btn-success editable-submit btn-sm waves-effect waves-light">
+                                    <i class="mdi mdi-check"></i>
+                                </button>
+                                <a href="/slider-list"
+                                   class="btn btn-danger editable-cancel btn-sm waves-effect waves-light">
+                                    <i class="mdi mdi-close"></i>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('FooterJs') %>
+<!-- XEditable Plugin -->
+<script>
+
+    //put method
+    const $form = $('#edit-slider')
+    $form.on('submit', submitHandler)
+    var slider_id = $form.attr('data-id');
+
+    function submitHandler (e) {
+        let formData = new FormData();
+        formData.append('slider_image',$('#slider_image')[0].files[0]);
+        $form.serializeArray().forEach((js)=>{
+            formData.append(js.name, js.value);
+        });
+        console.log('formData-', formData);
+        e.preventDefault();
+        $.ajax({
+            url: '/edit-slider'+ slider_id,
+            type:'PUT',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                alert('Slider edited');
+                window.location.href='/slider-list';
+            },
+            error: function (error) {
+                alert(error);
+                console.log(error);
+            }
+        }).done(response => {
+            console.log(response)
+        })
+    }
+
+    // Image preview
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#blah').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#slider_image").change(function() {
+        console.log("Image Uploaded");
+        readURL(this);
+    });
+
+</script>
+
+<script src="public/plugins/parsleyjs/parsley.min.js"></script>
+<!--advanced form-->
+<script src="public/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+<script src="public/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+<script src="public/plugins/bootstrap-filestyle/js/bootstrap-filestyle.min.js"></script>
+<!-- Plugins Init js -->
+<script src="public/assets/pages/form-advanced.js"></script>
+<script src="public/plugins/moment/moment.js"></script>
+
