@@ -4,6 +4,7 @@ var path = require('path');
 var http = require('http').Server(app);
 var bCrypt = require('bcryptjs');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 const multer = require('multer');
 const fs = require('fs');
 var router = require('./routes/router.js');
@@ -22,6 +23,7 @@ const Fitness_group = require('./models/fitness_group');
 const Company = require('./models/company');
 const Blogs_category_intermediate = require('./models/blogs_category_intermediate');
 
+// app.use(session({ secret: config.secret, resave: false, saveUninitialized: true }));
 
 // Access public folder from root
 app.use('/public', express.static('public'));
