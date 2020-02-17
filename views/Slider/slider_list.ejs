@@ -1,0 +1,118 @@
+<%- contentFor('HeaderCss') %>
+<!-- perticular page css -->
+
+<!-- DataTables -->
+<link href="public/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="public/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<!-- Responsive datatable examples -->
+<link href="public/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+
+<%- contentFor('body') %>
+
+<!-- Start content -->
+<div class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <h4 class="page-title">Slider List</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card m-b-20">
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-10"><h4 class="mt-0 header-title">All Slider Images</h4></div>
+                            <div class="col-2">
+                                <a href="/add-slider"><button type="button" class="btn btn-primary waves-effect waves-light">Add Slider Image</button></a>
+                            </div>
+                        </div>
+                        <br>
+                        <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                            <tr>
+                                <th>Actions</th>
+                                <th>id</th>
+                                <th>Slider Title</th>
+                                <th>Slider Image</th>
+                                <th>created_date</th>
+                                <th>updated_date</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <% data.forEach((slider)=>{ %>
+                                <tr>
+                                    <th>
+                                        <a href="/edit-slider<%= slider.slider_id %>" class="btn btn-info waves-effect waves-light">edit</a>
+                                        <a href="#" data-id="<%= slider.slider_id %>"
+                                           class="btn btn-danger waves-effect waves-light delete_slider">
+                                            delete
+                                        </a>
+                                    </th>
+                                    <th scope="row"> <%=slider.slider_id %></th>
+                                    <td><%=slider.slider_title%></td>
+                                    <td><a href="/<%=slider.slider_image%>" target="_blank"><img src="<%=slider.slider_image%>" alt="Slider Image :)" width="50%"></a></td>
+                                    <td><%=slider.createdAt%></td>
+                                    <td><%=slider.updatedAt%></td>
+                                </tr>
+                            <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div> <!-- container-fluid -->
+</div> <!-- content -->
+
+<%- contentFor('FooterJs') %>
+
+<script>
+    $(document).ready(function(){
+        $('.delete_slider').click(function (e) {
+            $target = $(e.target);
+            console.log($target.attr('data-id'));
+            const slider_id = $target.attr('data-id');
+            $.ajax({
+                type: 'DELETE',
+                url: '/delete-slider'+ slider_id,
+                success: function (response) {
+                    alert('Slider deleted');
+                    window.location.href='/slider-list';
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+</script>
+
+<!-- Required datatable js -->
+<script src="public/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="public/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+<!-- Buttons examples -->
+<script src="public/plugins/datatables/dataTables.buttons.min.js"></script>
+<script src="public/plugins/datatables/buttons.bootstrap4.min.js"></script>
+<script src="public/plugins/datatables/jszip.min.js"></script>
+<script src="public/plugins/datatables/pdfmake.min.js"></script>
+<script src="public/plugins/datatables/vfs_fonts.js"></script>
+<script src="public/plugins/datatables/buttons.html5.min.js"></script>
+<script src="public/plugins/datatables/buttons.print.min.js"></script>
+<script src="public/plugins/datatables/buttons.colVis.min.js"></script>
+<!-- Responsive examples -->
+<script src="public/plugins/datatables/dataTables.responsive.min.js"></script>
+<script src="public/plugins/datatables/responsive.bootstrap4.min.js"></script>
+
+<!-- Datatable init js -->
+<script src="public/assets/pages/datatables.init.js"></script>
+
