@@ -15,10 +15,8 @@ exports.blogs_list = function (req, res) {
             {
                 model: User
             }],
-
         }).then(blogs => {
-            // console.log("All blogs:", JSON.stringify(blogs, null, 4));
-            // res.json(blogs);
+            console.log("All blogs:", JSON.stringify(blogs, null, 4));
             return res.render('Blogs/blogs_list', {
                 status: 200,
                 data: blogs,
@@ -34,6 +32,11 @@ exports.blogs_list = function (req, res) {
         });
     } catch (exception){
         console.log("An exception occured, please contact the administrator.", exception);
+        return res.json({
+            status: 500,
+            data: exception,
+            message: "Blogs fetching failed."
+        })
     }
 };
 
@@ -43,33 +46,36 @@ exports.add_blogs =  function (req, res) {
     try{
         User.findAll({ }).then(user => {
             console.log("All user:", JSON.stringify(user, null, 4));
-        Blogs_category.findAll({ }).then(blogs_category => {
-        console.log("All blogs_category:", JSON.stringify(blogs_category, null, 4));
-        
-         return res.render('Blogs/add_blogs', {
-            status: 200,
-            data: blogs_category,
-            data2: user,
-            message: "blogs_category fetched successfully."
-        })
-    })
-    }).catch(err => {
-        console.error('Unable to connect to the database:', err);
-        return res.json({
-            status: 500,
-            data: err,
-            message: "blogs fetching failed."
-        })
-    });
+            Blogs_category.findAll({ }).then(blogs_category => {
+                console.log("All blogs_category:", JSON.stringify(blogs_category, null, 4));
+                return res.render('Blogs/add_blogs', {
+                    status: 200,
+                    data: blogs_category,
+                    data2: user,
+                    message: "blogs_category fetched successfully."
+                })
+             })
+        }).catch(err => {
+            console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "blogs fetching failed."
+            })
+        });
     } catch (exception){
         console.log("An exception occured, please contact the administrator.", exception);
+        return res.json({
+            status: 500,
+            data: exception,
+            message: "blogs fetching failed."
+        })
     }
 };
 
 //add blogs post
 exports.add_blogs_post =  (req, res) =>{
     res.locals = {  title: 'Add Blogs' };
-    console.log('<----------->', req.file);
     Blogs.create(
         {
             user_id: req.body.user_id,
@@ -87,7 +93,7 @@ exports.add_blogs_post =  (req, res) =>{
                 blogs_category_id: req.body.blogs_category_id[i]
             });
         }
-        return res.redirect('/blogs-list');
+        return res.redirect(200, '/blogs-list');
     }).catch(err => {
         console.error('Unable to connect to the database:', err);
         return res.json({
@@ -97,6 +103,11 @@ exports.add_blogs_post =  (req, res) =>{
         })
     }).catch((exception) => {
         console.log("An exception was encountered during the synchronization", exception);
+        return res.json({
+            status: 500,
+            data: exception,
+            message: "New Blogs creation failed."
+        })
     })
 };
 
@@ -105,10 +116,10 @@ exports.delete_blogs = function (req, res){
     console.log(`Attempting to destroy a blog with blogs_id ${req.params.blogs_id}`);
     Blogs.findOne({ where: {
             blogs_id: req.params.blogs_id
-        }}).then(blog_fetched =>{
-            fs.unlink('uploads/'+ blog_fetched.blogs_image,
-                    err => {if (err) throw err }
-    )});
+    }}).then(blog_fetched =>{
+        fs.unlink('uploads/'+ blog_fetched.blogs_image,
+            err => {if (err) throw err })
+    });
     Blogs.destroy({
         where: {
             blogs_id: req.params.blogs_id
@@ -144,7 +155,7 @@ exports.edit_blogs = function (req, res) {
     res.locals = {  title: 'Edit Blog' };
     try{
         User.findAll({}).then(users => {
-            // console.log("All Users:", JSON.stringify(users, null, 4));
+            console.log("All Users:", JSON.stringify(users, null, 4));
             Blogs.findAll({
                 where: {blogs_id: req.params.blogs_id},
                 include: [{
@@ -177,19 +188,26 @@ exports.edit_blogs = function (req, res) {
         });
     } catch (exception){
         console.log("An exception occured, please contact the administrator.", exception);
+        return res.json({
+            status: 500,
+            data: exception,
+            message: "Blogs fetching failed."
+        })
     }
 };
 
 exports.edit_blogs_put = function (req, res) {
-    console.log("Edit blogs put controller", req.body);
     res.locals = {  title: 'Edit Blog' };
-    // console.log("------------",req.params, req.body);
-    console.log("<----------------->",req.file);
     Blogs.findOne({ where: { blogs_id: req.params.blogs_id }})
         .then((result) => {
-
             if(result){
                 if(req.file){
+                    Blogs.findOne({ where: {
+                        blogs_id: req.params.blogs_id
+                    }}).then(blog_fetched =>{
+                        fs.unlink('uploads/'+ blog_fetched.blogs_image,
+                            err => {if (err) throw err })
+                    });
                 result.update(
                     {
                         user_id: req.body.user_id,
@@ -242,7 +260,7 @@ exports.edit_blogs_put = function (req, res) {
                         }
                     });
                 }
-                // console.log("The Blog was edited.", result);
+                console.log("The Blog was edited.", result);
                 return res.json({
                     status: 200,
                     data: result,
@@ -272,29 +290,36 @@ exports.blogs_category =  function (req, res) {
     res.locals = {  title: 'Blog Category' };
     try{
         Blogs_category.findAll({ }).then(blogs_category => {
-        console.log("All blogs_category:", JSON.stringify(blogs_category, null, 4));
-        return res.render('Blogs/blogs_category', {
-            status: 200,
-            data: blogs_category,
-            message: "blogs_category fetched successfully."
-        })
-    }).catch(err => {
-    console.error('Unable to connect to the database:', err);
-        return res.json({
-            status: 500,
-            data: err,
-            message: "company fetching failed."
-        })
-    });
+            console.log("All blogs_category:", JSON.stringify(blogs_category, null, 4));
+            return res.render('Blogs/blogs_category', {
+                status: 200,
+                data: blogs_category,
+                message: "blogs_category fetched successfully."
+            })
+        }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "company fetching failed."
+            })
+        });
     } catch (exception){
             console.log("An exception occured, please contact the administrator.", exception);
+            return res.json({
+                status: 500,
+                data: exception,
+                message: "company fetching failed."
+            })
     }
 };
 
 // add blogs category get
 exports.add_blogs_category =  function (req, res) {
     res.locals = {  title: 'Add Blogs Category' };
-    res.render('Blogs/add_blogs_category');
+    res.render('Blogs/add_blogs_category', {
+        status: 200
+    });
 };
 
 //add blogs category POST
@@ -313,6 +338,11 @@ exports.add_blogs_category_post =  function (req, res) {
             })
         }).catch((exception) => {
             console.log("An exception was encountered during the synchronization", exception);
+            return res.json({
+                status: 500,
+                data: exception,
+                message: "New Blogs Category creation failed."
+            })
     })
 };
 
@@ -372,6 +402,11 @@ exports.edit_blogs_category =  function (req, res) {
         });
     } catch (exception){
         console.log("An exception occured, please contact the administrator.", exception);
+        return res.json({
+            status: 500,
+            data: exception,
+            message: "company fetching failed."
+        })
     }
 };
 
