@@ -180,6 +180,8 @@ exports.edit_blogs = function (req, res) {
     }
 };
 
+
+//edit blogs put
 exports.edit_blogs_put = function (req, res) {
     console.log("Edit blogs put controller", req.body);
     res.locals = {  title: 'Edit Blog' };

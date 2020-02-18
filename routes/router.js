@@ -10,6 +10,7 @@ const eventsRouter = require('./events');
 const blogsRouter = require('./blogs');
 const paymentRouter = require('./payment');
 const sliderRouter = require('./slider' );
+const pageRouter = require('./page');
 
 // Dashboard
 router.get('/', function (req, res) {
@@ -34,4 +35,6 @@ router.use('/', blogsRouter);
 router.use('/', paymentRouter);
 // slider
 router.use('/', sliderRouter);
+//page
+router.use('/', pageRouter);
 module.exports = router;

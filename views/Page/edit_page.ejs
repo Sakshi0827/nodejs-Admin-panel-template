@@ -1,0 +1,232 @@
+
+
+<%- contentFor('HeaderCss') %>
+<!-- perticular page css -->
+<!-- X-editable css -->
+<link type="text/css" href="public/plugins/x-editable/css/bootstrap-editable.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<link href="public/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+<link href="public/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+<link href="public/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+<link href="public/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+<link href="public/plugins/dropzone/dist/dropzone.css" rel="stylesheet" type="text/css">
+
+
+<%- contentFor('body') %>
+<div class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <h4 class="page-title">Edit Page (<%= data[0].page_title %>)</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card m-b-20">
+                    <div class="card-body">
+                        <h4 class="mt-0 header-title">Edit Page</h4>
+                        <br>
+                        <form class="" id="edit-page" data-id="<%= data[0].page_id %>" enctype="multipart/form-data">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th style="width: 25%;">Attributes</th>
+                                    <th>Edit Values</th>
+                                </tr>
+                                </thead>
+
+                                <tr>
+                                <tr>
+                                    <!--Page user-->
+                                    <td>Page Author</td>
+                                    <td>
+                                        <div class="form-group">
+                                            <select name="user_id" id="user_id" class="form-control select2" required>
+                                                <% data2.forEach((user)=> {
+                                                    if (data3[0].username===user.username){%>
+                                                        <option selected value=<%= user.user_id %> </option> <%= user.username %> </option>
+                                                    <% } else { %>
+                                                        <option value=<%= user.user_id %> </option> <%= user.username %> </option>
+                                                    <% } %>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                                    <!--Page Title-->
+                                <tr>
+                                    <td>Page Title</td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="text" name="page_title" id="page_title" class="form-control" required placeholder="Page Title" value="<%= data[0].page_title %>"/>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                    <!--Page content-->
+                                <tr>
+                                    <td>Page content</td>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-12" style="height:450px;">
+                                                    <div class="card m-b-20" >
+                                                        <textarea id="elm1" name="page_content" required><%= data[0].page_content %></textarea>
+                                                    </div>
+                                                </div> <!-- end col -->
+                                            </div> <!-- end row -->
+                                        </div>
+                                    </td>
+                                </tr>
+                                    
+                                    <!--dropzone-->
+                                <tr>
+                                    <td>page Image</td>
+                                    <td>
+                                        <div>
+                                            <img style="width:50%" id="blah" src="<%=data[0].page_image%>" alt="your image" />
+                                        </div>
+                                        <br>
+                                        <div>
+                                            <input name="blogs_image" id = "page_image" type="file" accept ="image/*">
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div style="text-align: center">
+                                <button type="submit"
+                                        class="btn btn-success editable-submit btn-sm waves-effect waves-light">
+                                    <i class="mdi mdi-check"></i>
+                                </button>
+                                <a href="/page-list"
+                                   class="btn btn-danger editable-cancel btn-sm waves-effect waves-light">
+                                    <i class="mdi mdi-close"></i>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+
+    </div> <!-- container-fluid -->
+
+</div> <!-- content -->
+
+<%- contentFor('FooterJs') %>
+<!-- XEditable Plugin -->
+<script>
+
+    //put method
+    const $form = $('#edit-page')
+    $form.on('submit', submitHandler)
+    var page_id = $form.attr('data-id');
+    
+    function submitHandler (e) {
+        let formData = new FormData();
+        formData.append('page_image',$('#page_image')[0].files[0]);
+        $form.serializeArray().forEach((js)=>{
+            formData.append(js.name, js.value);
+        });
+        console.log('formData-', formData);
+        e.preventDefault();
+        $.ajax({
+            url: '/edit-page'+ page_id,
+            type:'PUT',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                alert('page edited');
+                window.location.href='/page-list';
+            },
+            error: function (error) {
+                alert(error);
+                console.log(error);
+            }
+        }).done(response => {
+            console.log(response)
+        })
+    }
+
+    // Image preview
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#blah').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#page_image").change(function() {
+        console.log("The file is",$('#page_image'));
+        console.log("Image Uploaded");
+        readURL(this);
+    });
+
+    //texteare
+    $(document).ready(function () {
+        if($("#elm1").length > 0){
+            tinymce.init({
+                selector: "textarea#elm1",
+                theme: "modern",
+                height:300,
+                plugins: [
+                    "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                    "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                    "save table contextmenu directionality emoticons template paste textcolor"
+                ],
+                toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
+                style_formats: [
+                    {title: 'Bold text', inline: 'b'},
+                    {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+                    {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+                    {title: 'Example 1', inline: 'span', classes: 'example1'},
+                    {title: 'Example 2', inline: 'span', classes: 'example2'},
+                    {title: 'Table styles'},
+                    {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+                ]
+            });
+        }
+    });
+
+
+    // date value
+    $('.datepicker-autoclose').datepicker({
+        timepicker:false,
+        format:'yyyy/mm/dd'
+    }).on("changeDate", function(e) {
+            $('#datepicker-autoclose').attr('value', e.format());
+    });
+
+
+
+</script>
+
+<script src="public/plugins/tinymce/tinymce.min.js"></script>
+
+
+<script src="public/plugins/parsleyjs/parsley.min.js"></script>
+<!--advanced form-->
+<script src="public/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+<script src="public/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="public/plugins/select2/js/select2.min.js"></script>
+<script src="public/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+<script src="public/plugins/bootstrap-filestyle/js/bootstrap-filestyle.min.js"></script>
+<script src="public/plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js"></script>
+<!--dropzone-->
+<script src="public/plugins/dropzone/dist/dropzone.js"></script>
+<!-- Plugins Init js -->
+<script src="public/assets/pages/form-advanced.js"></script>
+<script src="public/plugins/moment/moment.js"></script>
+

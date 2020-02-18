@@ -7,7 +7,7 @@
 
 
 <%- contentFor('body') %>
-<h1>Add New Blog</h1>
+<h1>Add New Page</h1>
 
 <div class="content">
     <div class="container-fluid">
@@ -16,96 +16,56 @@
             <div class="col-lg-8">
                 <div class="card m-b-20">
                     <div class="card-body">
-                        <h4 class="mt-0 header-title">Add New Blog </h4>
+                        <h4 class="mt-0 header-title">Add New Page </h4>
                         <hr>
                         <!--                    <p class="text-muted m-b-30">Parsley is a javascript form validation library. It helps you provide your users with feedback on their form submission before sending it to your server.</p>-->
-                        <form class="" action="/add-blogs" method="post" enctype="multipart/form-data">
+                        <form class="" action="/add-page" method="post" enctype="multipart/form-data">
                             <!--User Name-->
                             <div class="form-group">
-                                <label class="control-label">Blog user</label>
+                                <label class="control-label">Page author</label>
                                 <select name="user_id" class="form-control select2" required>
                                     <option disabled selected hidden>Select</option>
-                                    <% data2.forEach((user)=> { %>
+                                    <% data.forEach((user)=> { %>
                                         <option value=<%= user.user_id %> </option> <%= user.username %> </option>
                                     <% }) %>
                                 </select>
                             </div>
 
-                            <!-- Blog Title-->
+                            <!-- page Title-->
                             <div class="form-group">
-                                <label>Blog Title</label>
-                                <input type="text" name="blogs_title" class="form-control" required placeholder="Blog Title" />
+                                <label>Page Title</label>
+                                <input type="text" name="page_title" class="form-control" required placeholder="page Title" />
                             </div>
 
-                            <!--Blog Description-->
+                            <!--page content-->
                             <div class="form-group">
-                                <label>Blog Description</label>
+                                <label>page content</label>
                                 <div class="row">
                                     <div class="col-12" style="height:450px;">
                                         <div class="card m-b-20" >
-                                            <textarea id="elm1" name="blogs_description" required></textarea>
+                                            <textarea id="elm1" name="page_content" required></textarea>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <!-- Post Date-->
-                            <div class="form-group">
-                                <label>Post Date</label>
-                                <div>
-                                    <div class="input-group">
-                                        <input type="text" name ="blogs_post_date" class="form-control" placeholder="mm/dd/yyyy" id="datepicker-autoclose" required>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Blog Category-->
-                            <div class="form-group">
-                                <label class="control-label">Blog Category</label>
-                                <select name ="blogs_category_id" class="select2 form-control select2-multiple" multiple="multiple" multiple data-placeholder="Choose ..." required>
-                                    <% data.forEach((blogs_category)=> { %>
-                                        <option value=<%= blogs_category.blogs_category_id %> </option> <%= blogs_category.blogs_category_name %> </option>
-                                    <% }) %>
-                                    <span class="input-group-text"></span>
-                                        
-                                </select>
                             </div>
                             <!-- dropzone-->
                             <div>
                                 <img style="width:50%" id="blah" 
-                                    <% if (data[0]) { %> src="<%=data[0].blogs_image%>" 
+                                    <% if (data[0]) { %> src="<%=data[0].page_image%>" 
                                     <% } else { %> src="#" <% } %>
                                      alt="your image" />
                             </div>
                             <br>
                             <div>
-                                <input name="blogs_image" id = "blogs_image" type="file" accept ="image/*">
+                                <input name="page_image" id = "page_image" type="file" accept ="image/*">
                             </div>
 
-                            <!-- <div class="row">
-                                <div class="col-12">
-                                    <label>Blog Image</label>
-                                    <div class="card m-b-20">
-                                        <div class="card-body"><div class="m-b-30">
-                                            <div action="/add-blogs" class="dropzone">
-                                                    <div class="fallback">
-                                                        <input name="blogs_image" id = "blogs_image" type="file" accept ="image/*">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
                             <hr>
 <!--                            submit button-->
                             <div class="form-group">
                                 <div>
                                     <button type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
-                                    <a href="/blogs-list"><input type="button" value="Cancel" class="btn btn-secondary waves-effect m-l-5"></a>
+                                    <a href="/page-list"><input type="button" value="Cancel" class="btn btn-secondary waves-effect m-l-5"></a>
                                 </div>
                             </div>
                         </form>
@@ -132,7 +92,7 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
-    $("#blogs_image").change(function() {
+    $("#page_image").change(function() {
         alert("Image Uploaded");
         readURL(this);
     });
