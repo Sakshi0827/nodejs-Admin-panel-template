@@ -21,6 +21,7 @@ const User_role = require('./models/user_role');
 const Fitness_group = require('./models/fitness_group');
 const Company = require('./models/company');
 const Blogs_category_intermediate = require('./models/blogs_category_intermediate');
+const Page = require('./models/page');
 
 
 // Access public folder from root
@@ -65,6 +66,9 @@ User.belongsTo(City, { foreignKey: "city_id"});
 City.hasMany(User, {foreignKey: "city_id"});
 User.belongsTo(User_role, { foreignKey: "user_role_id"});
 User_role.hasMany(User, {foreignKey: "user_role_id"});
+//page
+Page.belongsTo(User, {foreignKey: "user_id"});
+User.hasMany(Page, {foreignKey: "user_id"});
 
 // sequelizeInstance.sync({force:false});
 
