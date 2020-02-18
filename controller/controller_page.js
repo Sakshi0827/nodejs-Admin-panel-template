@@ -158,3 +158,55 @@ exports.edit_page = function (req, res) {
         console.log("An exception occured, please contact the administrator.", exception);
     }
 };
+
+//edit page put
+exports.edit_page_put = function (req, res) {
+    console.log("Edit page put controller", req.body);
+    res.locals = {  title: 'Edit page' };
+    // console.log("------------",req.params, req.body);
+    console.log("<----------------->",req.file);
+    Page.findOne({ where: { page_id: req.params.page_id }})
+        .then((result) => {
+
+            if(result){
+                if(req.file){
+                result.update(
+                    {
+                        user_id: req.body.user_id,
+                        page_title: req.body.page_title,
+                        page_content: req.body.page_content,
+                        page_image: req.file.filename,
+                    }
+                    )
+                }else {
+                    result.update(
+                        {
+                            user_id: req.body.user_id,
+                            page_title: req.body.page_title,
+                            page_content: req.body.page_content,
+                        }
+                    )
+                }
+                // console.log("The Blog was edited.", result);
+                return res.json({
+                    status: 200,
+                    data: result,
+                    message: "page edit successful."
+                })
+            } else {
+                console.log("page edit failed.", result);
+                return res.json({
+                    status: 404,
+                    data: result,
+                    message: "page edit failed, no record found to edit."
+                })
+            }
+        }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "page edit failed."
+        })
+    });
+};

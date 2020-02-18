@@ -35,6 +35,7 @@ app.use(express.static('uploads'));
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 
+// app.use(session({secret: 'secret', resave: false, saveUninitialized: true}));
 //DB connection
 let sequelizeInstance = require('./config/connection');
 
