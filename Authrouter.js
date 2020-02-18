@@ -1,6 +1,7 @@
 var express = require('express');
 var Authrouter = express.Router();
 const User = require('./models/user');
+// const session = require('express-session');
 
 
 //Authentications all TABs.
@@ -11,6 +12,7 @@ Authrouter.get('/login', function(req, res){
             message: ""
       });
 });
+
 Authrouter.post('/login', function(req, res){
       try{
             User.findOne({ where:{
@@ -20,6 +22,8 @@ Authrouter.post('/login', function(req, res){
             }).then((user)=>{
                   console.log("User found:", JSON.stringify(user, null, 4));
                   if(user.length>1){
+                        // req.session.loggedin = true;
+                        // req.session.email = req.body.email;
                         res.redirect(200, '/');
                   }
             }).catch((err)=>{
@@ -34,7 +38,10 @@ Authrouter.post('/login', function(req, res){
             console.log("An exception occured, please contact the administrator.", exception);
       }
 });
-
+Authrouter.get('/logout', (req, res)=>{
+      // req.session.destroy();
+      res.redirect(200, '/login');
+});
 
 Authrouter.get('/pages-lock-screen', function(req, res)
 {
