@@ -122,3 +122,39 @@ exports.delete_page = function (req, res){
         })
     });
 };
+
+
+
+// Edit page get
+exports.edit_page = function (req, res) {
+    res.locals = {  title: 'Edit page' };
+    try{
+        User.findAll({}).then(users => {
+            // console.log("All Users:", JSON.stringify(users, null, 4));
+            Page.findAll({
+                where: {page_id: req.params.page_id}
+            }).then(page_result => {
+                console.log("page Fetched:", JSON.stringify(page_result, null, 4));
+                User.findAll({where: {user_id: page_result[0].user_id}}).then(user_result => {
+                    console.log("User Fetched:", JSON.stringify(user_result, null, 4));
+                        return res.render('Page/edit_page', {
+                            status: 200,
+                            data: page_result,
+                            data2: users,
+                            data3: user_result,
+                            message: "page fetched successfully."
+                        })
+                    })
+                })
+        }).catch(err => {
+            console.error('Unable to connect to the database:', err);
+            return res.json({
+                status: 500,
+                data: err,
+                message: "page fetching failed."
+            })
+        });
+    } catch (exception){
+        console.log("An exception occured, please contact the administrator.", exception);
+    }
+};
