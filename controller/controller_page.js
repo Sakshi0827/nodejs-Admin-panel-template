@@ -56,3 +56,69 @@ exports.add_page =  function (req, res) {
         console.log("An exception occured, please contact the administrator.", exception);
     }
 };
+
+
+//add page post
+exports.add_page_post =  (req, res) =>{
+    res.locals = {  title: 'Add page' };
+    console.log('<----------->', req.file);
+    Page.create(
+        {
+            user_id: req.body.user_id,
+            page_title: req.body.page_title,
+            page_content: req.body.page_content,
+            page_image: req.file.filename
+        }
+    ).then(page => {
+        console.log("New page's auto-generated ID:", page.page_id);
+        return res.redirect('/page-list');
+    }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "New page creation failed."
+        })
+    }).catch((exception) => {
+        console.log("An exception was encountered during the synchronization", exception);
+    })
+};
+
+// page delete
+exports.delete_page = function (req, res){
+    console.log(`Attempting to destroy a page with page_id ${req.params.page_id}`);
+    Page.findOne({ where: {
+        page_id: req.params.page_id
+        }}).then(page_fetched =>{
+            fs.unlink('uploads/'+ page_fetched.page_image,
+                    err => {if (err) throw err }
+    )});
+    Page.destroy({
+        where: {
+            page_id: req.params.page_id
+        }
+    }).then((result) => {
+        if(result){
+            console.log("The page was deleted.", result);
+            return res.json({
+                status: 200,
+                data: result,
+                message: "page delete successful."
+            })
+        } else {
+            console.log("page delete failed.", result);
+            return res.json({
+                status: 404,
+                data: result,
+                message: "page delete failed, no record found to delete."
+            })
+        }
+    }).catch(err => {
+        console.error('Unable to connect to the database:', err);
+        return res.json({
+            status: 500,
+            data: err,
+            message: "page deletion failed."
+        })
+    });
+};
