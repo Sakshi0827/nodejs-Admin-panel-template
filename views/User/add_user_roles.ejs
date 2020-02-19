@@ -11,6 +11,11 @@
                     <div class="card-body">
                         <h4 class="mt-0 header-title">Add New User Role</h4>
                         <hr><form class="" action="/add-user-roles" method="post">
+                            <%if(message != "") { %>
+                            <div class="col-sm-12" style="margin-top: auto; margin-bottom: auto; width: 304px; text-align: center;border-style: solid;border-width: 2px;border-radius: 5px; border-color: red">
+                                <span style="color: red"><%= message %></span>
+                            </div><% } %>
+                            <br>
                             <!--Company Name-->
                             <div class="form-group">
                                 <label>User Role</label>

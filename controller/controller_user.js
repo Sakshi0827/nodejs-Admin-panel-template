@@ -74,6 +74,7 @@ exports.add_user = function (req, res) {
                         console.log("All user_role:", JSON.stringify(user_role, null, 4));
                         return res.render('User/add_user', {
                             status: 200,
+                            data:{message:""},
                             data1: fitness_group,
                             data2: country,
                             data5: company,
@@ -99,6 +100,7 @@ exports.add_user = function (req, res) {
 
 //add user post
 exports.add_user_post = function (req, res) {
+    res.locals = {  title: 'User Roles' };
     console.log(req.body);
     //DB
         User.create(
@@ -108,10 +110,26 @@ exports.add_user_post = function (req, res) {
             res.redirect('/user-list');  
         }).catch(err => {
             console.error('Unable to connect to the database:', err);
-            return res.json({
-                status: 500,
-                data: err,
-                message: "user creation failed."
+            Fitness_group.findAll({ }).then(fitness_group => {
+                console.log("All fitness_group:", JSON.stringify(fitness_group, null, 4));
+                Country.findAll({ }).then(country => {
+                    console.log("All country:", JSON.stringify(country, null, 4));
+                    Company.findAll({ }).then(company => { 
+                        console.log("All company:", JSON.stringify(company, null, 4));
+                        User_role.findAll({ }).then(user_role => {
+                            console.log("All user_role:", JSON.stringify(user_role, null, 4));
+                            return res.render('User/add_user', {
+                                status: 200,
+                                data:err,
+                                data1: fitness_group,
+                                data2: country,
+                                data5: company,
+                                data6: user_role,
+                                message: "user creation failed."
+                            })
+                        })
+                    })
+                })
             })
         })
     .catch((error) => {
@@ -285,11 +303,12 @@ exports.user_roles = function (req, res) {
 //add user roles get
 exports.add_user_roles = function (req, res) {
     res.locals = {title: 'User Roles'};
-    res.render('User/add_user_roles');
+    res.render('User/add_user_roles', {message:""});
 };
 
 //add user roles post
 exports.add_user_roles_post = function (req, res) {
+    res.locals = {title: 'User Roles'};
     const userRole = req.body.userRole;
     console.log(req.body);
     //DB
@@ -301,10 +320,10 @@ exports.add_user_roles_post = function (req, res) {
             res.redirect('/user-roles');
         }).catch(err => {
             console.error('Unable to connect to the database:', err);
-            return res.json({
+            return res.render('User/add_user_roles',{
                 status: 500,
                 data: err,
-                message: "user_role creation failed."
+                message: "User Role must be unique"
             })
         })
     .catch((error) => {

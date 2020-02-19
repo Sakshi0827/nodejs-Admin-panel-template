@@ -357,7 +357,7 @@ exports.delete_blogs_category = function (req, res){
 exports.edit_blogs_category =  function (req, res) {
     res.locals = {  title: 'Edit Blog Category' };
     try{
-        Blogs_category.findAll({ }).then(blogs_category => {
+        Blogs_category.findAll({ where:{blogs_category_id : req.params.blogs_category_id}}).then(blogs_category => {
             console.log("All blogs_category:", JSON.stringify(blogs_category, null, 4));
             return res.render('Blogs/edit_blogs_category', {
                 status: 200,

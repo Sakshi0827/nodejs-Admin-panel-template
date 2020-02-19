@@ -9,6 +9,7 @@ Authrouter.get('/login', function(req, res){
       res.locals = {  title: 'Login' };
       res.render('Auth/login',{
             status: 500,
+            data:"",
             message: ""
       });
 });
@@ -21,16 +22,25 @@ Authrouter.post('/login', function(req, res){
                   }
             }).then((user)=>{
                   console.log("User found:", JSON.stringify(user, null, 4));
-                  if(user.length>1){
+                  if(user.email==req.body.email){
+                  console.log("User found");
                         // req.session.loggedin = true;
                         // req.session.email = req.body.email;
                         res.redirect(200, '/');
+                  }
+                  else{
+                        return res.render('Auth/login', {
+                              status: 500,
+                              data: req.body.email,
+                              message: "Username or Password doesn't match!! Try Again."
+                        })      
                   }
             }).catch((err)=>{
                   console.log("User not found");
                   return res.render('Auth/login', {
                         status: 500,
-                        data: err,
+                        data:req.body.email,
+                        data1: err,
                         message: "Username or Password doesn't match!! Try Again."
                   })
             })
@@ -38,9 +48,16 @@ Authrouter.post('/login', function(req, res){
             console.log("An exception occured, please contact the administrator.", exception);
       }
 });
+
+
 Authrouter.get('/logout', (req, res)=>{
-      // req.session.destroy();
-      res.redirect(200, '/login');
+      // if(req.session.loggedin){
+            // req.session.destroy();
+            res.redirect(200, '/login');
+      // }
+      // else{
+      //       res.redirect(200, '/login');
+      // }
 });
 
 Authrouter.get('/pages-lock-screen', function(req, res)

@@ -20,7 +20,10 @@
                         <hr>
                         <!--                    <p class="text-muted m-b-30">Parsley is a javascript form validation library. It helps you provide your users with feedback on their form submission before sending it to your server.</p>-->
                         <form class="" action="/add-user" method="post">
-
+                            <%if(data.message != "") { %>
+                                <div class="col-sm-12" style="margin-top: auto; margin-bottom: auto; width: 304px; text-align: center;border-style: solid;border-width: 2px;border-radius: 5px; border-color: red">
+                                    <span style="color: red"><%= data.errors[0].message %></span>
+                                </div><% } %> <br>
                             <!--First Name-->
                             <div class="form-group">
                                 <label>First Name</label>
