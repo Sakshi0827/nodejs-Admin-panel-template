@@ -1,14 +1,17 @@
-var app = require('express')();
-var express = require('express');
-var path = require('path');
-var http = require('http').Server(app);
-var bCrypt = require('bcryptjs');
-var bodyParser = require('body-parser');
+const app = require('express')();
+const express = require('express');
+const path = require('path');
+const http = require('http').Server(app);
+const bCrypt = require('bcrypt');
+const bodyParser = require('body-parser');
 const multer = require('multer');
 const fs = require('fs');
-var router = require('./routes/router.js');
-var Authrouter = require('./Authrouter.js');
+const session = require('express-session');
+const cookieParser = require('cookie-parser')
+const morgan = require('morgan');
 
+const router = require('./routes/router.js');
+const Authrouter = require('./Authrouter.js');
 const Country = require('./models/country');
 const State = require('./models/state');
 const City = require('./models/city');
@@ -24,6 +27,9 @@ const Blogs_category_intermediate = require('./models/blogs_category_intermediat
 const Page = require('./models/page');
 
 
+
+app.use(morgan('dev'));
+
 // Access public folder from root
 app.use('/public', express.static('public'));
 app.use('/public', express.static('views'));
@@ -35,7 +41,20 @@ app.use(express.static('uploads'));
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 
-// app.use(session({secret: 'secret', resave: false, saveUninitialized: true}));
+app.use(cookieParser());
+app.use(session({
+	name: 'sid',
+	secret: 'secret', 
+	resave: false, 
+	saveUninitialized: false, 
+	cookie: {
+		maxAge: 600000,
+		sameSite: true
+		}
+	})
+);
+
+
 //DB connection
 let sequelizeInstance = require('./config/connection');
 
@@ -82,10 +101,20 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
 
+const redirectLogin = (req, res, next) => {
+      console.log('loggedin: ',req.session.loggedin, 'email: ', req.session.email);
+      if(!req.session.loggedin) {
+      	console.log('-----------------------------');
+        res.redirect(200, '/login');
+      }
+      else {
+            next();
+      }
+};
 // Add Route file with app
-app.use('/', router); 
+app.use('/', redirectLogin, router); 
 
 //server port
-http.listen(3000, function(){
-  console.log('listening on *:3000');
+http.listen(4000, function(){
+  console.log('listening on *:4000');
 });

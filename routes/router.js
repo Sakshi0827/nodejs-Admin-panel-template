@@ -12,10 +12,19 @@ const paymentRouter = require('./payment');
 const sliderRouter = require('./slider' );
 const pageRouter = require('./page');
 
+
+
+
 // Dashboard
 router.get('/', function (req, res) {
+	// console.log(req.session.loggedin);
+	// if(!req.session.loggedin) {
+	// 	res.redirect('/login');
+	// }
+	// else {
     res.locals = {  title: 'Dashboard' };
     res.render('Dashboard/dashboard');
+	// }
 });
 // User
 router.use('/', userRouter);
